@@ -1,7 +1,7 @@
 FROM amazon/aws-lambda-python:3.8
 
 RUN pip3 install --upgrade pip
-RUN pip3 install scikit-build wheel 
+# RUN pip3 install scikit-build wheel 
 
 RUN python -m pip install joblib pandas
 
