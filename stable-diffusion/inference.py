@@ -24,11 +24,14 @@ def handler(event, context):
     logger.debug('event: %s', event)
 
     txt_data = event['body']
+    filename = event['fname']
+    if filename is None:
+        filename = "cimage.png"
 
     if txt_data is not None:
         result = ImageGenerator(txt_data)
         
-        result.save("astronaut_rides_horse.png")
+        result.save(filename)
         logger.debug('result: %s', result)
         
         return {
