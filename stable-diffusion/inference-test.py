@@ -2,9 +2,6 @@ import traceback
 from inference import handler   
 import torch
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-print("device: "+ device)
-
 def StableDiffusion(txt_data, fname):
     event = {
         'body': txt_data,
@@ -18,6 +15,9 @@ def StableDiffusion(txt_data, fname):
         traceback.print_exc()
         
 def main():
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print("device: "+ device)
+
     prompt = 'a photo of an astronaut riding a horse on mars'
     fname =  'astronaut_rides_horse.png'
     print("text: "+ prompt)
