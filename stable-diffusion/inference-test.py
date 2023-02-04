@@ -22,12 +22,12 @@ def main():
     fname =  'astronaut_rides_horse.png'
     logger.debug('text: %s', prompt)
 
-    print("text: "+ prompt)
+    #print("text: "+ prompt)
 
     result = StableDiffusion(prompt, fname)
     logger.debug('url: %s', result['body'])
     
-    print("url: "+ result['body'])
+    #print("url: "+ result['body'])
         
 if __name__ == '__main__':
     main()
