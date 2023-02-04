@@ -42,9 +42,9 @@ sudo docker exec -it 2e53ec832b54 /bin/bash
 python3 inference-test.py 
 ```
 
-이때의 결과는 아래와 같습니다.
+이때 아래와 같이 실행됩니다.
 
-![image](https://user-images.githubusercontent.com/52392004/216750633-baeccd85-da77-40be-a321-b1f1c813b4eb.png)
+![image](https://user-images.githubusercontent.com/52392004/216750659-cb501716-722f-46a7-9b96-3893c6fc4fdc.png)
 
 
 ## Reference 
