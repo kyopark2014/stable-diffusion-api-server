@@ -2,18 +2,15 @@ FROM amazon/aws-lambda-python:3.8
 
 RUN pip3 install --upgrade pip
 RUN pip3 install scikit-build wheel 
-RUN pip3 install opencv-python==4.6.0.66 
 
-RUN python -m pip install joblib awsiotsdk pandas
-RUN yum install libglvnd-glx -y
-RUN python -m pip install dlr
-RUN pip3 install dlr==1.6.0
+RUN python -m pip install joblib pandas
 
-WORKDIR /var/task/image-classifier
+#RUN pip install diffusers==0.10.2 transformers scipy ftfy accelerate
+RUN pip install torch diffusers transformers accelerate
+
+WORKDIR /var/task/stable-diffusion
 
 COPY inference.py /var/task
-COPY classifier.py /var/task
-
 COPY . .
 
-CMD ["classifier.run"]
+CMD ["inference.handler"]
