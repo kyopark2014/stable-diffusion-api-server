@@ -9,28 +9,31 @@ sudo docker build -t stable-diffusion:v1 .
 빌드된 이미지를 확인합니다. 
 
 ```java
-docker images
+sudo docker images
+
+REPOSITORY         TAG       IMAGE ID       CREATED              SIZE
+stable-diffusion   v1        b5a0a0e8de6f   About a minute ago   6.03GB
 ```
 
 Docker Container를 실행합니다. 
 
 ```java
-docker run -d -p 8080:8080 dlr:v1
+sudo docker run -d -p 8080:8080 stable-diffusion:v1
 ```
 
 container 정보를 확인합니다. 
 
 ```java
-docker ps
+sudo docker ps
 
-CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS         PORTS                    NAMES
-41e297948511   dlr:v1   "/lambda-entrypoint.…"   6 seconds ago   Up 4 seconds   0.0.0.0:8080->8080/tcp   stupefied_carson
+CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+2e53ec832b54   stable-diffusion:v1   "/lambda-entrypoint.…"   12 seconds ago   Up 12 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   vibrant_rosalind
 ```
 
 Bash shell로 접속합니다.
 
 ```java
-docker exec -it 41e297948511 /bin/bash
+sudo docker exec -it 2e53ec832b54 /bin/bash
 ```
 
 아래와 같이 "inference-test.py"을 이용하여 정상적으로 추론이 되는지 확인합니다.
