@@ -38,3 +38,7 @@ docker exec -it 41e297948511 /bin/bash
 ```java
 python3 inference-test.py 
 ```
+
+## Reference 
+
+[Stable Diffusion with Diffusers](https://huggingface.co/blog/stable_diffusion)
