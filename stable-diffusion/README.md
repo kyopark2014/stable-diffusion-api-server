@@ -3,7 +3,7 @@
 추론(Inference)을 적용할때는 Container로 배포하고자 합니다. 먼저, 아래와 같이 Container 이미지를 빌드합니다.
 
 ```java
-docker build -t dlr:v1 .
+sudo docker build -t stable-diffusion:v1 .
 ```
 
 빌드된 이미지를 확인합니다. 
