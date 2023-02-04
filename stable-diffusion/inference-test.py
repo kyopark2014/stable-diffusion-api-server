@@ -18,10 +18,10 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("device: "+ device)
 
-    # prompt = 'a photo of an astronaut riding a horse on mars'
+    prompt = 'a photo of an astronaut riding a horse on mars'
     # prompt = 'a little girl standing on the side of a road holding a camera'
     # prompt = 'a giraffe crossing a road next to a car'
-    prompt = 'a woman sitting on a bed reading a book'
+    # prompt = 'a woman sitting on a bed reading a book'
 
     fname =  'astronaut_rides_horse.png'
     print("text: "+ prompt)
