@@ -1,5 +1,9 @@
 import traceback
 from inference import handler   
+import torch
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+print("device: "+ device)
 
 def StableDiffusion(txt_data, fname):
     event = {
