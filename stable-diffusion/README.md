@@ -42,6 +42,11 @@ sudo docker exec -it 2e53ec832b54 /bin/bash
 python3 inference-test.py 
 ```
 
+이때의 결과는 아래와 같습니다.
+
+![image](https://user-images.githubusercontent.com/52392004/216750633-baeccd85-da77-40be-a321-b1f1c813b4eb.png)
+
+
 ## Reference 
 
 [Stable Diffusion with Diffusers](https://huggingface.co/blog/stable_diffusion)
