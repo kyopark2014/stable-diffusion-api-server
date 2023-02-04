@@ -22,8 +22,8 @@ def main():
     print("text: "+ prompt)
 
     result = StableDiffusion(prompt)
-    logger.debug('url: %s', result)
-    print("url: "+ result)
+    logger.debug('url: %s', result['body'])
+    print("url: "+ result['body'])
         
 if __name__ == '__main__':
     main()
