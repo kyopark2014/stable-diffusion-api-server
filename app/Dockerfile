@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 RUN npm install -S request
 RUN npm install -S express
-RUN npm install winston winston-daily-rotate-file date-utils winston-timestamp-colorize
+#RUN npm install winston winston-daily-rotate-file date-utils winston-timestamp-colorize
 
 COPY . .
 
