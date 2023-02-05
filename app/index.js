@@ -11,13 +11,8 @@ app.use(express.json());
 //app.use(express.static(path.join(__dirname, "model")));
 
 server.get('/text', (req,res) => {
-	
-	
 	text = req.header('text');
-	
-	var host = req.header('host');
-	var port = req.header('port');	
-
+		
     console.log(text);
 
     res.send('request was received.');
