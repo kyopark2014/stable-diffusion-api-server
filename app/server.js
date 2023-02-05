@@ -3,6 +3,8 @@ const server = express();
 
 const { PythonShell } = require("python-shell");
 
+const logger = require('./logger'); 
+
 server.get('/', (req,res) => {
 	res.send('Hello World!');
 });
@@ -13,8 +15,8 @@ server.listen(8080, () => {
 
 server.get('/text', (req,res) => {
 	text = req.header('text');
-		
-    console.log('text:', text);
+
+    logger.debug('text:'+text);		
 
     res.send('request was received.');
 });
