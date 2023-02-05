@@ -19,6 +19,20 @@ server.get('/text', (req,res) => {
     logger.debug('text:'+text);		
 
     res.send('request was received.');
+
+    var options = {
+        mode: "json",
+        pythonPath: "",
+        pythonOptions: ["-u"],
+        scriptPath: "",
+        args: [input],
+    };
+
+    PythonShell.run("predict.py", options, function(err, results) {
+        if(err) throw err;
+        
+        console.log(results);
+    });
 });
 
 //const app = express();
