@@ -7,7 +7,7 @@ const express = require('express');
 const server = express();
 
 
-const { PythonShell } = require("python-shell");
+//const { PythonShell } = require("python-shell");
 
 
 
