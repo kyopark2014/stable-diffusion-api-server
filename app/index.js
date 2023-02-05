@@ -4,7 +4,7 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "model")));
+//app.use(express.static(path.join(__dirname, "model")));
 
 app.get("/", (req, res) => {
     text = req.header('text');
