@@ -1,12 +1,19 @@
 from logging import INFO, DEBUG, StreamHandler, getLogger
+import sys
+import json
 
 logger = getLogger()
 logger.setLevel(INFO)
 
 def main():
-    print("python commend")
-    #logger.debug('event: %s', event)
     logger.debug('log from the python')
+
+    print(json.dumps(sys.argv[1]))
+    logger.debug('args:'+json.dumps(sys.argv[1]));		
+
+    #result = json.loads(sys.argv[1])['result']
+    #inputData = json.loads(sys.argv[2])['inputData']
+    #print(json.dumps(result))
 
     return "Ok"
 
