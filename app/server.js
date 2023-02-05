@@ -23,7 +23,7 @@ server.get('/text', (req,res) => {
         pythonPath: "",
         pythonOptions: ["-u"],
         scriptPath: "",
-        args: [input],
+        args: ["hello"],
     };
 
     result = PythonShell.run("predict.py", options, function(err, results) {
