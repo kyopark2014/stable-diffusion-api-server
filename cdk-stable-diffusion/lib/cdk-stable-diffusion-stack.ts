@@ -34,8 +34,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     });
     logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
 
-    const api = new apiGateway.RestApi(this, 'image-classification-api-server', {
-      description: 'API Gateway for image classification',
+    const api = new apiGateway.RestApi(this, 'stable-diffusion-api-server', {
+      description: 'API Gateway for Stable Diffusion',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
       binaryMediaTypes: ['*/*'],
       deployOptions: {
