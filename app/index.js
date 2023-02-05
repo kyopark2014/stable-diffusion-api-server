@@ -1,7 +1,7 @@
 const express = require("express");
 const { PythonShell } = require("python-shell");
 const app = express();
-const port = 8080;
+const port = 8000;
 
 app.use(express.json());
 //app.use(express.static(path.join(__dirname, "model")));
