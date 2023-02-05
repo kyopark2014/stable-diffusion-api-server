@@ -1,12 +1,33 @@
-const express = require("express");
 const { PythonShell } = require("python-shell");
 const app = express();
 const port = 8000;
 
+const logger = require('./logger'); 
+
+const express = require('express');
+const server = express();
+
 app.use(express.json());
 //app.use(express.static(path.join(__dirname, "model")));
 
-app.get("/", (req, res) => {
+server.get('/text', (req,res) => {
+	
+	
+	text = req.header('text');
+	
+	var host = req.header('host');
+	var port = req.header('port');	
+
+    console.log(text);
+
+    res.send('request was received.');
+});
+
+server.listen(8000, () => {
+	console.log("Start server...");
+});
+
+app.get("/get", (req, res) => {
     text = req.header('text');
     console.log(text);
 
