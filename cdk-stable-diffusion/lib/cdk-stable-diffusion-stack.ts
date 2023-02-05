@@ -103,10 +103,11 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         }
     }`    
     const requestTemplates = { // path through
-      "image/jpeg": templateString,
-      "image/jpg": templateString,
-      "application/octet-stream": templateString,
-      "image/png" : templateString
+    //  "image/jpeg": templateString,
+    //  "image/jpg": templateString,
+    //  "application/octet-stream": templateString,
+    //  "image/png" : templateString,
+      "application/json" : templateString
     }
     
     const upload = api.root.addResource('text2image');
