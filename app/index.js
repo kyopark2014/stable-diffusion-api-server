@@ -1,10 +1,21 @@
+const express = require('express');
+const server = express();
+
+server.get('/', (req,res) => {
+	res.send('Hello World!');
+});
+
+server.listen(8080, () => {
+	console.log('This server is running on port 8080\n');
+});
+
 //const app = express();
 //const port = 8000;
 
 //const logger = require('./logger'); 
 
-const express = require('express');
-const server = express();
+// const express = require('express');
+// const server = express();
 
 
 //const { PythonShell } = require("python-shell");
@@ -15,7 +26,7 @@ const server = express();
 //app.use(express.static(path.join(__dirname, "model")));
 
 
-
+/*
 server.get('/text', (req,res) => {
 	text = req.header('text');
 		
@@ -26,7 +37,7 @@ server.get('/text', (req,res) => {
 
 server.listen(8000, () => {
 	console.log("Start server...");
-});
+}); */
 
 /*
 app.get("/get", (req, res) => {
