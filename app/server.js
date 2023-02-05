@@ -28,11 +28,13 @@ server.get('/text', (req,res) => {
         args: [input],
     };
 
-    PythonShell.run("predict.py", options, function(err, results) {
+    result = PythonShell.run("predict.py", options, function(err, results) {
         if(err) throw err;
         
         console.log(results);
     });
+
+    logger.debug('result:'+result);		
 });
 
 //const app = express();
