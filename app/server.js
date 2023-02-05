@@ -18,8 +18,6 @@ server.get('/text', (req,res) => {
 
     logger.debug('text:'+text);		
 
-    res.send('request was received.');
-
     var options = {
         mode: "json",
         pythonPath: "",
@@ -35,6 +33,8 @@ server.get('/text', (req,res) => {
     });
 
     logger.debug('result:'+result);		
+
+    res.send('request was received.');
 });
 
 //const app = express();
