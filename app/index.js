@@ -1,14 +1,20 @@
-const { PythonShell } = require("python-shell");
-const app = express();
-const port = 8000;
+//const app = express();
+//const port = 8000;
 
 const logger = require('./logger'); 
 
 const express = require('express');
 const server = express();
 
-app.use(express.json());
+
+const { PythonShell } = require("python-shell");
+
+
+
+//app.use(express.json());
 //app.use(express.static(path.join(__dirname, "model")));
+
+
 
 server.get('/text', (req,res) => {
 	text = req.header('text');
