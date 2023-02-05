@@ -7,10 +7,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "model")));
 
 app.get("/", (req, res) => {
-    let input = parseInt(req._parseUrl.path.split("/")[1]);
-    if(isNaN(input)) {
-        return res.send("bad reqest");
-    }
+    text = req.header('text');
+    console.log(text);
+
     var options = {
         mode: "json",
         pythonPath: "",
@@ -20,6 +19,12 @@ app.get("/", (req, res) => {
     };
 
     PythonShell.run("predict.py", options, function(err, results) {
+        if(err) throw err;
         
-    })
-})
+        console.log(results);
+    });
+});
+
+app.listen(port, ()=>{
+    console.log(`app listening at http://localhost:$(port})`);
+});
