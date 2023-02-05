@@ -65,6 +65,20 @@ yum -y install nvidia-driver-latest-dkms
 yum -y install cuda
 ```
 
+Lambda로 API서버 생성시 아래와 같이 실패하고 있습니다. (검토중)
+
+```java
+[ERROR] OSError: Can't load config for 'runwayml/stable-diffusion-v1-5'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'runwayml/stable-diffusion-v1-5' is the correct path to a directory containing a model_index.json file
+Traceback (most recent call last):
+  File "/var/task/inference.py", line 40, in handler
+    result = ImageGenerator(txt_data)
+  File "/var/task/inference.py", line 21, in ImageGenerator
+    pipe = StableDiffusionPipeline.from_pretrained(model_id)
+  File "/var/lang/lib/python3.8/site-packages/diffusers/pipelines/pipeline_utils.py", line 462, in from_pretrained
+    config_dict = cls.load_config(
+  File "/var/lang/lib/python3.8/site-packages/diffusers/configuration_utils.py", line 371, in load_config
+    raise EnvironmentError(
+```    
 
 
 
