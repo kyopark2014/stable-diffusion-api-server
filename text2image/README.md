@@ -47,6 +47,27 @@ python3 inference-test.py
 ![image](https://user-images.githubusercontent.com/52392004/216750659-cb501716-722f-46a7-9b96-3893c6fc4fdc.png)
 
 
+wget 설치 
+
+```java
+yum install wget -y
+```
+
+[CUDA 설치](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=CentOS&target_version=7&target_type=rpm_local)
+
+![image](https://user-images.githubusercontent.com/52392004/216796420-6bc25578-56a2-40ec-b267-30662550506d.png)
+
+```java
+wget https://developer.download.nvidia.com/compute/cuda/12.0.1/local_installers/cuda-repo-rhel7-12-0-local-12.0.1_525.85.12-1.x86_64.rpm
+rpm -i cuda-repo-rhel7-12-0-local-12.0.1_525.85.12-1.x86_64.rpm
+yum clean all
+yum -y install nvidia-driver-latest-dkms
+yum -y install cuda
+```
+
+
+
+
 ## Reference 
 
 [Stable Diffusion with Diffusers](https://huggingface.co/blog/stable_diffusion)
