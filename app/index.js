@@ -1,7 +1,7 @@
 //const app = express();
 //const port = 8000;
 
-const logger = require('./logger'); 
+//const logger = require('./logger'); 
 
 const express = require('express');
 const server = express();
@@ -28,6 +28,7 @@ server.listen(8000, () => {
 	console.log("Start server...");
 });
 
+/*
 app.get("/get", (req, res) => {
     text = req.header('text');
     console.log(text);
@@ -49,4 +50,4 @@ app.get("/get", (req, res) => {
 
 app.listen(port, ()=>{
     console.log(`app listening at http://localhost:$(port})`);
-});
+}); */
