@@ -8,7 +8,7 @@ logger.setLevel(INFO)
 def main():
     logger.debug('log from the python')
 
-    print(json.dumps(sys.argv[1]))
+    print('args:'+json.dumps(sys.argv[1]))
     logger.debug('args:'+json.dumps(sys.argv[1]));		
 
     #result = json.loads(sys.argv[1])['result']
