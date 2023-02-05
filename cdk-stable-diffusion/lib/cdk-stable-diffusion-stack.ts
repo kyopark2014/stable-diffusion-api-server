@@ -109,7 +109,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       "image/png" : templateString
     }
     
-    const upload = api.root.addResource('classifier');
+    const upload = api.root.addResource('text2image');
     upload.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       // PassthroughBehavior: apiGateway.PassthroughBehavior.NEVER,
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
