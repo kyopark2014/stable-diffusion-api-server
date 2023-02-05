@@ -14,7 +14,7 @@ server.listen(8080, () => {
 server.get('/text', (req,res) => {
 	text = req.header('text');
 		
-    console.log(text);
+    console.log('text:', text);
 
     res.send('request was received.');
 });
