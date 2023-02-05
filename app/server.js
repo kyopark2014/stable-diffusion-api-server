@@ -32,12 +32,12 @@ server.get('/text', (req,res) => {
     result = PythonShell.run("predict.py", options, function(err, results) {
         if(err) throw err;
         
-        console.log(results);
+        console.log('result: '+JSON.stringify(result));
+        logger.debug('result: '+JSON.stringify(result));		
+    });    
 
-        // res.status(200).json({ data: JSON.parse(data), success: true });
+    res.status(200).json({ 
+        result: "success",
+        body: JSON.stringify(result)
     });
-
-    logger.debug('result:'+JSON.stringify(result));		
-
-    res.send('request was received.');
 });
