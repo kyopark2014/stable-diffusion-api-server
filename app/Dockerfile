@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install -S express
+RUN npm install -S python-shell
 
 COPY . .
 

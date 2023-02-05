@@ -1,12 +1,22 @@
 const express = require('express');
 const server = express();
 
+const { PythonShell } = require("python-shell");
+
 server.get('/', (req,res) => {
 	res.send('Hello World!');
 });
 
 server.listen(8080, () => {
 	console.log('This server is running on port 8080\n');
+});
+
+server.get('/text', (req,res) => {
+	text = req.header('text');
+		
+    console.log(text);
+
+    res.send('request was received.');
 });
 
 //const app = express();
@@ -19,9 +29,6 @@ server.listen(8080, () => {
 
 
 //const { PythonShell } = require("python-shell");
-
-
-
 //app.use(express.json());
 //app.use(express.static(path.join(__dirname, "model")));
 
