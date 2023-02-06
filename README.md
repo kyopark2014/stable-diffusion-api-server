@@ -34,6 +34,21 @@ SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현�
 }
 ```
 
+이때 Body는 아래의 포맷을 사용합니다.
+
+```java
+{
+    predictions":[{
+        "prompt": "astronaut on a horse",
+        "width": 768,
+        "height": 768,
+        "num_images_per_prompt": 1,
+        "num_inference_steps": 50,
+        "guidance_scale": 7.5
+    }]
+}
+```
+
 ## Inference 요청
 
 Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
