@@ -25,7 +25,11 @@ SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현�
 }
 ```
 
+## Output 
 
+
+
+![123](https://user-images.githubusercontent.com/52392004/217041497-6c2f906d-feb0-4bbc-b2e0-9daf97cf0bc8.jpeg)
 
 
 ## Reference
