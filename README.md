@@ -1,10 +1,13 @@
 # Stable Diffusion API Server
 
-여기에서는 [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5)을 제공하는 API Server를 만드는 방법에 대해 설명합니다. [Stable Diffusion Model](https://github.com/kyopark2014/stable-diffusion-model)와 같이 Hugging Face의 모델을 GPU를 가진 Cloud9으로 개발 및 테스트를 한 후에 실제 API를 이용해 Stable Diffusion을 구현합니다. 
+여기에서는 [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5)을 제공하는 API Server를 만드는 방법에 대해 설명합니다. [Stable Diffusion Model](https://github.com/kyopark2014/stable-diffusion-model)와 같이 Hugging Face의 모델을 GPU를 가진 Cloud9으로 개발 및 테스트를 한 후에 실제 API를 이용해 Stable Diffusion을 구현합니다.  
+
+전체적인 Arhitecture는 아래와 같습니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/217037303-23955722-0a1b-4710-b5cc-ffaf2ee8fe48.png)
 
 Stable Diffusion을 제공하는 API는 Open API를 구현하고자 하나, SageMaker Endpoint는 IAM 인증을 통해서 결과를 얻어 올수 있습니다. 따라서, 아래와 같이 API Gateway와 Lambda를 이용하여 Open API를 제공하고자 합니다. 또한 아래 설명한것처럼 Output으로 전달되는 RGB 이미지를 압축한 파일인 jpeg로 변환하여 CloudFront를 통해 제공하므로써, Stable Diffusion으로 생성된 이미지를 쉽게 공유할수 있도록 합니다. 
+
 
 
 ## Stable Diffusion Output
