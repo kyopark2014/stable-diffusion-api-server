@@ -34,7 +34,18 @@ SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현�
 }
 ```
 
-이때 Body는 아래의 포맷을 사용합니다.
+
+
+## Inference 요청
+
+Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
+
+```java
+"ContentType": "application/json",
+"Accept": "application/json",
+```
+
+이때 Request의 Body에는 아래 포맷으로 Stable Diffusion에 필요한 정보를 전달합니다.
 
 ```java
 {
@@ -48,16 +59,6 @@ SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현�
     }]
 }
 ```
-
-## Inference 요청
-
-Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
-
-```java
-"ContentType": "application/json",
-"Accept": "application/json",
-```
-
 ## Output 
 
 <img src="https://user-images.githubusercontent.com/52392004/217041497-6c2f906d-feb0-4bbc-b2e0-9daf97cf0bc8.jpeg" width="400">
