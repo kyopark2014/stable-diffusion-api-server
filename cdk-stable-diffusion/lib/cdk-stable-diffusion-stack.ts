@@ -5,12 +5,53 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as apiGateway from "aws-cdk-lib/aws-apigateway";
 import * as logs from "aws-cdk-lib/aws-logs";
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
 
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    // s3 deployment
+    const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
+      // bucketName: bucketName,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      publicReadAccess: false,
+      versioned: false,
+    });
+    new cdk.CfnOutput(this, 'bucketName', {
+      value: s3Bucket.bucketName,
+      description: 'The nmae of bucket',
+    });
+    new cdk.CfnOutput(this, 's3Arn', {
+      value: s3Bucket.bucketArn,
+      description: 'The arn of s3',
+    });
+    new cdk.CfnOutput(this, 's3Path', {
+      value: 's3://'+s3Bucket.bucketName,
+      description: 'The path of s3',
+    });
+
+    // copy artifact into s3 bucket
+    new s3Deploy.BucketDeployment(this, "UploadArtifact", {
+      sources: [s3Deploy.Source.asset("../src")],
+      destinationBucket: s3Bucket,
+    });
+
     const stage = "dev";
+
+    // create lambda-funtional-url
+    const lambdaFunctionUrl = new lambda.Function(this, "LambdaFunctionUrl", {
+      description: 'lambda function url',
+      runtime: lambda.Runtime.NODEJS_14_X, 
+      code: lambda.Code.fromAsset("../lambda-function-url"), 
+      handler: "index.handler", 
+      timeout: cdk.Duration.seconds(3),
+      environment: {
+      }
+    }); 
 
     // Create Lambda for stable diffusion
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-api", {
