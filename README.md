@@ -4,6 +4,30 @@
 
 ![image](https://user-images.githubusercontent.com/52392004/217037303-23955722-0a1b-4710-b5cc-ffaf2ee8fe48.png)
 
+Stable Diffusion을 제공하는 API는 Open API를 구현하고자 하나, SageMaker Endpoint는 IAM 인증을 통해서 결과를 얻어 올수 있습니다. 따라서, 아래와 같이 API Gateway와 Lambda를 이용하여 Open API를 제공하고자 합니다. 또한 아래 설명한것처럼 Output으로 전달되는 RGB 이미지를 압축한 파일인 jpeg로 변환하여 CloudFront를 통해 제공하므로써, Stable Diffusion으로 생성된 이미지를 쉽게 공유할수 있도록 합니다. 
+
+
+## Stable Diffusion Output
+
+SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현하였을 경우에 Output의 형태는 아래와 같습니다. 이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 
+이미지는 압축되지 않고 전달되어 그림 사이즈는 1.7MB로 전달되는데 이를 압축하여 jpeg로 저장할 경우에 크기는 80KB로 줄어서 전송할 수 있습니다. 또한 해당 이미지를 공유한다면 client에서 RGB로 전달되는 데이터를 파일로 변환하여 다시 업로드를 하여야 하므로, URL로 결과를 얻고자 합니다. 
+
+```java
+{
+    "generated_image": [
+      [
+        [221,145,108],[237,141,98],[249,154,111],
+     	]
+    ],
+	  "prompt": "{
+		  predictions\":[{
+			  "prompt": "astronaut on a horse", "width": 768, "height": 768, "num_images_per_prompt": 1, "num_inference_steps": 50, "guidance_scale": 7.5}]
+}
+```
+
+
+
+
 ## Reference
 
 [Running Serverless ML on AWS Lambda](https://betterdev.blog/serverless-ml-on-aws-lambda/)
