@@ -15,13 +15,19 @@ SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현�
 ```java
 {
     "generated_image": [
-      [
-        [221,145,108],[237,141,98],[249,154,111],
-     	]
+        [[221,145,108],[237,141,98],[249,154,111],..]
+        ...
     ],
-	  "prompt": "{
-		  predictions\":[{
-			  "prompt": "astronaut on a horse", "width": 768, "height": 768, "num_images_per_prompt": 1, "num_inference_steps": 50, "guidance_scale": 7.5}]
+    "prompt": "{
+        predictions":[{
+            "prompt": "astronaut on a horse", 
+            "width": 768, 
+            "height": 768,
+            "num_images_per_prompt": 1, 
+            "num_inference_steps": 50, 
+            "guidance_scale": 7.5}
+        ]
+    }
 }
 ```
 
