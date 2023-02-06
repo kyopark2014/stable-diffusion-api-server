@@ -1,6 +1,6 @@
 # Stable Diffusion API Server
 
-여기에서는 [Stable Diffusion](https://huggingface.co/runwayml/stable-diffusion-v1-5)을 제공하는 API Server를 만드는 방법에 대해 설명합니다. [Stable Diffusion Model](https://github.com/kyopark2014/stable-diffusion-model)와 같이 Hugging Face의 모델을 GPU를 가진 Cloud9으로 개발 및 테스트를 한 후에 실제 API를 이용해 Stable Diffusion을 구현합니다.  
+여기에서는 [Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)을 제공하는 API Server를 만드는 방법에 대해 설명합니다. [Stable Diffusion Model](https://github.com/kyopark2014/stable-diffusion-model)와 같이 Hugging Face의 모델을 GPU를 가진 Cloud9으로 개발 및 테스트를 한 후에 실제 API를 이용해 Stable Diffusion을 구현합니다.  
 
 전체적인 Arhitecture는 아래와 같습니다. 
 
@@ -40,6 +40,8 @@ SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현�
 
 
 ## Reference
+
+[Generate images from text with the stable diffusion model on Amazon SageMaker JumpStart](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)
 
 [Running Serverless ML on AWS Lambda](https://betterdev.blog/serverless-ml-on-aws-lambda/)
 
