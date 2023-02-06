@@ -1,19 +1,24 @@
 # Stable Diffusion API Server
 
-여기에서는 [Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)을 제공하는 API Server를 만드는 방법에 대해 설명합니다. [Stable Diffusion Model](https://github.com/kyopark2014/stable-diffusion-model)와 같이 Hugging Face의 모델을 GPU를 가진 Cloud9으로 개발 및 테스트를 한 후에 실제 API를 이용해 Stable Diffusion을 구현합니다.  
+
+[Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)은 Text로 이미지를 창조적으로 생성할 수 있습니다. 여기서는 AWS JumpStart에서 제공하는 Stable Diffusion 2.0을 이용하여 Open API 형태로 서비스할 수 있는 API를 제공하고자 합니다. 
 
 전체적인 Arhitecture는 아래와 같습니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/217037303-23955722-0a1b-4710-b5cc-ffaf2ee8fe48.png)
 
-Stable Diffusion을 제공하는 API는 Open API를 구현하고자 하나, SageMaker Endpoint는 IAM 인증을 통해서 결과를 얻어 올수 있습니다. 따라서, 아래와 같이 API Gateway와 Lambda를 이용하여 Open API를 제공하고자 합니다. 또한 아래 설명한것처럼 Output으로 전달되는 RGB 이미지를 압축한 파일인 jpeg로 변환하여 CloudFront를 통해 제공하므로써, Stable Diffusion으로 생성된 이미지를 쉽게 공유할수 있도록 합니다. 
-
+JumpStart에서 제공하는 Stable Diffusion을 통해 Inference API를 구현하면, SageMaker Endpoint는 IAM 인증을 통해서 요청하고 결과를 얻을수 있습니다. IAM 인증을 위해서는 Client가 IAM Credential을 가지고 인증에 필요한 프로세스를 진행하여야 합니다. 따라서, Endpoint 앞단에 API Gatewaay와 Lambda를 이용하여 Open API를 구현합니다. 또한 아래 설명처럼 Output은 RGB 이미지와 입력된 Prompt에 대한 정보인데, 이를 실제로 사용자가 보기 위해서는 그림파일로 다시 encoding하여야 하며, 압축하면 80KB인 결과를 얻기 위해 1.7MB의 Raw 파일을 다운로드 하여야 합니다. 따라서, Lambda은 SageMaker Endpoint의 응답을 파싱하여 압축파일을 생성하여 S3에 저장하고, 사용자는 Lambda가 전달한 URL을 이용하여 CloudFront를 이용하여 다운로드 합니다. 이렇게 함으로써 사용자는 Stable Diffusion의 결과를 쉽게 볼수 있고, 필요시 해당 URL을 전달함으로써 편리하게 공유 할 수 있습니다. 
 
 
 ## Open API를 제공할때 JumpStart에서 제공하는 Stable Diffusion API의 문제점
 
 SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현하였을 경우에 Output의 형태는 아래와 같습니다. 이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 
 이미지는 압축되지 않고 전달되어 그림 사이즈는 1.7MB로 전달되는데 이를 압축하여 jpeg로 저장할 경우에 크기는 80KB로 줄어서 전송할 수 있습니다. 또한 해당 이미지를 공유한다면 client에서 RGB로 전달되는 데이터를 파일로 변환하여 다시 업로드를 하여야 하므로, URL로 결과를 얻고자 합니다. 
+
+
+
+또한, Text를 포함한 요청에 대한 응답은 RGB 이미지와 요청한 Prompt입니다. 
+
 
 ```java
 {
