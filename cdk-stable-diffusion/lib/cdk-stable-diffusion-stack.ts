@@ -12,8 +12,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    const stage = "dev"; 
+
     // s3 deployment
-  /*  const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
+    const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
       // bucketName: bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -34,15 +36,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       description: 'The path of s3',
     });
 
-    // copy artifact into s3 bucket
-    new s3Deploy.BucketDeployment(this, "UploadArtifact", {
-      sources: [s3Deploy.Source.asset("../src")],
-      destinationBucket: s3Bucket,
-    }); */
 
-    const stage = "dev"; 
-
-    // Create Lambda for stable diffusion
+    // Create Lambda for stable diffusion using docker container
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-stable-diffusion", {
       description: 'lambda function for stable diffusion',
       functionName: 'lambda-stable-diffusion',
@@ -50,7 +45,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda')),
       timeout: cdk.Duration.seconds(60),
       environment: {
-        bucket: "sagemaker-ap-northeast-2-677146750822",
+        // bucket: "sagemaker-ap-northeast-2-677146750822",
+        bucket: s3Bucket.bucketName,
         endpoint: "jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268"
       }
     }); 
@@ -60,8 +56,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const alias = new lambda.Alias(this, 'LambdaAlias', {
       aliasName: stage,
       version,
-    });
-
+    }); 
+ 
     // api Gateway
 /*  mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
