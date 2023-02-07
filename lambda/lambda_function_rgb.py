@@ -24,17 +24,21 @@ def handler(event, context):
     txt = body['text']
     print(txt)
 
-    #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
-    endpoint = os.environ.get('endpoint')
-    print("endpoint: ", endpoint)
-
-    #mybucket = 'sagemaker-ap-northeast-2-677146750822'
     mybucket = os.environ.get('bucket')
     print("bucket: ", mybucket)
 
+    endpoint = os.environ.get('endpoint')
+    print("endpoint: ", endpoint)
+
+    #bucket = 'sagemaker-ap-northeast-2-677146750822'
+    #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
+
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    print(timestr)
+
     #mykey = 'output/filename.jpeg'
-    mykey = 'output/img_'+time.strftime("%Y%m%d-%H%M%S")  # output/img_20230207-152043
-    print('key: ', mykey)
+    mykey = 'output/img_'+timestr
+    print('mykey: ', mykey)
     
     runtime = boto3.Session().client('sagemaker-runtime')
         
@@ -66,16 +70,13 @@ def handler(event, context):
         #print(generated_image)
         print(prompt)
         
-        #image = Image.fromarray(np.uint8(generated_image))
-        image = Image.fromqimage(generated_image)
-
-        s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        image = Image.fromarray(np.uint8(generated_image))
             
-        #buffer = io.BytesIO()
-        #image.save(buffer, "jpeg")
-        #buffer.seek(0)
+        buffer = io.BytesIO()
+        image.save(buffer, "jpeg")
+        buffer.seek(0)
             
-        #s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,
