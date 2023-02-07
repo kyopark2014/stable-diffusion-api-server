@@ -24,7 +24,7 @@ def handler(event, context):
     bucket = 'sagemaker-ap-northeast-2-677146750822'
     endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     mybucket = bucket
-    mykey = 'output/filename.jpeg'
+    mykey = 'output/filename.png'
     
     payload = {
         # "prompt": "astronaut on a horse",
@@ -58,10 +58,10 @@ def handler(event, context):
         image = Image.fromarray(np.uint8(generated_image))
             
         buffer = io.BytesIO()
-        image.save(buffer, "JPEG")
+        image.save(buffer, "png")
         buffer.seek(0)
             
-        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/png"})
 
         print(generated_image)
                     
