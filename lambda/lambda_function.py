@@ -50,19 +50,20 @@ def handler(event, context):
         response_payload = response['Body'].read().decode("utf-8")
         generated_images, prompt = parse_response(response_payload)
 
-        print(generated_images)
-
         print(prompt)
         
         from PIL import Image
-        for img in generated_images:
-            image1 = Image.fromarray(np.uint8(img))
+        for img1 in generated_images:
+            image1 = Image.fromarray(np.uint8(img1))
             
-        buffer = io.BytesIO()
-        image1.save(buffer, "JPEG")
-        buffer.seek(0)
+            buffer = io.BytesIO()
+            image1.save(buffer, "JPEG")
+            buffer.seek(0)
             
-        s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
+            s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
+
+            print('akdkfkdfkdkf\n')
+            print(img1)
 
                     
     return {
