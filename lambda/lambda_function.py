@@ -49,7 +49,7 @@ def handler(event, context):
         response_payload = response['Body'].read().decode("utf-8")
         generated_images, prompt = parse_response(response_payload)
 
-        print(response_payload)
+        print(generated_images)
 
         print(prompt)
         
