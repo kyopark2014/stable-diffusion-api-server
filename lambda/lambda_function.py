@@ -15,10 +15,11 @@ def parse_response(query_response):
     return response_dict["generated_image"], response_dict["prompt"]
 
 def handler(event, context):
-    #body = event['body']
     print(event)
-    
-    #txt = body['text']
+        
+    body = event['body']
+    txt = body['text']
+    print(txt)
 
     bucket = 'sagemaker-ap-northeast-2-677146750822'
     endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
