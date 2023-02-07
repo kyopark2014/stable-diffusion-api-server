@@ -1,8 +1,8 @@
 import json
 import boto3
-import io
 from PIL import Image
 import numpy as np
+import io
 
 # import sagemaker
 # sess = sagemaker.Session()
@@ -42,25 +42,35 @@ def handler(event, context):
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
     print('statusCode:', json.dumps(statusCode))
     
+    s3 = boto3.client('s3')
+            
     if(statusCode==200):
         #response_payload = response['Body'].read().decode("utf-8")
-        response_payload = response['Body']
+        response_payload = response['Body'].read().decode("utf-8")
         generated_images, prompt = parse_response(response_payload)
 
         print(response_payload)
 
         print(prompt)
         
+        from PIL import Image
         for img in generated_images:
-            image = Image.fromarray(np.uint8(img)) # translated image from numpy array
-                            
+            image1 = Image.fromarray(np.uint8(img))
+            
             buffer = io.BytesIO()
-            image.save(buffer, "JPEG")
+            image1.save(buffer, "JPEG")
             buffer.seek(0)
-                
-            s3 = boto3.client('s3')
-            s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
-        
+            
+            s3.upload_fileobj(buffer, mybucket, mykey+1, ExtraArgs={ "ContentType": "image/jpeg"})
+
+            image2 = Image.fromarray(img)
+            
+            buffer = io.BytesIO()
+            image2.save(buffer, "JPEG")
+            buffer.seek(0)
+            
+            s3.upload_fileobj(buffer, mybucket, mykey+2, ExtraArgs={ "ContentType": "image/jpeg"})
+                    
     return {
         'statusCode': statusCode,
         'body': json.dumps('Hello from Lambda!')
