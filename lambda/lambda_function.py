@@ -61,7 +61,7 @@ def handler(event, context):
             image1.save(buffer, "JPEG")
             buffer.seek(0)
             
-            s3.upload_fileobj(buffer, mybucket, mykey+1, ExtraArgs={ "ContentType": "image/jpeg"})
+            s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
 
             image2 = Image.fromarray(img)
             
@@ -69,7 +69,7 @@ def handler(event, context):
             image2.save(buffer, "JPEG")
             buffer.seek(0)
             
-            s3.upload_fileobj(buffer, mybucket, mykey+2, ExtraArgs={ "ContentType": "image/jpeg"})
+            s3.upload_fileobj(buffer, mybucket, "output/filename2.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,
