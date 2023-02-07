@@ -77,7 +77,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       environment: {
         // bucket: "sagemaker-ap-northeast-2-677146750822",
         bucket: s3Bucket.bucketName,
-        endpoint: "jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268"
+        endpoint: "jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268",
+        domain: distribution.domainName
       }
     }); 
     s3Bucket.grantReadWrite(mlLambda);

@@ -32,6 +32,10 @@ def lambda_handler(event, context):
     #mykey = 'output/filename.jpeg'
     mykey = 'output/img_'+time.strftime("%Y%m%d-%H%M%S")  # output/img_20230207-152043
     print('key: ', mykey)
+
+    #url
+    domain = os.environ.get('domain')
+    print("url: https://"+domain+'/'+mybucket+'/'+mykey)
             
     payload = {        
         "prompt": txt,
