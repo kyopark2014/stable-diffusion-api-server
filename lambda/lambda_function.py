@@ -8,7 +8,8 @@ s3 = boto3.client('s3')
 
 # import sagemaker
 # sess = sagemaker.Session()
-# mybucket = sess.default_bucket()        
+# mybucket = sess.default_bucket()     
+   
 def parse_response(query_response):
     """Parse response and return generated image and the prompt"""
 
@@ -45,11 +46,12 @@ def handler(event, context):
     
     if(statusCode==200):
         response_payload = response['Body'].read().decode("utf-8")
-        img, prompt = parse_response(response_payload)
+        generated_images, prompt = parse_response(response_payload)
 
         print(prompt)
         
-        image = Image.fromarray(np.uint8(img)) # translated image from numpy array
+        for img in generated_images:
+            image = Image.fromarray(np.uint8(img)) # translated image from numpy array
                             
         buffer = io.BytesIO()
         image.save(buffer, "JPEG")
