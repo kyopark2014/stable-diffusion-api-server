@@ -30,12 +30,13 @@ def lambda_handler(event, context):
     print("bucket: ", mybucket)
 
     #mykey = 'output/filename.jpeg'
-    mykey = 'output/img_'+time.strftime("%Y%m%d-%H%M%S")  # output/img_20230207-152043
+    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")  # output/img_20230207-152043
     print('key: ', mykey)
 
     #url
     domain = os.environ.get('domain')
-    print("url: https://"+domain+'/'+mybucket+'/'+mykey)
+    url = "https://"+domain+'/'+'/'+mykey
+    print("url: ", url)
             
     payload = {        
         "prompt": txt,
@@ -69,5 +70,5 @@ def lambda_handler(event, context):
                     
     return {
         'statusCode': statusCode,
-        'body': json.dumps('Hello from Lambda!')
+        'body': url
     }

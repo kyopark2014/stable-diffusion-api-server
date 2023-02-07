@@ -83,6 +83,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
     s3Bucket.grantReadWrite(mlLambda);
 
+    // sagemaker permission
+
     // version
     const version = mlLambda.currentVersion;
     const alias = new lambda.Alias(this, 'LambdaAlias', {
