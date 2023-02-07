@@ -43,6 +43,17 @@ Lambda에서 pillow 사용시 아래와 같은 에러가 발생합니다. [stack
 [ERROR] Runtime.ImportModuleError: Unable to import module 'lambda_function': cannot import name '_imaging' from 'PIL' (/var/task/PIL/__init__.py)
 ```
 
+Creating New AWS Lambda Layer For Python Pandas Library
+https://medium.com/@qtangs/creating-new-aws-lambda-layer-for-python-pandas-library-348b126e9f3e
+
+https://stackoverflow.com/questions/67553637/how-to-install-pillow-on-aws-lambda-for-python-3-8
+AWS Lambda에서 Puppeteer로 크롤링 하기
+https://velog.io/@jeffyoun/AWS-Lambda%EC%97%90%EC%84%9C-Puppeteer%EB%A1%9C-%ED%81%AC%EB%A1%A4%EB%A7%81-%ED%95%98%EA%B8%B0
+
+AWS Lambda에 pymysql 설치하기 (package 설치하기)
+https://velog.io/@silver_bell/lambda-layer
+
+
 ## Reference 
 
 [Deploying SageMaker Endpoints With CloudFormation](https://towardsdatascience.com/deploying-sagemaker-endpoints-with-cloudformation-b43f7d495640)
