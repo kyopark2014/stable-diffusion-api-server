@@ -3,6 +3,7 @@ import boto3
 from PIL import Image
 import numpy as np
 import io
+import os
 from PIL import Image
 
 # import sagemaker
@@ -21,6 +22,10 @@ def handler(event, context):
     body = event['body']
     txt = body['text']
     print(txt)
+
+    myenvbucket = os.environ.get('myenvbucket')
+    print(myenvbucket)
+
 
     bucket = 'sagemaker-ap-northeast-2-677146750822'
     endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
