@@ -22,6 +22,7 @@ def handler(event, context):
     #txt = body['text']
 
     bucket = 'sagemaker-ap-northeast-2-677146750822'
+    endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     
     payload = {
         "prompt": "astronaut on a horse",
@@ -32,7 +33,6 @@ def handler(event, context):
         "guidance_scale": 7.5,
     }
     
-    endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-06-15-08-09-213'
     runtime = boto3.Session().client('sagemaker-runtime')
         
     response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json', Body=json.dumps(payload))
