@@ -57,19 +57,12 @@ def handler(event, context):
         for img in generated_images:
             image1 = Image.fromarray(np.uint8(img))
             
-            buffer = io.BytesIO()
-            image1.save(buffer, "JPEG")
-            buffer.seek(0)
+        buffer = io.BytesIO()
+        image1.save(buffer, "JPEG")
+        buffer.seek(0)
             
-            s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
 
-            image2 = Image.fromarray(img)
-            
-            buffer = io.BytesIO()
-            image2.save(buffer, "JPEG")
-            buffer.seek(0)
-            
-            s3.upload_fileobj(buffer, mybucket, "output/filename2.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,
