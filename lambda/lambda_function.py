@@ -26,7 +26,6 @@ def handler(event, context):
     myenvbucket = os.environ.get('myenvbucket')
     print(myenvbucket)
 
-
     bucket = 'sagemaker-ap-northeast-2-677146750822'
     endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     mybucket = bucket
@@ -37,8 +36,10 @@ def handler(event, context):
     payload = {
         # "prompt": "astronaut on a horse",
         "prompt": txt,
-        "width": 768,
-        "height": 768,
+        #"width": 768,
+        #"height": 768,
+        "width": 200,
+        "height": 200,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5
@@ -67,8 +68,6 @@ def handler(event, context):
         buffer.seek(0)
             
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
-
-        
                     
     return {
         'statusCode': statusCode,
