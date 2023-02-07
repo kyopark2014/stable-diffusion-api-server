@@ -45,8 +45,7 @@ Lambda에서 pillow 사용시 아래와 같은 에러가 발생합니다. [stack
 
 해결방안은 Layer를 추가하면 됩니다.
 
-Creating New AWS Lambda Layer For Python Pandas Library
-https://medium.com/@qtangs/creating-new-aws-lambda-layer-for-python-pandas-library-348b126e9f3e
+[Creating New AWS Lambda Layer For Python Pandas Library](https://medium.com/@qtangs/creating-new-aws-lambda-layer-for-python-pandas-library-348b126e9f3e)
 
 https://stackoverflow.com/questions/67553637/how-to-install-pillow-on-aws-lambda-for-python-3-8
 
