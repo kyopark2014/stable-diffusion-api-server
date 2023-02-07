@@ -8,11 +8,11 @@ import io
 # sess = sagemaker.Session()
 # mybucket = sess.default_bucket()     
    
-def parse_response_multiple_images(query_response):
+def parse_response(query_response):
     """Parse response and return generated image and the prompt"""
 
     response_dict = json.loads(query_response)
-    return response_dict["generated_images"], response_dict["prompt"]
+    return response_dict["generated_image"], response_dict["prompt"]
     
 def handler(event, context):
     print(event)
@@ -49,23 +49,21 @@ def handler(event, context):
     if(statusCode==200):
         #response_payload = response['Body'].read().decode("utf-8")
         response_payload = response['Body'].read().decode("utf-8")
-        generated_images, prompt = parse_response_multiple_images(response_payload)
+        generated_image, prompt = parse_response(response_payload)
 
         print(prompt)
         
         from PIL import Image
-        for img in generated_images:
-            image1 = Image.fromarray(np.uint8(img))
+        
+        image = Image.fromarray(np.uint8(generated_image))
             
-            buffer = io.BytesIO()
-            image1.save(buffer, "JPEG")
-            buffer.seek(0)
+        buffer = io.BytesIO()
+        image.save(buffer, "JPEG")
+        buffer.seek(0)
             
-            s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 
-            print('akdkfkdfkdkf\n')
-            print(img)
-
+        print(generated_image)
                     
     return {
         'statusCode': statusCode,
