@@ -93,9 +93,9 @@ def handler(event, context):
         msg = base64.b64decode(generated_image)
         image = io.BytesIO(msg) 
 
-        buffer = io.BytesIO()
-        generated_image.save(buffer, format="jpeg")
-        buffer.seek(0)
+        #buffer = io.BytesIO()
+        #image.save(buffer, format="jpeg")
+        #buffer.seek(0)
             
         s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
