@@ -43,7 +43,8 @@ def handler(event, context):
     print('statusCode:', json.dumps(statusCode))
     
     if(statusCode==200):
-        response_payload = response['Body'].read().decode("utf-8")
+        #response_payload = response['Body'].read().decode("utf-8")
+        response_payload = response['Body']
         generated_images, prompt = parse_response(response_payload)
 
         print(response_payload)
