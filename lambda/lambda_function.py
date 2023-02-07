@@ -83,11 +83,13 @@ def handler(event, context):
         #buffer.seek(0)
         #image = generated_image.convert('RGB')
 
-        image = io.BytesIO(generated_image)
+        #image = io.BytesIO(generated_image) # TypeError: a bytes-like object is required, not 'str'
+
+
 
 
         buffer = io.BytesIO()
-        image.save(buffer, format="jpeg")
+        generated_image.save(buffer, format="jpeg")
         buffer.seek(0)
             
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
