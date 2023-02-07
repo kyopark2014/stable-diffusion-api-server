@@ -49,6 +49,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       memorySize: 512,
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda')),
       timeout: cdk.Duration.seconds(60),
+      environment: {
+        bucket: "sagemaker-ap-northeast-2-677146750822",
+        endpoint: "jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268"
+      }
     }); 
 
     // version

@@ -5,6 +5,7 @@ import numpy as np
 import io
 import os
 from PIL import Image
+import time
 
 # import sagemaker
 # sess = sagemaker.Session()
@@ -23,13 +24,21 @@ def handler(event, context):
     txt = body['text']
     print(txt)
 
-    myenvbucket = os.environ.get('myenvbucket')
-    print(myenvbucket)
+    mybucket = os.environ.get('envbucket')
+    print("bucket: ", mybucket)
 
-    bucket = 'sagemaker-ap-northeast-2-677146750822'
-    endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
-    mybucket = bucket
-    mykey = 'output/filename.jpeg'
+    endpoint = os.environ.get('endpoint')
+    print("endpoint: ", endpoint)
+
+    #bucket = 'sagemaker-ap-northeast-2-677146750822'
+    #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
+
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    print(timestr)
+
+    #mykey = 'output/filename.jpeg'
+    mykey = 'output/img_'.append(timestr)
+    print('mykey: ', mykey)
     
     runtime = boto3.Session().client('sagemaker-runtime')
         
@@ -45,7 +54,7 @@ def handler(event, context):
         "guidance_scale": 7.5
     }
 
-    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json', Body=json.dumps(payload))
+    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
     print(response)
     
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
