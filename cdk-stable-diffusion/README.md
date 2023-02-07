@@ -21,12 +21,14 @@ cdk destroy --all
 
 ## Console에서 Python으로 생성된 Lambda 배포하기 
 
-라이브러리 설치는 아래와 같이 수행합니다.
+라이브러리 설치는 아래와 같이 수행합니다. 여기서 PIL은 pillow입니다.
 
 ```java
 pip install --upgrade pip
-pip install --target=lambda PIL
+pip install --target=lambda pillow 
 ```
+
+
 
 압축후 Console에서 zip으로 업로드 합니다. 압축시 lambda 소스 폴더를 포함하여 압축하여야 합니다. (node.js와 다름)
 
