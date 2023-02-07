@@ -27,8 +27,6 @@ def handler(event, context):
     mybucket = bucket
     mykey = 'output/filename.jpeg'
     
-    
-    
     runtime = boto3.Session().client('sagemaker-runtime')
         
     payload = {
@@ -41,7 +39,7 @@ def handler(event, context):
         "guidance_scale": 7.5
     }
 
-    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json', Body=payload)
+    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json', Body=json.dumps(payload))
     print(response)
     
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
@@ -50,7 +48,7 @@ def handler(event, context):
     s3 = boto3.client('s3')
             
     if(statusCode==200):
-        response_payload = response['Body'].read().decode("utf-8")
+        response_payload = response['Body'].read()
         generated_image, prompt = parse_response(response_payload)
 
         print(prompt)
