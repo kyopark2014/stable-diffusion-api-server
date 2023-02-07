@@ -25,10 +25,8 @@ cdk destroy --all
 
 ```java
 pip install --upgrade pip
-pip install --target=lambda pillow 
+pip install --target=lambda numpy 
 ```
-
-
 
 압축후 Console에서 zip으로 업로드 합니다. 압축시 lambda 소스 폴더를 포함하여 압축하여야 합니다. (node.js와 다름)
 
@@ -37,6 +35,13 @@ cd lambda
 zip -r ../lambda.zip .
 ```
 
+## Troubleshooting
+
+Lambda에서 pillow 사용시 아래와 같은 에러가 발생합니다. [stackoverflow](https://stackoverflow.com/questions/57197283/aws-lambda-cannot-import-name-imaging-from-pil)에 의하면 lambda 미지원으로 보인다고 합니다. 
+
+```java
+[ERROR] Runtime.ImportModuleError: Unable to import module 'lambda_function': cannot import name '_imaging' from 'PIL' (/var/task/PIL/__init__.py)
+```
 
 ## Reference 
 
