@@ -47,8 +47,8 @@ def handler(event, context):
         "prompt": txt,
         #"width": 768,
         #"height": 768,
-        "width": 200,
-        "height": 200,
+        "width": 100,
+        "height": 100,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5
