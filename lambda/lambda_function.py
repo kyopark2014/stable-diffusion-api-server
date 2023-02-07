@@ -8,12 +8,12 @@ import io
 # sess = sagemaker.Session()
 # mybucket = sess.default_bucket()     
    
-def parse_response(query_response):
+def parse_response_multiple_images(query_response):
     """Parse response and return generated image and the prompt"""
 
     response_dict = json.loads(query_response)
-    return response_dict["generated_image"], response_dict["prompt"]
-
+    return response_dict["generated_images"], response_dict["prompt"]
+    
 def handler(event, context):
     print(event)
         
@@ -27,7 +27,8 @@ def handler(event, context):
     mykey = 'output/filename.jpeg'
     
     payload = {
-        "prompt": "astronaut on a horse",
+        # "prompt": "astronaut on a horse",
+        "prompt": txt,
         "width": 768,
         "height": 768,
         "num_images_per_prompt": 1,
@@ -48,13 +49,13 @@ def handler(event, context):
     if(statusCode==200):
         #response_payload = response['Body'].read().decode("utf-8")
         response_payload = response['Body'].read().decode("utf-8")
-        generated_images, prompt = parse_response(response_payload)
+        generated_images, prompt = parse_response_multiple_images(response_payload)
 
         print(prompt)
         
         from PIL import Image
-        for img1 in generated_images:
-            image1 = Image.fromarray(np.uint8(img1))
+        for img in generated_images:
+            image1 = Image.fromarray(np.uint8(img))
             
             buffer = io.BytesIO()
             image1.save(buffer, "JPEG")
@@ -63,7 +64,7 @@ def handler(event, context):
             s3.upload_fileobj(buffer, mybucket, "output/filename1.jpeg", ExtraArgs={ "ContentType": "image/jpeg"})
 
             print('akdkfkdfkdkf\n')
-            print(img1)
+            print(img)
 
                     
     return {
