@@ -71,15 +71,17 @@ def handler(event, context):
         print(prompt)
         
         #image = Image.fromarray(np.uint8(generated_image))
-        image = Image.fromqimage("L", (100,100), generated_image)
         #image = Image.frombuffer("L", (100,100), generated_image) (x)
         #image = Image.frombytes("L", (100,100), generated_image) (x)
+        #image = Image.fromqimage("L", (100,100), generated_image)
+        #image = Image.fromqpixmap
 
         #s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
             
-        buffer = io.BytesIO()
-        image.save(buffer, format="jpeg")
-        buffer.seek(0)
+        #buffer = io.BytesIO()
+        #image.save(buffer, format="jpeg")
+        #buffer.seek(0)
+        buffer = io.BytesIO(generated_image)
             
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
