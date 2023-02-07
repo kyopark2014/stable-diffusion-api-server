@@ -61,3 +61,5 @@ https://stackoverflow.com/questions/67553637/how-to-install-pillow-on-aws-lambda
 [컴파일된 바이너리가 포함된 Python 패키지를 배포 패키지에 추가하고 패키지를 Lambda와 호환되게 하려면 어떻게 해야 하나요?](https://aws.amazon.com/ko/premiumsupport/knowledge-center/lambda-python-package-compatible/)
 
 [Request Inferences from a Deployed Service (Boto3)](https://docs.aws.amazon.com/sagemaker/latest/dg/neo-requests-boto3.html)
+
+[Build and automatize the management of your Sagemaker Studio Users using AWS CDK!](https://github.com/comeddy/aws-cdk-sagemaker-studio)
