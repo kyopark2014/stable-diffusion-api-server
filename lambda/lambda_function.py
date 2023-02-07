@@ -51,6 +51,8 @@ def handler(event, context):
         response_payload = response['Body'].read()
         generated_image, prompt = parse_response(response_payload)
 
+        print(response_payload)
+        #print(generated_image)
         print(prompt)
         
         image = Image.fromarray(np.uint8(generated_image))
@@ -61,7 +63,7 @@ def handler(event, context):
             
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 
-        print(generated_image)
+        
                     
     return {
         'statusCode': statusCode,
