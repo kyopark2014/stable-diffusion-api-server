@@ -5,6 +5,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -73,7 +74,17 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
     s3Bucket.grantReadWrite(mlLambda);
 
-    // sagemaker permission
+    // create a policy statement for sagemaker
+    const SageMakerPolicy = new iam.PolicyStatement({
+      actions: ['sagemaker:*'],
+      resources: ['*'],
+    });
+    // add the policy to the Function's role
+    mlLambda.role?.attachInlinePolicy(
+      new iam.Policy(this, 'sagemaker-policy', {
+        statements: [SageMakerPolicy],
+      }),
+    );
 
     // version
     const version = mlLambda.currentVersion;
