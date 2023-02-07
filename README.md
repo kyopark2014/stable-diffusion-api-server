@@ -69,9 +69,24 @@ Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "Cont
 
 <img src="https://user-images.githubusercontent.com/52392004/217041497-6c2f906d-feb0-4bbc-b2e0-9daf97cf0bc8.jpeg" width="400">
 
-## Troubleshooting
+## Troubleshooting: Accept 헤더
 
 SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 이 경우에 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 S3에 업로드가 가능한데, Lambda에서 pillow, numpy사용시에 layer를 추가하거나, Docker Container를 이용할 수 있습니다.
+
+```java
+from PIL import Image
+
+response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
+
+s3 = boto3.client('s3')
+image = Image.fromarray(np.uint8(generated_image))
+
+buffer = io.BytesIO()
+image.save(buffer, "jpeg")
+buffer.seek(0)
+            
+s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+```
 
 또 하나의 방법은 아래와 같이 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다.
 
