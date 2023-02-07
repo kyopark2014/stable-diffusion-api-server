@@ -19,6 +19,23 @@ cdk deploy --all
 cdk destroy --all
 ```
 
+## Console에서 Python으로 생성된 Lambda 배포하기 
+
+requests 라이브러리 설치는 아래와 같이 수행합니다.
+
+```java
+pip install \
+    --target=lambda \
+    requests
+```
+
+압축후 Console에서 zip으로 업로드 합니다. 압축시 lambda 소스 폴더를 포함하여 압축하여야 합니다. (node.js와 다름)
+
+```java
+cd lambda
+zip -r ../lambda.zip .
+```
+
 ## Reference 
 
 [Deploying SageMaker Endpoints With CloudFormation](https://towardsdatascience.com/deploying-sagemaker-endpoints-with-cloudformation-b43f7d495640)
