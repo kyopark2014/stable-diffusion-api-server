@@ -23,6 +23,8 @@ def handler(event, context):
 
     bucket = 'sagemaker-ap-northeast-2-677146750822'
     endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
+    mybucket = bucket
+    mykey = 'output/filename.jpeg'
     
     payload = {
         "prompt": "astronaut on a horse",
@@ -43,19 +45,12 @@ def handler(event, context):
     
     if(statusCode==200):
         response_payload = response['Body'].read().decode("utf-8")
-        generated_image, prompt = parse_response(response_payload)
+        img, prompt = parse_response(response_payload)
 
         print(prompt)
         
-        img = Image.fromarray(np.uint8(generated_image))
-        img.save('c_pil.png')
-        
-        mybucket = bucket
-        mykey = 'output/filename.jpeg'
-
-        # translated image from numpy array
-        image = Image.fromarray(np.uint8(img))
-            
+        image = Image.fromarray(np.uint8(img)) # translated image from numpy array
+                            
         buffer = io.BytesIO()
         image.save(buffer, "JPEG")
         buffer.seek(0)
