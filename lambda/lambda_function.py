@@ -22,7 +22,7 @@ def handler(event, context):
         
     body = event['body']
     txt = body['text']
-    print(txt)
+    print("text: ", txt)
 
     #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     endpoint = os.environ.get('endpoint')
@@ -69,13 +69,13 @@ def handler(event, context):
         #image = Image.fromarray(np.uint8(generated_image))
         image = Image.fromqimage(generated_image)
 
-        s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        #s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
             
-        #buffer = io.BytesIO()
-        #image.save(buffer, "jpeg")
-        #buffer.seek(0)
+        buffer = io.BytesIO()
+        image.save(buffer, format="jpeg")
+        buffer.seek(0)
             
-        #s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,
