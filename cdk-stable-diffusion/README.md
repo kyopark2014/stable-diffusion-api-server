@@ -18,3 +18,7 @@ cdk deploy --all
 ```java
 cdk destroy --all
 ```
+
+## Reference 
+
+[Deploying SageMaker Endpoints With CloudFormation](https://towardsdatascience.com/deploying-sagemaker-endpoints-with-cloudformation-b43f7d495640)
