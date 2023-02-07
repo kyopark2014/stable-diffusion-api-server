@@ -5,6 +5,8 @@ import os
 import time
 import base64
 
+s3 = boto3.client('s3')
+
 def parse_response(query_response):
     """Parse response and return generated image and the prompt"""
 
@@ -30,9 +32,7 @@ def lambda_handler(event, context):
     #mykey = 'output/filename.jpeg'
     mykey = 'output/img_'+time.strftime("%Y%m%d-%H%M%S")  # output/img_20230207-152043
     print('key: ', mykey)
-    
-    runtime = boto3.Session().client('sagemaker-runtime')
-        
+            
     payload = {        
         "prompt": txt,
         #"width": 768,
@@ -44,13 +44,12 @@ def lambda_handler(event, context):
         "guidance_scale": 7.5
     }
 
+    runtime = boto3.Session().client('sagemaker-runtime')
     response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
     
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
     print('statusCode:', json.dumps(statusCode))
     
-    s3 = boto3.client('s3')
-
     if(statusCode==200):
         response_payload = response['Body'].read()
         generated_image, prompt = parse_response(response_payload)

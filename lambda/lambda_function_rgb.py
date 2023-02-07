@@ -18,28 +18,20 @@ def handler(event, context):
         
     body = event['body']
     txt = body['text']
-    print(txt)
+    print("txt: ", txt)
 
     mybucket = os.environ.get('bucket')
     print("bucket: ", mybucket)
-
+    
     endpoint = os.environ.get('endpoint')
     print("endpoint: ", endpoint)
-
-    #bucket = 'sagemaker-ap-northeast-2-677146750822'
-    #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
-
-    timestr = time.strftime("%Y%m%d-%H%M%S")
-    print(timestr)
-
-    #mykey = 'output/filename.jpeg'
-    mykey = 'output/img_'+timestr
+    
+    mykey = 'output/img_'+time.strftime("%Y%m%d-%H%M%S")
     print('mykey: ', mykey)
     
     runtime = boto3.Session().client('sagemaker-runtime')
         
     payload = {
-        # "prompt": "astronaut on a horse",
         "prompt": txt,
         #"width": 768,
         #"height": 768,
