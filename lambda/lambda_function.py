@@ -35,7 +35,7 @@ def lambda_handler(event, context):
 
     #url
     domain = os.environ.get('domain')
-    url = "https://"+domain+'/'+'/'+mykey
+    url = "https://"+domain+'/'+mykey
     print("url: ", url)
             
     payload = {        

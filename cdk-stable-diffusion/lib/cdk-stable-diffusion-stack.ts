@@ -2,11 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as path from "path";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as iam from "aws-cdk-lib/aws-iam";
-import * as apiGateway from "aws-cdk-lib/aws-apigateway";
-import * as logs from "aws-cdk-lib/aws-logs";
 import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
 import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 
@@ -56,12 +52,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       },
       priceClass: cloudFront.PriceClass.PRICE_CLASS_200,  
     });
-  /*  distribution.addBehavior("/status", new origins.RestApiOrigin(apigw), {
-      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
-      originRequestPolicy: myOriginRequestPolicy,
-      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    }); */
-
     new cdk.CfnOutput(this, 'distributionDomainName', {
       value: distribution.domainName,
       description: 'The domain name of the Distribution',
