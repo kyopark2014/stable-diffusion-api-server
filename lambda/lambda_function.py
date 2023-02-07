@@ -11,7 +11,7 @@ def parse_response(query_response):
     response_dict = json.loads(query_response)
     return response_dict["generated_image"], response_dict["prompt"]
     
-def handler(event, context):
+def lambda_handler(event, context):
     print(event)
 
     # txt = "astronaut on a horse",        

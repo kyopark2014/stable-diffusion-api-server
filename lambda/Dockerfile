@@ -11,4 +11,4 @@ COPY lambda_function.py /var/task
 
 COPY . .
 
-CMD ["lambda_function.handler"]
+CMD ["lambda_function.lambda_handler"]
