@@ -81,7 +81,10 @@ def handler(event, context):
         #buffer = io.BytesIO()
         #image.save(buffer, format="jpeg")
         #buffer.seek(0)
-        image = generated_image.convert('RGB')
+        #image = generated_image.convert('RGB')
+
+        image = Image.open(io.BytesIO(generated_image))
+
 
         buffer = io.BytesIO()
         image.save(buffer, format="jpeg")
