@@ -83,16 +83,21 @@ def handler(event, context):
         #buffer.seek(0)
         #image = generated_image.convert('RGB')
 
+
+        ## cases 
         #image = io.BytesIO(generated_image) # TypeError: a bytes-like object is required, not 'str'
 
+        #generated_image.save(buffer, format="jpeg") # AttributeError: 'str' object has no attribute 'save'
 
-
+        import base64
+        msg = base64.b64decode(generated_image)
+        image = io.BytesIO(msg) 
 
         buffer = io.BytesIO()
         generated_image.save(buffer, format="jpeg")
         buffer.seek(0)
             
-        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,
