@@ -57,6 +57,10 @@ def handler(event, context):
     print('statusCode:', json.dumps(statusCode))
     
     s3 = boto3.client('s3')
+
+    #with open(image_name, 'wb') as f:
+    #for chunk in r.iter_content():
+    #    f.write(chunk)
             
     if(statusCode==200):
         response_payload = response['Body'].read()
@@ -67,9 +71,9 @@ def handler(event, context):
         print(prompt)
         
         #image = Image.fromarray(np.uint8(generated_image))
-        #image = Image.fromqimage(generated_image) (x)
+        #image = Image.fromqimage(generated_image)
         #image = Image.frombuffer(generated_image) (x)
-        image = Image.frombytes(generated_image)
+        image = Image.frombytes("L", (100,100), generated_image)
 
         #s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
             
