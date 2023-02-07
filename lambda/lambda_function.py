@@ -81,7 +81,9 @@ def handler(event, context):
         #buffer = io.BytesIO()
         #image.save(buffer, format="jpeg")
         #buffer.seek(0)
-        buffer = io.BytesIO(generated_image)
+        buffer = io.BytesIO()
+        generated_image.save(buffer, format="jpeg")
+        buffer.seek(0)
             
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
