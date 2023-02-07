@@ -7,6 +7,8 @@ import * as apiGateway from "aws-cdk-lib/aws-apigateway";
 import * as logs from "aws-cdk-lib/aws-logs";
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
+import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -36,6 +38,34 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       description: 'The path of s3',
     });
 
+    // cloudfront
+    const myOriginRequestPolicy = new cloudFront.OriginRequestPolicy(this, 'OriginRequestPolicyCloudfront', {
+      originRequestPolicyName: 'QueryStringPolicyCloudfront',
+      comment: 'Query string policy for cloudfront',
+      cookieBehavior: cloudFront.OriginRequestCookieBehavior.none(),
+      headerBehavior: cloudFront.OriginRequestHeaderBehavior.none(),
+      queryStringBehavior: cloudFront.OriginRequestQueryStringBehavior.allowList('deviceid'),
+    });
+
+    const distribution = new cloudFront.Distribution(this, 'cloudfront', {
+      defaultBehavior: {
+        origin: new origins.S3Origin(s3Bucket),
+        allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,
+        cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+        viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      },
+      priceClass: cloudFront.PriceClass.PRICE_CLASS_200,  
+    });
+  /*  distribution.addBehavior("/status", new origins.RestApiOrigin(apigw), {
+      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+      originRequestPolicy: myOriginRequestPolicy,
+      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    }); */
+
+    new cdk.CfnOutput(this, 'distributionDomainName', {
+      value: distribution.domainName,
+      description: 'The domain name of the Distribution',
+    }); 
 
     // Create Lambda for stable diffusion using docker container
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-stable-diffusion", {
@@ -50,6 +80,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         endpoint: "jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268"
       }
     }); 
+    s3Bucket.grantReadWrite(mlLambda);
 
     // version
     const version = mlLambda.currentVersion;
@@ -62,10 +93,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 /*  mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
     const requestTemplates = { // path through
-    //  "image/jpeg": templateString,
-    //  "image/jpg": templateString,
-    //  "application/octet-stream": templateString,
-    //  "image/png" : templateString,
       "application/json" : templateString
     }
     
