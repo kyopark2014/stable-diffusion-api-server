@@ -139,15 +139,9 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       },
     });  
 
-    //const requestTemplates = { // path through
-    //  "application/json" : templateString
-    //}
-    
     const text2image = api.root.addResource('text2image');
     text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
-      // PassthroughBehavior: apiGateway.PassthroughBehavior.NEVER,
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
-      //requestTemplates: requestTemplates,
       integrationResponses: [{
         statusCode: '200',
       }], 

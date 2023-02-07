@@ -17,8 +17,7 @@ def lambda_handler(event, context):
     print(event)
 
     # txt = "astronaut on a horse",        
-    body = event['body']
-    txt = body['text']
+    txt = event['text']
     print("text: ", txt)
 
     #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
