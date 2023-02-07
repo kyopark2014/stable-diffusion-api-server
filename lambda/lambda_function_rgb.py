@@ -7,10 +7,6 @@ import os
 from PIL import Image
 import time
 
-# import sagemaker
-# sess = sagemaker.Session()
-# mybucket = sess.default_bucket()     
-   
 def parse_response(query_response):
     """Parse response and return generated image and the prompt"""
 
