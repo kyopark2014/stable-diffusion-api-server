@@ -6,6 +6,8 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
+import * as logs from 'aws-cdk-lib/aws-logs';
 
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -94,17 +96,58 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
  
     // api Gateway
-/*  mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
+    mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
-    const requestTemplates = { // path through
-      "application/json" : templateString
-    }
+    // api Gateway
+    const logGroup = new logs.LogGroup(this, 'AccessLogs', {
+      retention: 90, // Keep logs for 90 days
+    });
+    logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
+
+    // role
+    const role = new iam.Role(this, "api-role", {
+      roleName: "ApiRole",
+      assumedBy: new iam.ServicePrincipal("apigateway.amazonaws.com")
+    });
+    role.addToPolicy(new iam.PolicyStatement({
+      resources: ['*'],
+      actions: ['lambda:InvokeFunction']
+    }));
+    role.addManagedPolicy({
+      managedPolicyArn: 'arn:aws:iam::aws:policy/AWSLambdaExecute',
+    }); 
+
+    // API Gateway
+    const api = new apiGateway.RestApi(this, 'api-storytime', {
+      description: 'API Gateway',
+      endpointTypes: [apiGateway.EndpointType.REGIONAL],
+      binaryMediaTypes: ['*/*'], 
+      deployOptions: {
+        stageName: stage,
+        accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
+        accessLogFormat: apiGateway.AccessLogFormat.jsonWithStandardFields({
+          caller: false,
+          httpMethod: true,
+          ip: true,
+          protocol: true,
+          requestTime: true,
+          resourcePath: true,
+          responseLength: true,
+          status: true,
+          user: true
+        }),
+      },
+    });  
+
+    //const requestTemplates = { // path through
+    //  "application/json" : templateString
+    //}
     
-    const upload = api.root.addResource('text2image');
-    upload.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
+    const text2image = api.root.addResource('text2image');
+    text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       // PassthroughBehavior: apiGateway.PassthroughBehavior.NEVER,
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
-      requestTemplates: requestTemplates,
+      //requestTemplates: requestTemplates,
       integrationResponses: [{
         statusCode: '200',
       }], 
@@ -123,6 +166,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'apiUrl', {
       value: api.url,
       description: 'The url of API Gateway',
-    }); */
+    }); 
   }
 }
