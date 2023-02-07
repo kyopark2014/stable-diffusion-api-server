@@ -24,7 +24,7 @@ def handler(event, context):
     txt = body['text']
     print(txt)
 
-    mybucket = os.environ.get('envbucket')
+    mybucket = os.environ.get('bucket')
     print("bucket: ", mybucket)
 
     endpoint = os.environ.get('endpoint')
@@ -37,7 +37,7 @@ def handler(event, context):
     print(timestr)
 
     #mykey = 'output/filename.jpeg'
-    mykey = 'output/img_'.append(timestr)
+    mykey = 'output/img_'+timestr
     print('mykey: ', mykey)
     
     runtime = boto3.Session().client('sagemaker-runtime')
