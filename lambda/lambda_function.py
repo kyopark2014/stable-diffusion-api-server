@@ -4,8 +4,6 @@ import io
 from PIL import Image
 import numpy as np
 
-s3 = boto3.client('s3')
-
 # import sagemaker
 # sess = sagemaker.Session()
 # mybucket = sess.default_bucket()     
@@ -48,6 +46,8 @@ def handler(event, context):
         response_payload = response['Body'].read().decode("utf-8")
         generated_images, prompt = parse_response(response_payload)
 
+        print(response_payload)
+
         print(prompt)
         
         for img in generated_images:
@@ -57,6 +57,7 @@ def handler(event, context):
             image.save(buffer, "JPEG")
             buffer.seek(0)
                 
+            s3 = boto3.client('s3')
             s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
         
     return {
