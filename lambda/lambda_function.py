@@ -3,6 +3,7 @@ import boto3
 from PIL import Image
 import numpy as np
 import io
+from PIL import Image
 
 # import sagemaker
 # sess = sagemaker.Session()
@@ -24,8 +25,12 @@ def handler(event, context):
     bucket = 'sagemaker-ap-northeast-2-677146750822'
     endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     mybucket = bucket
-    mykey = 'output/filename.png'
+    mykey = 'output/filename.jpeg'
     
+    
+    
+    runtime = boto3.Session().client('sagemaker-runtime')
+        
     payload = {
         # "prompt": "astronaut on a horse",
         "prompt": txt,
@@ -35,10 +40,8 @@ def handler(event, context):
         "num_inference_steps": 50,
         "guidance_scale": 7.5
     }
-    
-    runtime = boto3.Session().client('sagemaker-runtime')
-        
-    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json', Body=json.dumps(payload))
+
+    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json', Body=payload)
     print(response)
     
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
@@ -47,21 +50,18 @@ def handler(event, context):
     s3 = boto3.client('s3')
             
     if(statusCode==200):
-        #response_payload = response['Body'].read().decode("utf-8")
         response_payload = response['Body'].read().decode("utf-8")
         generated_image, prompt = parse_response(response_payload)
 
         print(prompt)
         
-        from PIL import Image
-        
         image = Image.fromarray(np.uint8(generated_image))
             
         buffer = io.BytesIO()
-        image.save(buffer, "png")
+        image.save(buffer, "jpeg")
         buffer.seek(0)
             
-        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/png"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 
         print(generated_image)
                     
