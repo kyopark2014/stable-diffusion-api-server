@@ -72,8 +72,8 @@ def handler(event, context):
         
         #image = Image.fromarray(np.uint8(generated_image))
         #image = Image.fromqimage(generated_image)
-        #image = Image.frombuffer(generated_image) (x)
-        image = Image.frombytes("L", (100,100), generated_image)
+        image = Image.frombuffer("L", (100,100), generated_image) 
+        #image = Image.frombytes("L", (100,100), generated_image) (x)
 
         #s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
             
