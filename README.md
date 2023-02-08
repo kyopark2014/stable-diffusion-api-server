@@ -8,7 +8,7 @@
 
 전체적인 Arhitecture는 아래와 같습니다. 
 
-<img src="https://user-images.githubusercontent.com/52392004/217414062-182f8614-c33e-43be-a292-6c7a0647e5cc.png" width="700">
+<img src="https://user-images.githubusercontent.com/52392004/217414177-985e8168-410b-4503-8b1a-6a63ec28b9cc.png" width="700">
 
 
 
