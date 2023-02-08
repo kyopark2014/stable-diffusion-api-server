@@ -1,10 +1,8 @@
 # Stable Diffusion API Server
 
-[Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)은 텍스트를 이용하여 창조적인 이미지를 생성할 수 있습니다. 
+[Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/) 모델을 이용하면 텍스트를 이용하여 창조적인 이미지를 생성할 수 있습니다. Amazon에서는 [SageMaker JumpStart](https://aws.amazon.com/ko/sagemaker/jumpstart/?sagemaker-data-wrangler-whats-new.sort-by=item.additionalFields.postDateTime&sagemaker-data-wrangler-whats-new.sort-order=desc)을 이용하여 머신러닝(ML) 모델을 쉽게 사용할 수 있도록 사전학습(pre-trained)된 모델을 제공하고 있습니다. 2022년 10월부터 [JumpStart를 통해 Stable Diffusion](https://aws.amazon.com/ko/about-aws/whats-new/2022/11/sagemaker-jumpstart-stable-diffusion-bloom-models/) 모델을 제공하고 있으므로, SageMaker를 이용해 Stable Diffusion 이미지를 쉽게 생성할 수 있으며, 즉시 Serving할 수 있도록 SageMaker Endpoint를 이용해 https 기반의 API를 제공할 수 있습니다. SageMaker Endpoint는 트래픽이 증가할때는 자동으로 Scale out 하므로, 변동이 심한 트래픽에도 효율적으로 인프라를 유지할 수 있으며 IAM 기반의 강화된 보안을 제공하고 있습니다.
 
-[Amazon SageMaker JumpStart](https://aws.amazon.com/ko/sagemaker/jumpstart/?sagemaker-data-wrangler-whats-new.sort-by=item.additionalFields.postDateTime&sagemaker-data-wrangler-whats-new.sort-order=desc)은 머신러닝(ML) 모델을 쉽게 사용할 수 있도록 사전학습(pre-trained)된 모델을 제공하고 있습니다. 2022년 10월에는 [JumpStart에서 Stable Diffusion](https://aws.amazon.com/ko/about-aws/whats-new/2022/11/sagemaker-jumpstart-stable-diffusion-bloom-models/) 모델을 제공하고 있어서 Stable Diffusion 이미지를 쉽게 생성할 수 있으며, 즉시 Serving할 수 있도록 SageMaker Endpoint를 이용해 https 기반의 API를 제공합니다. SageMaker Endpoint는 트래픽이 증가할때는 자동으로 Scale out 하므로, 변동이 심한 트래픽에도 효율적으로 인프라를 유지할 수 있으며 IAM 기반의 강화된 보안을 제공하고 있습니다. 
 
-AWS JumpStart에서 제공하는 Stable Diffusion 2.0을 이용하여 Open API 형태로 서비스할 수 있는 API를 제공하고자 합니다. 
 
 
 JumpStart에서 제공하는 Stable Diffusion을 통해 Inference API를 구현하면, SageMaker Endpoint는 IAM 인증을 통해서 요청하고 결과를 얻을수 있습니다. 
