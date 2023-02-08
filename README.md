@@ -129,7 +129,15 @@ img_str = base64.b64decode(generated_image)
 buffer = io.BytesIO(img_str)  
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
 ```
+## 인프라 배포
 
+[cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서는 CDK로 API Gateway, S3, Lambda, CloudFront를 정의하고 아래와 같이 필요한 라이브러리를 설치하고 배포를 수행합니다. 
+
+```java
+cdk cdk-stable-diffusion && npm install 
+npm install -g aws-cdk-lib path
+cdk deploy
+```
 
 ## 결과 확인  
 
