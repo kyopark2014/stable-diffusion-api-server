@@ -118,8 +118,7 @@ SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경�
 ```
 
  
-이미지를 S3에 
-이 경우에 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 S3에 업로드가 가능한데, Lambda에서 pillow, numpy사용시에 layer를 추가하거나, Docker Container를 이용할 수 있습니다.
+이미지를 S3에 저장하기 위해서는 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 합니다. 그런데, Lambda에서 pillow, numpy를 설치하면 에러가 발생하는데, 이는 layer를 추가하거나, Docker Container를 이용할 수 있습니다. 여기서는 layer를 추가하지 않고 Docker container를 이용하여 PIL, numpy를 사용합니다. 
 
 ```java
 from PIL import Image
@@ -136,7 +135,9 @@ buffer.seek(0)
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 ```
 
-또 하나의 방법은 아래와 같이 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다.
+### JPEG로 처리
+
+Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다.
 
 ```java
 response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
