@@ -29,12 +29,12 @@ def lambda_handler(event, context):
     print("bucket: ", mybucket)
 
     #mykey = 'output/filename.jpeg'
-    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")  # output/img_20230207-152043
+    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  # output/img_20230207-152043.jpeg
     print('key: ', mykey)
 
     #url
     domain = os.environ.get('domain')
-    url = "https://"+domain+'/'+mykey+'.jpeg'
+    url = "https://"+domain+'/'+mykey
     print("url: ", url)
             
     payload = {        
