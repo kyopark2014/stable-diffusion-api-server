@@ -41,8 +41,8 @@ def lambda_handler(event, context):
         "prompt": txt,
         #"width": 768,
         #"height": 768,
-        #"width": 50,
-        #"height": 50,
+        "width": 512,
+        "height": 512,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5
@@ -63,8 +63,7 @@ def lambda_handler(event, context):
         print(prompt)
         
         img_str = base64.b64decode(generated_image)
-        from PIL import Image
-        buffer = Image.open(io.BytesIO(img_str))
+        buffer = io.BytesIO(img_str) 
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
