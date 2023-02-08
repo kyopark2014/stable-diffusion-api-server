@@ -35,15 +35,15 @@ cd lambda
 zip -r ../lambda.zip .
 ```
 
-## Troubleshooting
+## Lambda에서 Pillow, Numpy 사용관련 
 
-Lambda에서 pillow 사용시 아래와 같은 에러가 발생합니다. [stackoverflow](https://stackoverflow.com/questions/57197283/aws-lambda-cannot-import-name-imaging-from-pil)에 의하면 lambda 미지원으로 보인다고 합니다. 
+Lambda에서 pillow 사용시 아래와 같은 에러가 발생합니다. 
 
 ```java
 [ERROR] Runtime.ImportModuleError: Unable to import module 'lambda_function': cannot import name '_imaging' from 'PIL' (/var/task/PIL/__init__.py)
 ```
 
-해결방안은 Layer를 추가하면 됩니다.
+### Lambda에서 Layer를 추가하는 방법 
 
 [Creating New AWS Lambda Layer For Python Pandas Library](https://medium.com/@qtangs/creating-new-aws-lambda-layer-for-python-pandas-library-348b126e9f3e)
 
@@ -53,6 +53,9 @@ https://stackoverflow.com/questions/67553637/how-to-install-pillow-on-aws-lambda
 
 [AWS Lambda에 pymysql 설치하기 (package 설치하기)](https://velog.io/@silver_bell/lambda-layer)
 
+### Docker Container를 이용하는 방법
+
+Lambda에서 Docker 사용시에 이 문제는 발생하지 않습니다. 여기서는 Docker를 이용하여 문제를 해결하였습니다. 
 
 ## Reference 
 
