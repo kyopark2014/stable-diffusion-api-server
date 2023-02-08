@@ -131,7 +131,7 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 ```
 
 
-## Output 
+## 결과 확인  
 
 ### URL 확인
 
