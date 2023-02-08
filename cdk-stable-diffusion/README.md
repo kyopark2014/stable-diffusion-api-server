@@ -35,7 +35,7 @@ cd lambda
 zip -r ../lambda.zip .
 ```
 
-## Lambda에서 Pillow, Numpy 사용관련 
+## Lambda에서 Pillow, Numpy 사용 이슈
 
 Lambda에서 pillow 사용시 아래와 같은 에러가 발생합니다. 
 
