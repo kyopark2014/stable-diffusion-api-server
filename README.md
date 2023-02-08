@@ -67,6 +67,22 @@ Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "Cont
 
 ## Output 
 
+### 실행방법
+
+curl 명령어로 아래와 같이 실행해볼 수 있습니다. 
+
+```java
+curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
+```
+
+이때의 결과의 예입니다.
+
+```java
+{"statusCode": 200, "body": "https://d283dvdglbetjo.cloudfront.net/img_20230208-014926"}
+```
+
+얻어진 이미지의 예입니다. 
+
 <img src="https://user-images.githubusercontent.com/52392004/217041497-6c2f906d-feb0-4bbc-b2e0-9daf97cf0bc8.jpeg" width="400">
 
 ## Troubleshooting: Accept 헤더
