@@ -3,6 +3,9 @@
 
 [Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)은 Text로 이미지를 창조적으로 생성할 수 있습니다. 여기서는 AWS JumpStart에서 제공하는 Stable Diffusion 2.0을 이용하여 Open API 형태로 서비스할 수 있는 API를 제공하고자 합니다. JumpStart에서 제공하는 Stable Diffusion을 통해 Inference API를 구현하면, SageMaker Endpoint는 IAM 인증을 통해서 요청하고 결과를 얻을수 있습니다. IAM 인증을 위해서는 Client가 IAM Credential을 가지고 인증에 필요한 프로세스를 진행하여야 합니다. 따라서, Endpoint 앞단에 API Gatewaay와 Lambda를 이용하여 Open API를 구현합니다. 또한 아래 설명처럼 Output은 RGB 이미지와 입력된 Prompt에 대한 정보인데, 이를 실제로 사용자가 보기 위해서는 그림파일로 다시 encoding하여야 하며, 압축하면 80KB인 결과를 얻기 위해 1.7MB의 Raw 파일을 다운로드 하여야 합니다. 따라서, Lambda은 SageMaker Endpoint의 응답을 파싱하여 압축파일을 생성하여 S3에 저장하고, 사용자는 Lambda가 전달한 URL을 이용하여 CloudFront를 이용하여 다운로드 합니다. 이렇게 함으로써 사용자는 Stable Diffusion의 결과를 쉽게 볼수 있고, 필요시 해당 URL을 전달함으로써 편리하게 공유 할 수 있습니다. 
 
+이미지를 공유한다면 client에서 RGB로 전달되는 데이터를 파일로 변환하여 다시 업로드를 하여야 하므로, URL로 결과를 얻고자 합니다. 
+
+
 전체적인 Arhitecture는 아래와 같습니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/217037303-23955722-0a1b-4710-b5cc-ffaf2ee8fe48.png)
@@ -93,7 +96,7 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 ### Accept 헤더별 동작
 
-SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 아래는 Endpoint에 Query시 응답의 예입니다. 
+SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 아래는 Endpoint에 Query시 응답의 예입니다. 이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 이때 Text 전달되는 RGB 이미지의 크기는 1.7MB인데 jpg로 저장하면 80kb정도의 크기를 가집니다. 
 
 ```java
 {
@@ -114,9 +117,8 @@ SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경�
 }
 ```
 
-이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 이때 Text 전달되는 RGB 이미지의 크기는 1.7MB인데 jpg로 저장하면 80kb정도의 크기를 가집니다. 
-
-
+ 
+이미지를 S3에 
 이 경우에 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 S3에 업로드가 가능한데, Lambda에서 pillow, numpy사용시에 layer를 추가하거나, Docker Container를 이용할 수 있습니다.
 
 ```java
