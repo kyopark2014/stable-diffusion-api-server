@@ -41,8 +41,8 @@ def lambda_handler(event, context):
         "prompt": txt,
         #"width": 768,
         #"height": 768,
-        "width": 50,
-        "height": 50,
+        #"width": 50,
+        #"height": 50,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5
