@@ -92,9 +92,9 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 
 
-## Troubleshooting
+## S3로 결과 업로드
 
-### Accept 헤더별 동작
+### RGB 이미지 데이터를 변환하여 S3에 업로드 하는 경우 
 
 SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 아래는 Endpoint에 Query시 응답의 예입니다. 이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 이때 Text 전달되는 RGB 이미지의 크기는 1.7MB인데 jpg로 저장하면 80kb정도의 크기를 가집니다. 
 
@@ -135,7 +135,7 @@ buffer.seek(0)
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 ```
 
-### JPEG로 처리
+### JPEG로 encoding된 이미지를 S3에 업로드 하는 경우 
 
 Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다.
 
