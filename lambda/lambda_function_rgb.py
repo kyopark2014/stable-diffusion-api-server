@@ -51,7 +51,7 @@ def handler(event, context):
     s3 = boto3.client('s3')
             
     if(statusCode==200):
-        response_payload = response['Body'].read()
+        response_payload = response['Body'].read().decode('utf-8')
         generated_image, prompt = parse_response(response_payload)
 
         print(response_payload)
@@ -64,7 +64,7 @@ def handler(event, context):
         image.save(buffer, "jpeg")
         buffer.seek(0)
             
-        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,

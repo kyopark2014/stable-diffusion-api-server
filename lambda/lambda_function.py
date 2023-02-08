@@ -43,7 +43,7 @@ def lambda_handler(event, context):
         "height": 768,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
-        "guidance_scale": 7.5
+        "guidance_scale": 1.0
     }
 
     runtime = boto3.Session().client('sagemaker-runtime')
