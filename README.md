@@ -67,7 +67,7 @@ Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "Cont
 
 ## Output 
 
-### 실행방법
+### Curl로 실행할 경우
 
 curl 명령어로 아래와 같이 실행해볼 수 있습니다. 
 
@@ -84,6 +84,33 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 얻어진 이미지의 예입니다. 
 
 <img src="https://user-images.githubusercontent.com/52392004/217041497-6c2f906d-feb0-4bbc-b2e0-9daf97cf0bc8.jpeg" width="400">
+
+### Postman으로 실행할 경우 
+
+아래와 같이 POST 방식을 선택하고 URL을 입력합니다. 
+
+![noname](https://user-images.githubusercontent.com/52392004/217409331-f291f28a-80ca-4f9d-a13c-528a91dc226b.png)
+
+URL은 CDK 실행화면에서 아래와 같이 확인할 수 있습니다. URL에 api이름인 "text2image"을 추가합니다.
+
+![noname](https://user-images.githubusercontent.com/52392004/217409596-04cdd2bd-1825-4aa4-b08f-7b747c48ff3e.png)
+
+[Body] - [raw] 에서 JSON 형태로 입력합니다. 
+
+```java
+{
+   "text": "astronaut on a horse"
+}
+```
+
+[Headers]에 아래와 같이 Conten-Type으로 application/json을 추가합니다.
+
+![noname](https://user-images.githubusercontent.com/52392004/217409986-97161517-34c7-49c1-af6e-c447e73c55d5.png)
+
+이후 [Sent]를 하면 아래와 같은 결과를 얻습니다. 
+
+<img width="596" alt="image" src="https://user-images.githubusercontent.com/52392004/217410145-dc1fc410-4f46-4bc7-bf1f-047a6548f26b.png">
+
 
 ## Troubleshooting: Accept 헤더
 
