@@ -53,7 +53,7 @@ def lambda_handler(event, context):
     print('statusCode:', json.dumps(statusCode))
     
     if(statusCode==200):
-        response_payload = response['Body'].read()
+        response_payload = response['Body'].read().decode('utf-8')
         generated_image, prompt = parse_response(response_payload)
 
         print(response_payload)
