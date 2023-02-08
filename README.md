@@ -67,6 +67,7 @@ SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경�
 
 ```java
 from PIL import Image
+import numpy as np
 
 response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
 
