@@ -71,7 +71,7 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 아래와 같이 POST 방식을 선택하고 URL을 입력합니다. 
 
-<img src="https://user-images.githubusercontent.com/52392004/217409331-f291f28a-80ca-4f9d-a13c-528a91dc226b.png" width="800">
+<img src="https://user-images.githubusercontent.com/52392004/217409331-f291f28a-80ca-4f9d-a13c-528a91dc226b.png" width="600">
 
 
 [Body] - [raw] 에서 JSON 형태로 입력합니다. 
@@ -84,11 +84,11 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 [Headers]에 아래와 같이 Conten-Type으로 application/json을 추가합니다.
 
-<img src="https://user-images.githubusercontent.com/52392004/217409986-97161517-34c7-49c1-af6e-c447e73c55d5.png" width="800">
+<img src="https://user-images.githubusercontent.com/52392004/217409986-97161517-34c7-49c1-af6e-c447e73c55d5.png" width="600">
 
 이후 [Sent]를 하면 아래와 같은 결과를 얻습니다. 
 
-<img src="https://user-images.githubusercontent.com/52392004/217410742-7c3a9020-d62c-4b92-844e-44205c8dd143.png" width="800">
+<img src="https://user-images.githubusercontent.com/52392004/217410742-7c3a9020-d62c-4b92-844e-44205c8dd143.png" width="600">
 
 
 
