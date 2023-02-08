@@ -63,7 +63,7 @@ SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경�
 ```
 
  
-이미지를 S3에 저장하기 위해서는 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 합니다. 그런데, Lambda에서 pillow, numpy를 설치하면 에러가 발생하는데, 이는 layer를 추가하거나, Docker Container를 이용할 수 있습니다. 여기서는 layer를 추가하지 않고 Docker container를 이용하여 PIL, numpy를 사용합니다. 
+이미지를 S3에 저장하기 위해서는 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 합니다. 그런데, Lambda에서 pillow, numpy를 설치하면 에러가 발생하는데, 이는 layer를 추가하거나, docker container를 이용할 수 있습니다. 여기서는 layer를 추가하지 않고 Docker container를 이용하여 pillow, numpy를 사용합니다. 
 
 ```java
 from PIL import Image
