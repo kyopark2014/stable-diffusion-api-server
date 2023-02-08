@@ -57,6 +57,7 @@ Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같�
 
 ```python
 import boto3
+
 payload = {        
     "prompt": txt,
     "width": 768,
@@ -72,12 +73,21 @@ response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='applicati
 
 ### RGB 이미지 데이터를 변환하여 S3에 업로드 하는 경우 
 
-SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 이미지를 S3에 저장하기 위해서는 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 합니다. 이때 [lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)의 코드는 아래와 같습니다. 
+SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 이미지 데이터는 JSON의 "Body"와 "generated_image"로 부터 추출한 후에, PIL(Pillow)와 numpy를 사용하여 이미지를 S3에 저장할 수 있도록 변환합니다. 이때 [lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)의 코드는 아래와 같습니다. 
 
 ```python
 from PIL import Image
 import numpy as np
 
+def parse_response(query_response):
+    """Parse response and return generated image and the prompt"""
+
+    response_dict = json.loads(query_response)
+    return response_dict["generated_image"], response_dict["prompt"]
+    
+response_payload = response['Body'].read().decode('utf-8')
+generated_image, prompt = parse_response(response_payload)
+        
 image = Image.fromarray(np.uint8(generated_image))
 buffer = io.BytesIO()
 image.save(buffer, "jpeg")
@@ -108,20 +118,16 @@ CMD ["lambda_function.lambda_handler"]
 
 ### JPEG로 encoding된 이미지를 S3에 업로드 하는 경우 
 
-Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다. 따라서 base64 decoding후 bite로 변환한후에 아래처럼 S3로 업로드 
-이때 base64 decoding후 bite로 변환한후에 아래처럼 S3로 합니다.
-이때 base64 decoding후 bite로 변환한후에 아래처럼 S3로  
-이때 base64 decoding후 bite로 변환한후에 아래처럼 S3로 바로 업로드 할 수 있어서, pillow, numpy 없이 구현할 수 있습니다. 
+Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다. 따라서 base64 decoding후 bite로 변환한후에 아래처럼 S3로 업로드 합니다. 
 
 ```java
-response_payload = response['Body'].read()
+response_payload = response['Body'].read().decode('utf-8')
 generated_image, prompt = parse_response(response_payload)
 
 import base64
 img_str = base64.b64decode(generated_image)
-
-image = io.BytesIO(img_str) 
-s3.upload_fileobj(image, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+buffer = io.BytesIO(img_str)  
+s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
 ```
 
 
