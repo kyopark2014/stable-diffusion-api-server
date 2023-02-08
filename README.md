@@ -29,12 +29,9 @@
 
 
 
+## SageMaker Endpoint에 대한 추론(Inference) 요청
 
-https://aws.amazon.com/ko/sdk-for-python/
-
-## Inference 요청
-
-Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
+Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
 
 ```java
 "ContentType": "application/json",
@@ -56,41 +53,64 @@ Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "Cont
 }
 ```
 
-## S3로 결과 업로드
+[lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)에서는 아래와 같이 요청을 수행합니다. Python의 [boto3](https://aws.amazon.com/ko/sdk-for-python/)을 이용해 SageMaker Endpoint에 응답을 전달하는데, ContentType은 "application/x-text"이고, Accept 헤더로는 "Accept='application/json" 또는 "Accept='application/json;jpeg"을 사용할 수 있습니다. 
+
+```python
+import boto3
+payload = {        
+    "prompt": txt,
+    "width": 768,
+    "height": 768,
+    "num_images_per_prompt": 1,
+    "num_inference_steps": 50,
+    "guidance_scale": 7.5,
+}
+
+runtime = boto3.Session().client('sagemaker-runtime')
+response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
+```
 
 ### RGB 이미지 데이터를 변환하여 S3에 업로드 하는 경우 
 
-SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 아래는 Endpoint에 Query시 응답의 예입니다. 이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 이때 Text 전달되는 RGB 이미지의 크기는 1.7MB인데 jpg로 저장하면 80kb정도의 크기를 가집니다. 
+SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 이미지를 S3에 저장하기 위해서는 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 합니다. 이때 [lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)의 코드는 아래와 같습니다. 
 
-
-
- 
-이미지를 S3에 저장하기 위해서는 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 합니다. 그런데, Lambda에서 pillow, numpy를 설치하면 에러가 발생하는데, 이는 layer를 추가하거나, docker container를 이용할 수 있습니다. 여기서는 layer를 추가하지 않고 Docker container를 이용하여 pillow, numpy를 사용합니다. 
-
-```java
+```python
 from PIL import Image
 import numpy as np
 
-response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
-
-s3 = boto3.client('s3')
 image = Image.fromarray(np.uint8(generated_image))
-
 buffer = io.BytesIO()
 image.save(buffer, "jpeg")
 buffer.seek(0)
             
+s3 = boto3.client('s3')
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+```
+
+그런데, Lambda에서 pillow, numpy를 "pip install --target=[lambda 폴더] pillow numpy"와 같이 설치하면 [layer를 추가](https://medium.com/@shimo164/lambda-layer-to-use-numpy-and-pandas-in-aws-lambda-function-8a0e040faa18)하여야 하므로, docker container를 이용하여 pillow, numpy와 같은 라이브러리를 사용합니다. 이때의 [Dockerfile](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/Dockerfile)의 예는 아래와 같습니다.
+
+```java
+FROM amazon/aws-lambda-python:3.8
+
+RUN pip3 install --upgrade pip
+RUN python -m pip install joblib awsiotsdk
+
+RUN pip install numpy pillow
+
+WORKDIR /var/task/lambda
+
+COPY lambda_function.py /var/task
+
+COPY . .
+
+CMD ["lambda_function.lambda_handler"]
 ```
 
 ### JPEG로 encoding된 이미지를 S3에 업로드 하는 경우 
 
-Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다.
-
-```java
-response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
-```
-
+Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다. 따라서 base64 decoding후 bite로 변환한후에 아래처럼 S3로 업로드 
+이때 base64 decoding후 bite로 변환한후에 아래처럼 S3로 합니다.
+이때 base64 decoding후 bite로 변환한후에 아래처럼 S3로  
 이때 base64 decoding후 bite로 변환한후에 아래처럼 S3로 바로 업로드 할 수 있어서, pillow, numpy 없이 구현할 수 있습니다. 
 
 ```java
