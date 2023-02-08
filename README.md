@@ -73,7 +73,7 @@ response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='applicati
 
 ### RGB 이미지 데이터를 변환하여 S3에 업로드 하는 경우 
 
-SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 이미지 데이터는 JSON의 "Body"와 "generated_image"로 부터 추출한 후에, PIL(Pillow)와 numpy를 사용하여 이미지를 S3에 저장할 수 있도록 변환합니다. 이때 [lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)의 코드는 아래와 같습니다. 
+SageMaker Endpoint에 query시에 Accept을 "application/json"으로 하는 경우에 RGB로 된 text데이터가 내려옵니다. 이미지 데이터는 JSON의 "Body"와 "generated_image"로 부터 추출한 후에, PIL(Pillow)과 numpy 라이브러리를 사용하여 S3에 저장할수 있는 바이너리 이미지 데이터로 변환합니다. 이때 [lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)의 코드는 아래와 같습니다. 
 
 ```python
 from PIL import Image
@@ -97,7 +97,7 @@ s3 = boto3.client('s3')
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 ```
 
-그런데, Lambda에서 pillow, numpy를 "pip install --target=[lambda 폴더] pillow numpy"와 같이 설치하면 [layer를 추가](https://medium.com/@shimo164/lambda-layer-to-use-numpy-and-pandas-in-aws-lambda-function-8a0e040faa18)하여야 하므로, docker container를 이용하여 pillow, numpy와 같은 라이브러리를 사용합니다. 이때의 [Dockerfile](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/Dockerfile)의 예는 아래와 같습니다.
+그런데, Lambda에서 pillow, numpy 라이브러리를 "pip install --target=[lambda 폴더] pillow numpy"와 같이 설치한후 압축해서 올리면 [layer를 추가](https://medium.com/@shimo164/lambda-layer-to-use-numpy-and-pandas-in-aws-lambda-function-8a0e040faa18)하여야 하므로, docker container를 이용하여 pillow, numpy와 같은 라이브러리를 사용할 수 있도록 합니다. 이때의 [Dockerfile](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/Dockerfile)의 예는 아래와 같습니다.
 
 ```java
 FROM amazon/aws-lambda-python:3.8
@@ -118,7 +118,7 @@ CMD ["lambda_function.lambda_handler"]
 
 ### JPEG로 encoding된 이미지를 S3에 업로드 하는 경우 
 
-Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 응답을 전달합니다. 따라서 base64 decoding후 bite로 변환한후에 아래처럼 S3로 업로드 합니다. 
+Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 JPEG 이미지를 전달합니다. 따라서 base64 decoding후 base64로 디코딩 후에 인메모리 바이너리 스트림으로 변경하여 S3로 업로드합니다. 
 
 ```java
 response_payload = response['Body'].read().decode('utf-8')
@@ -129,6 +129,7 @@ img_str = base64.b64decode(generated_image)
 buffer = io.BytesIO(img_str)  
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
 ```
+
 ## 인프라 배포
 
 [cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서는 CDK로 API Gateway, S3, Lambda, CloudFront를 정의하고 아래와 같이 필요한 라이브러리를 설치하고 배포를 수행합니다. 
