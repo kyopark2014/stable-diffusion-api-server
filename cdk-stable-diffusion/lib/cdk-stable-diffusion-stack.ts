@@ -14,7 +14,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     super(scope, id, props);
 
     const stage = "dev"; 
-    const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-08-13-35-10-148";
+    const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-08-13-53-49-534";
 
     // s3 deployment
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
