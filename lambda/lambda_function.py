@@ -63,7 +63,8 @@ def lambda_handler(event, context):
         print(prompt)
         
         img_str = base64.b64decode(generated_image)
-        buffer = io.BytesIO(img_str) 
+        from PIL import Image
+        buffer = Image.open(io.BytesIO(img_str))
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
                     
