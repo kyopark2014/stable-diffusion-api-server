@@ -68,3 +68,7 @@ Lambda에서 [Docker 사용시](https://github.com/kyopark2014/stable-diffusion-
 [Request Inferences from a Deployed Service (Boto3)](https://docs.aws.amazon.com/sagemaker/latest/dg/neo-requests-boto3.html)
 
 [Build and automatize the management of your Sagemaker Studio Users using AWS CDK!](https://github.com/comeddy/aws-cdk-sagemaker-studio)
+
+[CfnDomain - SageMaker](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnDomain.html)
+
+[SageMaker Studio Multi-Account VPC Deployment with AWS CDK Typescript](https://medium.com/@ramgvittal/sagemaker-studio-multi-account-vpc-deployment-with-aws-cdk-typescript-5813a78854f5)
