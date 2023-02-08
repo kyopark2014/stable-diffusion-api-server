@@ -14,6 +14,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     super(scope, id, props);
 
     const stage = "dev"; 
+    const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-08-13-35-10-148";
 
     // s3 deployment
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
@@ -70,7 +71,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       environment: {
         // bucket: "sagemaker-ap-northeast-2-677146750822",
         bucket: s3Bucket.bucketName,
-        endpoint: "jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268",
+        endpoint: endpoint,
         domain: distribution.domainName
       }
     }); 
