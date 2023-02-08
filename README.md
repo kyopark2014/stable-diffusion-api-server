@@ -152,7 +152,27 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 <img src="https://user-images.githubusercontent.com/52392004/217410742-7c3a9020-d62c-4b92-844e-44205c8dd143.png" width="500">
 
+## Examples
 
+- "cottage in impressionist style"
+
+![image](https://user-images.githubusercontent.com/52392004/217554332-8828d9d2-5ba4-4702-926b-32d92f068a47.png)
+
+- "a photo of an astronaut riding a horse on mars"
+
+![image](https://user-images.githubusercontent.com/52392004/217555375-c9fee220-10bd-4b7d-8234-10aa8510599e.png)
+
+- "a little girl standing on the side of a road holding a camera
+
+![image](https://user-images.githubusercontent.com/52392004/217556247-8f0cdc5d-95a4-465f-88a2-35599375f0d4.png)
+
+- "a giraffe crossing a road next to a car"
+
+![image](https://user-images.githubusercontent.com/52392004/217557158-d1752194-8ba5-43af-89ce-6194c9d563b6.png)
+
+- "a woman sitting on a bed reading a book"
+
+![image](https://user-images.githubusercontent.com/52392004/217557936-81d6467c-705a-4c63-81f9-6076fcd8d463.png)
 
 
 ## Reference
