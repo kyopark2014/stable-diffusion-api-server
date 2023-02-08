@@ -67,6 +67,12 @@ Lambda에서 Sagemaker Endpoint로 Inference 요청시에 아래와 같이 "Cont
 
 ## Output 
 
+### URL 확인
+
+URL은 CDK 실행화면에서 아래와 같이 확인할 수 있습니다. URL에 api이름인 "text2image"을 추가합니다.
+
+![noname](https://user-images.githubusercontent.com/52392004/217409596-04cdd2bd-1825-4aa4-b08f-7b747c48ff3e.png)
+
 ### Curl로 실행할 경우
 
 curl 명령어로 아래와 같이 실행해볼 수 있습니다. 
@@ -91,9 +97,6 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 <img src="https://user-images.githubusercontent.com/52392004/217409331-f291f28a-80ca-4f9d-a13c-528a91dc226b.png" width="800">
 
-URL은 CDK 실행화면에서 아래와 같이 확인할 수 있습니다. URL에 api이름인 "text2image"을 추가합니다.
-
-![noname](https://user-images.githubusercontent.com/52392004/217409596-04cdd2bd-1825-4aa4-b08f-7b747c48ff3e.png)
 
 [Body] - [raw] 에서 JSON 형태로 입력합니다. 
 
