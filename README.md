@@ -109,8 +109,8 @@ URL은 CDK 실행화면에서 아래와 같이 확인할 수 있습니다. URL�
 
 이후 [Sent]를 하면 아래와 같은 결과를 얻습니다. 
 
+<img src="https://user-images.githubusercontent.com/52392004/217410742-7c3a9020-d62c-4b92-844e-44205c8dd143.png" width="800">
 
-![image](https://user-images.githubusercontent.com/52392004/217410742-7c3a9020-d62c-4b92-844e-44205c8dd143.png)
 
 
 ## Troubleshooting: Accept 헤더
