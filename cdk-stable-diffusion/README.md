@@ -57,7 +57,7 @@ https://stackoverflow.com/questions/67553637/how-to-install-pillow-on-aws-lambda
 
 ### Docker Container를 이용하는 방법
 
-Lambda에서 Docker 사용시에 이 문제는 발생하지 않습니다. 여기서는 Docker를 이용하여 문제를 해결하였습니다. 
+Lambda에서 [Docker 사용시](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/Dockerfile)에 Pillow, Numpy 라이브러리 사용 문제가 발생하지 않습니다. 여기서는 Docker를 이용하여 문제를 해결하였습니다. 
 
 ## Reference 
 
