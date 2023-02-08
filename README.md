@@ -105,7 +105,7 @@ URL은 CDK 실행화면에서 아래와 같이 확인할 수 있습니다. URL�
 
 [Headers]에 아래와 같이 Conten-Type으로 application/json을 추가합니다.
 
-<img src="https://user-images.githubusercontent.com/52392004/217409986-97161517-34c7-49c1-af6e-c447e73c55d5.png" width="600">
+<img src="https://user-images.githubusercontent.com/52392004/217409986-97161517-34c7-49c1-af6e-c447e73c55d5.png" width="800">
 
 이후 [Sent]를 하면 아래와 같은 결과를 얻습니다. 
 
