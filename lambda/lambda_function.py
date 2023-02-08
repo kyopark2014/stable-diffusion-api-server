@@ -39,10 +39,8 @@ def lambda_handler(event, context):
             
     payload = {        
         "prompt": txt,
-        #"width": 768,
-        #"height": 768,
-        "width": 512,
-        "height": 512,
+        "width": 768,
+        "height": 768,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5
@@ -65,7 +63,7 @@ def lambda_handler(event, context):
         img_str = base64.b64decode(generated_image)
         buffer = io.BytesIO(img_str) 
 
-        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
+        s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
     return {
         'statusCode': statusCode,
