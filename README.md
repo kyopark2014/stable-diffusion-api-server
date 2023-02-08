@@ -10,34 +10,7 @@
 
 
 
-## Open API를 제공할때 JumpStart에서 제공하는 Stable Diffusion API의 문제점
 
-SageMaker의 JumpStart에서 제공하는 모델을 이용해 Enpoint를 구현하였을 경우에 Output의 형태는 아래와 같습니다. 이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 
-이미지는 압축되지 않고 전달되어 그림 사이즈는 1.7MB로 전달되는데 이를 압축하여 jpeg로 저장할 경우에 크기는 80KB로 줄어서 전송할 수 있습니다. 또한 해당 이미지를 공유한다면 client에서 RGB로 전달되는 데이터를 파일로 변환하여 다시 업로드를 하여야 하므로, URL로 결과를 얻고자 합니다. 
-
-
-
-또한, Text를 포함한 요청에 대한 응답은 RGB 이미지와 요청한 Prompt입니다. 
-
-
-```java
-{
-    "generated_image": [
-        [[221,145,108],[237,141,98],[249,154,111],..]
-        ...
-    ],
-    "prompt": "{
-        predictions":[{
-            "prompt": "astronaut on a horse", 
-            "width": 768, 
-            "height": 768,
-            "num_images_per_prompt": 1, 
-            "num_inference_steps": 50, 
-            "guidance_scale": 7.5
-        }]
-    }
-}
-```
 
 
 
@@ -116,9 +89,35 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 
 
-## Troubleshooting: Accept 헤더
+## Troubleshooting
 
-SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 이 경우에 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 S3에 업로드가 가능한데, Lambda에서 pillow, numpy사용시에 layer를 추가하거나, Docker Container를 이용할 수 있습니다.
+### Accept 헤더별 동작
+
+SageMaker Endpoint에 query시에 Accpet을 "application/json"으로 하는 경우에 RGB로된 text데이터가 내려옵니다. 아래는 Endpoint에 Query시 응답의 예입니다. 
+
+```java
+{
+    "generated_image": [
+        [[221,145,108],[237,141,98],[249,154,111],..]
+        ...
+    ],
+    "prompt": "{
+        predictions":[{
+            "prompt": "astronaut on a horse", 
+            "width": 768, 
+            "height": 768,
+            "num_images_per_prompt": 1, 
+            "num_inference_steps": 50, 
+            "guidance_scale": 7.5
+        }]
+    }
+}
+```
+
+이미지(generated_image)는 RGB의 형태의 배열로 제공되며, 이미지 생성에 사용되었던 prompt를 결과와 함께 전달합니다. 이때 Text 전달되는 RGB 이미지의 크기는 1.7MB인데 jpg로 저장하면 80kb정도의 크기를 가집니다. 
+
+
+이 경우에 PIL(Pillow)와 numpy를 사용하여 image로 변환하여야 S3에 업로드가 가능한데, Lambda에서 pillow, numpy사용시에 layer를 추가하거나, Docker Container를 이용할 수 있습니다.
 
 ```java
 from PIL import Image
