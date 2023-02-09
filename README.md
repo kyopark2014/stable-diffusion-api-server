@@ -2,7 +2,7 @@
 
 [Stable Diffusion](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/) 모델을 이용하면 텍스트를 이용하여 창조적인 이미지를 생성할 수 있습니다. Amazon에서는 [SageMaker JumpStart](https://aws.amazon.com/ko/sagemaker/jumpstart/?sagemaker-data-wrangler-whats-new.sort-by=item.additionalFields.postDateTime&sagemaker-data-wrangler-whats-new.sort-order=desc)을 이용하여 머신러닝(ML) 모델을 쉽게 사용할 수 있도록 사전학습(pre-trained)된 모델을 제공하고 있는데, 2022년 10월 부터 [Stable Diffusion](https://aws.amazon.com/ko/about-aws/whats-new/2022/11/sagemaker-jumpstart-stable-diffusion-bloom-models/) 모델을 추가적으로 제공하고 있습니다. 이를 통해 Stable Diffusion 이미지를 쉽게 생성할 수 있으며, 즉시 Serving할 수 있도록 SageMaker Endpoint도 제공합니다. SageMaker Endpoint는 트래픽이 증가할때는 자동으로 Scale out 하므로, 변동이 심한 트래픽에도 효율적으로 인프라를 유지할 수 있으며 IAM 기반의 강화된 보안을 제공하고 있습니다.
 
-아래에서는 SageMaker Endpoint로 Stable Diffusion 요청시 응답으로 얻어진 이미지에 대한 정보입니다. JSON 형태의 응답에는 "generated_image" 필드로 이미지 데이터를 전달 받습니다. 이를 클라이언트에서 활용하기 위해서는 이미지 포맷으로 변경하여야 합니다. 또한, SageMaker Endpoint에 질의하기 위해서는 IAM 인증을 하여야 하는데, 클라이언트가 이를 수행하기 위해서는 민감한 정보인 IAM Credential을 가지고 AWS SDK를 통해 API 요청을 수행하여야 합니다. 따라서 웹브라우저 또는 모바일앱에서는 IAM 인증 기반의 서비스를 제공하기 어렵습니다. 따라서 여기에서는 SageMaker Endpoint에 대한 IAM 인증 및 이미지 파일 변환을 위해 아래와 같이 API Gateway와 Lambda를 이용하여 수행합니다.
+아래는 SageMaker Endpoint로 Stable Diffusion 요청시에 얻어진 응답(Response)입니다. JSON 응답에는 "generated_image" 필드로 이미지 정보를 전달 받습니다. 이를 클라이언트에서 활용하기 위해서는 이미지 포맷으로 변경하여야 합니다. 또한, SageMaker Endpoint로 stable diffusion 이미지 생성을 요청(Request)할 때에는 IAM 인증을 하여야 하므로, 클라이언트는 민감한 정보인 IAM Credential을 가지고 있어야 하고, AWS SDK를 통해 API 요청을 수행하여야 합니다. 따라서 웹브라우저 또는 모바일앱에서는 IAM 인증 기반의 서비스를 제공하기 어렵습니다. 이와 같은 이유로 본 게시글에서는 SageMaker Endpoint에 대한 IAM 인증 및 이미지 파일 변환을 위해 API Gateway와 Lambda를 사용합니다. 
 
 ```java
 {
@@ -23,7 +23,7 @@
 }
 ```
 
-전체적인 Arhitecture는 아래와 같습니다. SageMaker는 Jumpstart로 제공되는 Stable Diffusion 모델을 가지고 있어서 입력된 텍스트로 부터 이미지를 생성할 수 있습니다. Lambda는 IAM 인증을 통해 SageMaker Enpoint로 사용자가 전달한 텍스트 정보를 전달하고, 생성된 이미지의 정보를 image map 형태로 얻습니다. 사용자가 쉽게 사용할 수 있도록 image map은 S3에 JPEG 포맷으로 저장되는데, CloudFront 도메인정보를 활용하여 이미지에 대한 URL을 생성합니다. API Gateway는 사용자의 요청을 Restful API로 받아서 Lambda에 사용자의 요청을 전달하고, Lambda가 생성한 URL 이미지 정보를 사용자에게 응답으로 전달합니다. 전체 서비스들의 배포는 [AWS CDK](https://aws.amazon.com/ko/cdk/)를 이용하고, docke container 이미지는 ECR로 관리합니다.
+전체적인 Arhitecture는 아래와 같습니다. SageMaker는 Jumpstart로 제공되는 Stable Diffusion 모델을 가지고 있어서 입력된 텍스트로 부터 이미지를 생성할 수 있습니다. Lambda는 IAM 인증을 통해 SageMaker Enpoint로 사용자가 전달한 텍스트 정보를 전달하고, 생성된 이미지의 정보를 image map 형태로 얻습니다. 사용자가 쉽게 사용할 수 있도록 image map은 S3에 JPEG 포맷으로 저장되는데, CloudFront 도메인정보를 활용하여 이미지에 대한 URL을 생성합니다. API Gateway는 사용자의 요청을 Restful API로 받아서 Lambda에 사용자의 요청을 전달하고, Lambda가 생성한 URL 이미지 정보를 사용자에게 응답으로 전달합니다. 전체 서비스들의 배포는 [AWS CDK](https://aws.amazon.com/ko/cdk/)를 이용하고, docke container 이미지는 [ECR](https://aws.amazon.com/ko/ecr/)로 관리합니다.
 
 <img src="https://user-images.githubusercontent.com/52392004/217674900-3693c261-7f96-42ab-bda7-e40df466b64f.png" width="800">
 
