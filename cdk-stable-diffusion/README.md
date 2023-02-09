@@ -71,4 +71,53 @@ Lambda에서 [Docker 사용시](https://github.com/kyopark2014/stable-diffusion-
 
 [CfnDomain - SageMaker](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnDomain.html)
 
+[class CfnDomain (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnDomain.html)
+
+[class CfnModel (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnModel.html)
+
 [SageMaker Studio Multi-Account VPC Deployment with AWS CDK Typescript](https://medium.com/@ramgvittal/sagemaker-studio-multi-account-vpc-deployment-with-aws-cdk-typescript-5813a78854f5)
+
+
+[Amazon SageMaker Studio - class CfnApp (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnApp.html)
+
+[EFS - class CfnAppImageConfig (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnAppImageConfig.html)
+
+[Git repository - class CfnCodeRepository (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnCodeRepository.html)
+
+[class CfnDataQualityJobDefinition (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnDataQualityJobDefinition.html)
+
+[class CfnDevice (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnDevice.html)
+
+[class CfnDeviceFleet (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnDeviceFleet.html)
+
+
+[class CfnEndpoint (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnEndpoint.html)
+
+[class CfnEndpointConfig (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnEndpointConfig.html)
+
+[class CfnFeatureGroup (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnFeatureGroup.html)
+
+[class CfnImage (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnImage.html)
+
+[class CfnImageVersion (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnImageVersion.html)
+
+[class CfnModelBiasJobDefinition (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnModelBiasJobDefinition.html)
+
+[class CfnModelExplainabilityJobDefinition (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnModelExplainabilityJobDefinition.html)
+
+[class CfnModelPackage (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnModelPackage.html)
+
+[class CfnModelPackageGroup (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnModelPackageGroup.html)
+
+[class CfnModelQualityJobDefinition (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnModelQualityJobDefinition.html)
+
+[class CfnMonitoringSchedule (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnMonitoringSchedule.html)
+
+[class CfnNotebookInstance (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnNotebookInstance.html)
+
+[class CfnPipeline (construct)](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnPipeline.html)
+
+[interface CfnAppProps](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-sagemaker.CfnAppProps.html)
+
+
+
