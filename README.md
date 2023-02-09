@@ -147,10 +147,6 @@ git clone https://github.com/kyopark2014/stable-diffusion-api-server
 
 
 
-
-
-![noname](https://user-images.githubusercontent.com/52392004/217753412-0341d237-2219-4157-8b9c-be18371406df.png)
-
 CDK 폴더(cdk-stable-diffusion)로 이동하여 "aws-cdk-lib"와 "path" 라이브러리를 npm으로 설치합니다. 여기서, "aws-cdk-lib"은 CDK 2.0 라이브러리를 의미합니다. 
 
 ```java
