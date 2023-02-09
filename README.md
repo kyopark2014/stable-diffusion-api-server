@@ -200,7 +200,7 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 ![image](https://user-images.githubusercontent.com/52392004/217555375-c9fee220-10bd-4b7d-8234-10aa8510599e.png)
 
-- "a little girl standing on the side of a road holding a camera
+- "a little girl standing on the side of a road holding a camera"
 
 ![image](https://user-images.githubusercontent.com/52392004/217556247-8f0cdc5d-95a4-465f-88a2-35599375f0d4.png)
 
