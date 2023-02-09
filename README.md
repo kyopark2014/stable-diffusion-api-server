@@ -125,11 +125,9 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 
 [Stable Diffusion Endpoint 생성](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/endpoint.md)에 따라 SageMaker JumpStart에서 Stable Diffusion Endpoint 생성합니다. 
 
-[cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서는 CDK로 API Gateway, S3, Lambda, CloudFront를 정의하고 아래와 같이 필요한 라이브러리를 설치하고 배포를 수행합니다. 
-
 ### 추론 인프라 구축하기 
 
-아래와 같이 관련 코드를 다운로드 합니다.
+추론을 위한 인프라에는 API Gateway, S3, Lambda, CloudFront가 있으며, AWS CDK로 배포합니다. 상세한 배포정보는 [cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)을 참조합니다. 인프라 배포를 위해서 아래와 같이 관련 코드를 다운로드 합니다.
 
 ```java
 git clone https://github.com/kyopark2014/stable-diffusion-api-server
