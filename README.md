@@ -159,7 +159,7 @@ cdk cdk-stable-diffusion && npm install -g aws-cdk-lib path
 cdk deploy
 ```
 
-CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 정보를 알 수 있습니다. "appUrl"은 API Gateway의 Invoke URL로서 클라이언트가 Stable Diffusion을 요청할 때 필요합니다. 아래 케이스에서는 “appUrl”이 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev” 입니다. 또한 Text를 이미지로 변환하는 API의 리소스(Resource)이름이"text2image"이므로, 클라이언트에서 API Gateway로 Stable Diffusion을 요청할 때 사용하는 URL은 https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image임을 알 수 있습니다. 
+CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 정보를 알 수 있습니다. "appUrl"은 API Gateway의 Invoke URL로서 클라이언트가 Stable Diffusion을 요청할 때 필요합니다. 아래 케이스에서는 “appUrl”이 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev” 입니다. 또한 Text를 이미지로 변환하는 API의 리소스(Resource)이름이 "text2image"이므로, 클라이언트에서 API Gateway로 Stable Diffusion을 요청할 때 사용하는 URL은 "https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image" 임을 알 수 있습니다. 
 
 
 ![noname](https://user-images.githubusercontent.com/52392004/217409596-04cdd2bd-1825-4aa4-b08f-7b747c48ff3e.png)
@@ -167,7 +167,7 @@ CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 
 
 ### Curl로 요청할 경우
 
-curl 명령어로 아래와 같이 실행할 수 있습니다. 여기서 curl이 접속하는 URL은 CDK Outputs의 “appUrl”과 리소스명인 “text2image”를 조합한 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image”입니다.
+curl 명령어로 아래와 같이 실행할 수 있습니다. 여기서 curl이 접속하는 URL은 CDK Outputs의 “appUrl”과 리소스명인 “text2image”를 조합한 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image” 입니다.
 
 
 ```java
