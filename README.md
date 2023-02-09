@@ -23,7 +23,7 @@
 }
 ```
 
-전체적인 Arhitecture는 아래와 같습니다. SageMaker는 JumpStart로 제공되는 Stable Diffusion 모델을 가지고 있어서 입력된 텍스트로 부터 이미지를 생성할 수 있습니다. Lambda는 IAM 인증을 통해 SageMaker Enpoint로 사용자가 전달한 텍스트 정보를 전달하고, 생성된 이미지의 정보를 image map 형태로 얻습니다. 사용자가 쉽게 사용할 수 있도록 image map은 S3에 JPEG 포맷으로 저장되는데, CloudFront 도메인정보를 활용하여 이미지에 대한 URL을 생성합니다. API Gateway는 사용자의 요청을 Restful API로 받아서 Lambda에 사용자의 요청을 전달하고, Lambda가 생성한 URL 이미지 정보를 사용자에게 응답으로 전달합니다. 전체 서비스들의 배포는 [AWS CDK](https://aws.amazon.com/ko/cdk/)를 이용하고, [docker container](https://docs.aws.amazon.com/ko_kr/AmazonECR/latest/userguide/docker-push-ecr-image.html) 이미지는 [ECR](https://aws.amazon.com/ko/ecr/)로 관리합니다.
+전체적인 Arhitecture는 아래와 같습니다. SageMaker는 JumpStart로 제공되는 Stable Diffusion 모델을 가지고 있어서 입력된 텍스트로 부터 이미지를 생성할 수 있습니다. Lambda는 IAM 인증을 통해 SageMaker Endpoint로 사용자가 전달한 텍스트 정보를 전달하고, 생성된 이미지의 정보를 image map 형태로 얻습니다. 사용자가 쉽게 사용할 수 있도록 image map은 S3에 JPEG 포맷으로 저장되는데, CloudFront 도메인 정보를 활용하여 이미지에 대한 URL을 생성합니다. API Gateway는 사용자의 요청을 Restful API로 받아서 Lambda에 사용자의 요청을 전달하고, Lambda가 생성한 URL 이미지 정보를 사용자에게 응답으로 전달합니다. 전체 서비스들의 배포는 [AWS CDK](https://aws.amazon.com/ko/cdk/)를 이용하고, [docker container 이미지는 ECR](https://docs.aws.amazon.com/ko_kr/AmazonECR/latest/userguide/docker-push-ecr-image.html)로 관리합니다.
 
 <img src="https://user-images.githubusercontent.com/52392004/217674900-3693c261-7f96-42ab-bda7-e40df466b64f.png" width="800">
 
