@@ -156,19 +156,19 @@ CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 
 
 ### Curl로 요청할 경우
 
-curl 명령어로 아래와 같이 실행해볼 수 있습니다. 
+curl 명령어로 아래와 같이 실행할 수 있습니다. 
 
 ```java
 curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
 ```
 
-이때의 결과의 예입니다.
+추론에 대한 결과의 예입니다. "body"에 추론의 결과로 생성된 이미지의 URL이 있습니다. 
 
 ```java
 {"statusCode": 200, "body": "https://d283dvdglbetjo.cloudfront.net/img_20230208-014926"}
 ```
 
-얻어진 이미지의 예입니다. 
+상기의 이미지 URL로 부터 얻어진 추론 결과입니다.
 
 ![image](https://user-images.githubusercontent.com/52392004/217674397-a1cf5a4f-285f-44a0-90be-18c6b30781b5.png)
 
@@ -192,11 +192,13 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 <img src="https://user-images.githubusercontent.com/52392004/217409986-97161517-34c7-49c1-af6e-c447e73c55d5.png" width="600">
 
-이후 [Sent]를 하면 아래와 같은 결과를 얻습니다. 
+이후 [Sent]를 선택하면 아래와 같은 결과를 얻습니다. 
 
 <img src="https://user-images.githubusercontent.com/52392004/217410742-7c3a9020-d62c-4b92-844e-44205c8dd143.png" width="500">
 
 ## Examples
+
+아래와 같이 입력하는 텍스트를 변경하면서 결과를 확인하여 보았습니다. 
 
 - "cottage in impressionist style"
 
@@ -217,6 +219,7 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 - "a woman sitting on a bed reading a book"
 
 ![image](https://user-images.githubusercontent.com/52392004/217557936-81d6467c-705a-4c63-81f9-6076fcd8d463.png)
+
 
 ## Reference
 
