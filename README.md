@@ -125,7 +125,16 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 
 ### 추론 인프라 구축하기 
 
-추론을 위한 인프라에는 API Gateway, S3, Lambda, CloudFront가 있으며, AWS CDK로 배포합니다. 상세한 배포정보는 [cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)을 참조합니다. 인프라 배포를 위해서 아래와 같이 관련 코드를 다운로드 합니다.
+추론을 위한 인프라에는 API Gateway, S3, Lambda, CloudFront가 있으며, AWS CDK로 배포합니다. 상세한 배포정보는 [cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)을 참조합니다. 
+Cloud9을 생성하기 위하여 Cloud9 console에서 [Create environment](https://ap-northeast-2.console.aws.amazon.com/cloud9control/home?region=ap-northeast-2#/)를 선택한 후에 아래처럼 Name을 입력합니다. 여기서는 "Stabel Diffusion"이라고 입력하였습니다. 이후 나머지는 모두 그대로 유지하고 [Create]를 선택합니다. 
+
+![noname](https://user-images.githubusercontent.com/52392004/217852338-d630b25c-fffc-4e4c-8254-2f4c7a4774c1.png)
+
+Cloud9이 생성된 후에 [Open]을 선택하여 진입한 후 아래처럼 터미널을 실행합니다.
+
+ ![image](https://user-images.githubusercontent.com/52392004/217853346-c2950931-37e0-4cd0-ac63-65a5f98ac93d.png)
+
+이후 아래와 같이 관련 코드를 다운로드 합니다.
 
 ```java
 git clone https://github.com/kyopark2014/stable-diffusion-api-server
