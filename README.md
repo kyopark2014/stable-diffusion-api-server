@@ -56,15 +56,6 @@ Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같�
 ```python
 import boto3
 
-payload = {        
-    "prompt": txt,
-    "width": 768,
-    "height": 768,
-    "num_images_per_prompt": 1,
-    "num_inference_steps": 50,
-    "guidance_scale": 7.5,
-}
-
 runtime = boto3.Session().client('sagemaker-runtime')
 response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
 ```
