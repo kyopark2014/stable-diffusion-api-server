@@ -109,7 +109,7 @@ CMD ["lambda_function.lambda_handler"]
 
 Accept헤더를 "application/json;jpeg"로 설정하면 SageMaker Endpoint가 base64로 encoding된 JPEG 이미지를 전달합니다. 따라서 base64 decoding 후에 인메모리 바이너리 스트림으로 변경하여 S3로 업로드합니다. 
 
-```java
+```python
 response_payload = response['Body'].read().decode('utf-8')
 generated_image, prompt = parse_response(response_payload)
 
