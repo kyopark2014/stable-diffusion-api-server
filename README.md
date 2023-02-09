@@ -190,7 +190,9 @@ const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       stageName: stage,
     },
 });
+
 const text2image = api.root.addResource('text2image');
+
 text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
     passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
     integrationResponses: [{
