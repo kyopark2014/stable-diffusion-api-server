@@ -35,7 +35,7 @@ SageMaker Endpoint로 JumpStart에서 제공한 Stable Diffusion 이미지 생�
 Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
 
 ```java
-"ContentType": "application/json",
+"ContentType": "application/x-text",
 "Accept": "application/json",
 ```
 
