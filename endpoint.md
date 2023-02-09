@@ -1,6 +1,6 @@
 # SageMaker JumpStart로 Stable Diffusion Endpoint 생성
 
-[SageMaker Console에 접속](https://ap-northeast-2.console.aws.amazon.com/sagemaker/home?region=ap-northeast-2#/studio/)에 접속합니다. 편의상 여기서는 서울 리전에서 모든 동작을 수행합니다. SageMaker Studio를 처음 실행하는 경우에는 [Create domain]을 선택합니다. 이후 아래처럼 Domain name을 입력하고 User profile과 Execution role은 기본값을 유지한 상태에서 [Submit]을 선택합니다. 여기서는 Doamin name으로 "MyStableDiffusion"을 입력하였습니다.
+SageMaker Studio를 처음 실행하는 경우이라면 [SageMaker Console에 접속](https://ap-northeast-2.console.aws.amazon.com/sagemaker/home?region=ap-northeast-2#/studio/)하여 [Create domain]을 선택합니다. 편의상 서울 리전에서 모든 동작을 수행합니다. 이후 아래처럼 Domain name을 입력하고 User profile과 Execution role은 기본값을 유지한 상태에서 [Submit]을 선택합니다. 여기서는 Doamin name으로 "MyStableDiffusion"을 입력하였습니다.
 
 ![noname](https://user-images.githubusercontent.com/52392004/217717253-08a486aa-2746-4e88-8142-7f5505bd657c.png)
 
