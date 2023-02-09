@@ -86,7 +86,7 @@ s3 = boto3.client('s3')
 s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={ "ContentType": "image/jpeg"})
 ```
 
-그런데, Lambda에서 pillow, numpy 라이브러리를 "pip install --target=[lambda 폴더] pillow numpy"와 같이 설치한후 압축해서 올리면 [layer를 추가](https://medium.com/@shimo164/lambda-layer-to-use-numpy-and-pandas-in-aws-lambda-function-8a0e040faa18)하여야 하므로, docker container를 이용하여 pillow, numpy와 같은 라이브러리를 사용할 수 있도록 합니다. 이때의 [Dockerfile](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/Dockerfile)의 예는 아래와 같습니다.
+그런데, Lambda에서 pillow, numpy 라이브러리를 "pip install --target=[lambda 폴더] pillow numpy"와 같이 설치한 후 압축해서 올리면 [layer를 추가](https://medium.com/@shimo164/lambda-layer-to-use-numpy-and-pandas-in-aws-lambda-function-8a0e040faa18)하여야 하므로, docker container를 이용하여 pillow, numpy와 같은 라이브러리를 사용할 수 있도록 합니다. 이때의 [Dockerfile](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/Dockerfile)의 예는 아래와 같습니다.
 
 ```java
 FROM amazon/aws-lambda-python:3.8
