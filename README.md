@@ -141,7 +141,8 @@ Cloud9이 생성된 후에 [Open]을 선택하여 진입한 후 아래처럼 터
 git clone https://github.com/kyopark2014/stable-diffusion-api-server
 ```
 
-인프라 생성시 SageMaker의 Endpoint 정보가 필요하므로, ["cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts"](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서 아래와 같이 이전 단계에서 복사한 Endpoint의 이름을 수정합니다. 
+인프라 생성시 SageMaker의 Endpoint 정보가 필요하므로, 아래와 같이 좌측 파일탐색기에서 ["cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts"](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)를 선택하여 이전 단계에서 복사한 Endpoint의 이름을 수정합니다.
+
 
 ![noname](https://user-images.githubusercontent.com/52392004/217868769-070a96ad-a4ff-45db-8a35-8b2675912bc2.png)
 
