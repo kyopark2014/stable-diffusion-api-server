@@ -167,7 +167,8 @@ CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 
 
 ### Curl로 요청할 경우
 
-curl 명령어로 아래와 같이 실행할 수 있습니다. 
+curl 명령어로 아래와 같이 실행할 수 있습니다. 여기서 curl이 접속하는 URL은 CDK Outputs의 “appUrl”과 리소스명인 “text2image”를 조합한 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image”입니다.
+
 
 ```java
 curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
