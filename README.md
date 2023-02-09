@@ -130,7 +130,7 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 
 ## 인프라 배포
 
-### Stable Diffusion Endpoint 생성
+### Stable Diffusion을 위한 SageMaker Endpoint 생성
 
 [Stable Diffusion Endpoint 생성](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/endpoint.md)에 따라 SageMaker JumpStart에서 Stable Diffusion Endpoint 생성합니다. 
 
@@ -144,16 +144,17 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 git clone https://github.com/kyopark2014/stable-diffusion-api-server
 ```
 
-인프라 
+인프라 생성시 SageMaker의 Endpoint 정보가 필요하므로, ["cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts"](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서 아래와 같이 이전 단계에서 복사한 Endpoint의 이름을 수정합니다. 
 
+![noname](https://user-images.githubusercontent.com/52392004/217753412-0341d237-2219-4157-8b9c-be18371406df.png)
 
-CDK 폴더로 이동하여 CDK 2.0 라이브러리인 "aws-cdk-lib"와 Path와 관련 "path" 라이브러리를 npm으로 설치합니다. 
+CDK 폴더(cdk-stable-diffusion)로 이동하여 "aws-cdk-lib"와 "path" 라이브러리를 npm으로 설치합니다. 여기서, "aws-cdk-lib"은 CDK 2.0 라이브러리를 의미합니다. 
 
 ```java
 cdk cdk-stable-diffusion && npm install -g aws-cdk-lib path
 ```
 
-전체 인프라를 아래와 같이 CDK로 생성합니다. 
+아래 명령어로 전체 인프라를 설치합니다.
 
 ```java
 cdk deploy
