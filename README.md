@@ -144,6 +144,9 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 git clone https://github.com/kyopark2014/stable-diffusion-api-server
 ```
 
+인프라 
+
+
 CDK 폴더로 이동하여 CDK 2.0 라이브러리인 "aws-cdk-lib"와 Path와 관련 "path" 라이브러리를 npm으로 설치합니다. 
 
 ```java
