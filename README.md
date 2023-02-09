@@ -27,12 +27,7 @@
 
 <img src="https://user-images.githubusercontent.com/52392004/217674900-3693c261-7f96-42ab-bda7-e40df466b64f.png" width="800">
 
-## Stable Diffusion Endpoint 생성
-
-[Stable Diffusion Endpoint 생성](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/endpoint.md)에 따라 SageMaker JumpStart에서 Stable Diffusion Endpoint 생성합니다. 
-
-
-## SageMaker Endpoint에 대한 추론(Inference) 요청
+## SageMaker Endpoint에 대한 추론(Inference) 요청 방법
 
 Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
 
@@ -135,23 +130,38 @@ s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg
 
 ## 인프라 배포
 
+### Stable Diffusion Endpoint 생성
+
+[Stable Diffusion Endpoint 생성](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/endpoint.md)에 따라 SageMaker JumpStart에서 Stable Diffusion Endpoint 생성합니다. 
+
 [cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서는 CDK로 API Gateway, S3, Lambda, CloudFront를 정의하고 아래와 같이 필요한 라이브러리를 설치하고 배포를 수행합니다. 
 
+### 추론 인프라 구축하기 
+
+아래와 같이 관련 코드를 다운로드 합니다.
+
 ```java
-cdk cdk-stable-diffusion && npm install 
-npm install -g aws-cdk-lib path
+git clone https://github.com/kyopark2014/stable-diffusion-api-server
+```
+
+CDK 폴더로 이동하여 CDK 2.0 라이브러리인 "aws-cdk-lib"와 Path와 관련 "path" 라이브러리를 npm으로 설치합니다. 
+
+```java
+cdk cdk-stable-diffusion && npm install -g aws-cdk-lib path
+```
+
+전체 인프라를 아래와 같이 CDK로 생성합니다. 
+
+```java
 cdk deploy
 ```
 
-## 결과 확인  
-
-### URL 확인
-
-URL은 CDK 실행화면에서 아래와 같이 확인할 수 있습니다. URL에 api이름인 "text2image"을 추가합니다.
+CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 정보를 알 수 있습니다. "appUrl"은 API Gateway의 Invoke URL로서 클라이언트가 Stable Diffusion을 요청할때 필요합니다. 또한 Text를 이미지로 변환하는 API의 리소스(Resource)가 "text2image"이므로, 전체 URL은 "https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image"입니다.
 
 ![noname](https://user-images.githubusercontent.com/52392004/217409596-04cdd2bd-1825-4aa4-b08f-7b747c48ff3e.png)
 
-### Curl로 실행할 경우
+
+### Curl로 요청할 경우
 
 curl 명령어로 아래와 같이 실행해볼 수 있습니다. 
 
