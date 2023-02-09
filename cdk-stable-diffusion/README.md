@@ -61,6 +61,8 @@ Lambda에서 [Docker 사용시](https://github.com/kyopark2014/stable-diffusion-
 
 ## Reference 
 
+[Automate provisioning of Sagemaker Notebooks using the AWS CDK](https://dev.to/cremich/automate-provisioning-of-sagemaker-notebooks-using-the-aws-cdk-3p4l)
+
 [Amazon SageMaker Model Serving using AWS CDK](https://github.com/aws-samples/amazon-sagemaker-model-serving-using-aws-cdk)
 
 [Deploying SageMaker Endpoints With CloudFormation](https://towardsdatascience.com/deploying-sagemaker-endpoints-with-cloudformation-b43f7d495640)
