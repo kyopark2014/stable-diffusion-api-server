@@ -166,7 +166,9 @@ const mlLambda = new lambda.DockerImageFunction(this, "lambda-stable-diffusion",
         domain: distribution.domainName
     }
 }); 
+
 s3Bucket.grantReadWrite(mlLambda);
+
 const SageMakerPolicy = new iam.PolicyStatement({
     actions: ['sagemaker:*'],
     resources: ['*'],
