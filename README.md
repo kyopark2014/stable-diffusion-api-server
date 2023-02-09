@@ -223,7 +223,7 @@ new cdk.CfnOutput(this, 'apiUrl', {
 
 [Stable Diffusion Endpoint 생성](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/endpoint.md)에 따라 SageMaker JumpStart에서 Stable Diffusion Endpoint 생성합니다. 
 
-### 추론 인프라 구축하기 
+### CDK로 추론 인프라 구축하기 
 
 추론을 위한 인프라에는 API Gateway, S3, Lambda, CloudFront가 있으며, AWS CDK로 배포합니다. 상세한 배포정보는 [cdk-stable-diffusion-stack.ts](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)을 참조합니다. 
 Cloud9을 생성하기 위하여 Cloud9 console에서 [Create environment](https://ap-northeast-2.console.aws.amazon.com/cloud9control/home?region=ap-northeast-2#/)를 선택한 후에 아래처럼 Name을 입력합니다. 여기서는 "Stabel Diffusion"이라고 입력하였습니다. 이후 나머지는 모두 그대로 유지하고 [Create]를 선택합니다. 
