@@ -213,7 +213,6 @@ new cdk.CfnOutput(this, 'apiUrl', {
     value: api.url,
     description: 'The url of API Gateway',
 });
-![image](https://user-images.githubusercontent.com/52392004/217956188-05112522-9952-477a-aed3-9df13a0b8b65.png)
 ```
 
 
