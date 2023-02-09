@@ -27,7 +27,7 @@
 
 <img src="https://user-images.githubusercontent.com/52392004/217674900-3693c261-7f96-42ab-bda7-e40df466b64f.png" width="800">
 
-## SageMaker Endpoint로 추론(Inference) 요청 방법
+## SageMaker Endpoint로 추론(Inference)을 요청 방법
 
 Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
 
