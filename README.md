@@ -27,6 +27,20 @@
 
 <img src="https://user-images.githubusercontent.com/52392004/217674900-3693c261-7f96-42ab-bda7-e40df466b64f.png" width="800">
 
+## SageMaker JumpStart로 Stable Diffusion Endpoint 생성
+
+[SageMaker Console에 접속](https://ap-northeast-2.console.aws.amazon.com/sagemaker/home?region=ap-northeast-2#/studio/)에 접속합니다. 편의상 여기서는 서울 리전에서 모든 동작을 수행합니다. SageMaker Studio를 처음 실행하는 경우에는 [Create domain]을 선택합니다. 이후 아래처럼 Domain name을 입력하고 User profile과 Execution role은 기본값을 유지한 상태에서 [Submit]을 선택합니다. 
+
+![noname](https://user-images.githubusercontent.com/52392004/217717253-08a486aa-2746-4e88-8142-7f5505bd657c.png)
+
+이후 아래처럼 VPC와 Subnet을 생성합니다. 
+
+![noname](https://user-images.githubusercontent.com/52392004/217717601-94b9fc9a-7a93-4824-bfe5-b9b6504e8fe5.png)
+
+
+
+
+
 
 
 ## SageMaker Endpoint에 대한 추론(Inference) 요청
