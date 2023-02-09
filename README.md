@@ -143,6 +143,10 @@ git clone https://github.com/kyopark2014/stable-diffusion-api-server
 
 인프라 생성시 SageMaker의 Endpoint 정보가 필요하므로, ["cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts"](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/cdk-stable-diffusion/lib/cdk-stable-diffusion-stack.ts)에서 아래와 같이 이전 단계에서 복사한 Endpoint의 이름을 수정합니다. 
 
+![noname](https://user-images.githubusercontent.com/52392004/217868769-070a96ad-a4ff-45db-8a35-8b2675912bc2.png)
+
+
+
 
 
 ![noname](https://user-images.githubusercontent.com/52392004/217753412-0341d237-2219-4157-8b9c-be18371406df.png)
