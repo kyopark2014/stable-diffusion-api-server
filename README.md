@@ -4,6 +4,7 @@
 
 아래는 SageMaker Endpoint로 JumpStart의 Stable Diffusion을 요청시에 얻어진 응답(Response)의 예입니다. JSON 응답에는 "generated_image" 필드로 이미지의 RGB 정보를 전달합니다. 이를 클라이언트에서 활용하기 위해서는 이미지 포맷으로 변경하여야 합니다. 또한, SageMaker Endpoint로 Stable Diffusion 이미지 생성을 요청(Request)할 때에는 IAM 인증을 하여야 하므로, 클라이언트는 민감한 정보인 IAM Credential을 가지고 있어야 하고, [AWS SDK](https://aws.amazon.com/ko/sdk-for-python/)를 통해 API 요청을 수행하여야 합니다. 따라서 웹브라우저 또는 모바일앱에서는 IAM 인증 기반의 서비스를 제공하기 어렵습니다. 이와 같은 이유로 본 게시글에서는 SageMaker Endpoint에 대한 IAM 인증 및 이미지 파일 변환을 위해 API Gateway와 Lambda를 사용합니다. 
 
+
 ```java
 {
     "generated_image": [
@@ -237,6 +238,9 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 ![image](https://user-images.githubusercontent.com/52392004/217809108-e8886c0c-e240-432a-8adc-3ec2b24759a8.png)
 
+- "I see skies of blue. And clouds of white. The bright blessed dayThe dark sacred night. And I think to myself. What a wonderful world" (Louis Armstrong's What a Wonderful World song!)
+
+![img_20230209-080037](https://user-images.githubusercontent.com/52392004/217871789-75e9faa6-ad98-497b-b2de-de07de4a15d4.jpeg)
 
 
 ## Reference
