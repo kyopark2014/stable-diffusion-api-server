@@ -36,7 +36,7 @@ Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같�
 "Accept": "application/json",
 ```
 
-이때 Request의 Body에는 아래 포맷으로 Stable Diffusion에 필요한 정보를 전달합니다. width, height를 이미지의 크기를 지정하는데 8로 나눌수 있는 숫자를 입력하여야 합니다. num_images_per_prompt은 한번에 생성되는 이미지의 갯수이고, num_inference_steps는 이미지 생성시 denosing의 단계를 의미하는데 숫자를 높이면 더 높은 품질의 이미지를 얻을 수 있습니다. guidance_scale은 prompt에 가까운 정보를 1보다 작은값으로 표현합니다. 
+이때 Request의 Body에는 아래 포맷으로 Stable Diffusion에 필요한 정보를 전달합니다. width, height로 이미지의 크기를 지정하는데 8로 나눌 수 있어야 합니다.  num_images_per_prompt은 한번에 생성되는 이미지의 갯수이고, num_inference_steps는 이미지 생성시 [denoising 단계](https://cvpr2022-tutorial-diffusion-models.github.io/)를 의미하는데 숫자를 높이면 더 높은 품질의 이미지를 얻을 수 있습니다. guidance_scale은 prompt에 가까운 정보를 1보다 작은값으로 표현합니다. 
 
 ```java
 {
