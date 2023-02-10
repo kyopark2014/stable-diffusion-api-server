@@ -1,4 +1,107 @@
-# CDK로 인프라 설치하기 
+# CDK 구현하기
+
+## CDK Deployment Preparation
+
+여기서는 Typescript를 이용하여 CDK 배포 준비를 합니다. 
+
+S3 bucket을 아래와 같이 생성합니다. bucketName로 Bucket 이름을 지정할 수 있습니다. 
+
+```java
+const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
+    // bucketName: bucketName,
+    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+    removalPolicy: cdk.RemovalPolicy.DESTROY,
+    autoDeleteObjects: true,
+    publicReadAccess: false,
+    versioned: false,
+});
+```
+
+CloudFront를 생성합니다. 여기서 CloudFront의 Origin은 생성한 S3 Bucket로 지정합니다. 
+
+```java
+const distribution = new cloudFront.Distribution(this, 'cloudfront', {
+    defaultBehavior: {
+      origin: new origins.S3Origin(s3Bucket),
+      allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,
+      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    },
+    priceClass: cloudFront.PriceClass.PRICE_CLASS_200,  
+});
+```
+
+“lambda-stable-diffusion” 이름을 가지는 Lambda를 docker container 환경으로 생성합니다. Lambda가 S3 Bucket에 대한 Read/Write 속성 및 SageMaker에 대한 권한을 가지도록 설정합니다. 
+
+```java
+const mlLambda = new lambda.DockerImageFunction(this, "lambda-stable-diffusion", {
+    description: 'lambda function for stable diffusion',
+    functionName: 'lambda-stable-diffusion',
+    memorySize: 512,
+    code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda')),
+    timeout: cdk.Duration.seconds(60),
+    environment: {
+        bucket: s3Bucket.bucketName,
+        endpoint: endpoint,
+        domain: distribution.domainName
+    }
+}); 
+
+s3Bucket.grantReadWrite(mlLambda);
+
+const SageMakerPolicy = new iam.PolicyStatement({
+    actions: ['sagemaker:*'],
+    resources: ['*'],
+});
+mlLambda.role?.attachInlinePolicy(
+    new iam.Policy(this, 'sagemaker-policy', {
+        statements: [SageMakerPolicy],
+    }),
+);
+```
+
+API Gateway와 리소스로 “text2image”를 생성한 후에 POST method를 설정합니다. 
+
+```java
+const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
+    endpointTypes: [apiGateway.EndpointType.REGIONAL],
+    binaryMediaTypes: ['*/*'], 
+    deployOptions: {
+      stageName: stage,
+    },
+});
+
+const text2image = api.root.addResource('text2image');
+
+text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
+    passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
+    integrationResponses: [{
+      statusCode: '200',
+    }], 
+    proxy:false, 
+}), {
+    methodResponses: [{
+        statusCode: '200',
+        responseModels: {
+          'application/json': apiGateway.Model.EMPTY_MODEL,
+        }, 
+      }
+    ]
+});
+```
+
+API Gateway의 Invoke URL을 아래와 같이 확인합니다. 이 정보는 [API Gateway Console](https://ap-northeast-2.console.aws.amazon.com/apigateway/main/apis?region=ap-northeast-2)에서도 확인할 수 있습니다. 
+
+```java
+new cdk.CfnOutput(this, 'apiUrl', {
+    value: api.url,
+    description: 'The url of API Gateway',
+});
+```
+
+
+
+## CDK로 인프라 설치하기 
 
 AWS CDK Library를 아래와 같이 실행합니다. 
 
