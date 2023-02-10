@@ -12,9 +12,10 @@ SageMaker Studio를 처음 실행하는 경우이라면 [SageMaker Console에 �
 
 ![noname](https://user-images.githubusercontent.com/52392004/217718224-6bc40589-33a6-459d-b015-d824ad67e0cd.png)
 
-다시 [SageMaker Studio Console](https://ap-northeast-2.console.aws.amazon.com/sagemaker/home?region=ap-northeast-2#/studio-landing)에서 "MyStableDiffusion"을 [Open Studio]를 선택합니다. 이후 아래처럼 [Quick start solutions]를 선택합니다. 
+다시 [SageMaker Studio Console](https://ap-northeast-2.console.aws.amazon.com/sagemaker/home?region=ap-northeast-2#/studio-landing)에서 "MyStableDiffusion"을 [Open Studio]를 선택합니다. 이후 아래처럼 [JumpStart]를 선택합니다. 
 
-![noname](https://user-images.githubusercontent.com/52392004/217719068-cd0740ea-77c6-496a-9c13-a59b252d7ad9.png)
+![noname](https://user-images.githubusercontent.com/52392004/218072014-28a5d530-2fc8-4d23-ad57-ab99d449b499.png)
+
 
 아래처럼 [Stable Diffusion 2.1 base]를 선택합니다. 만약 화면에 보이지 않는 경우에 [Search]에서 "Stable Diffusion"을 입력하여 선택합니다. 
 
