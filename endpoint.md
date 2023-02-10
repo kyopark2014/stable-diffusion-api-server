@@ -24,7 +24,7 @@ SageMaker Studio를 처음 실행하는 경우이라면 [SageMaker Console에 �
 
 ![noname](https://user-images.githubusercontent.com/52392004/217719762-24f63090-8aad-4c44-8f56-4decb8bc20fa.png)
 
-"Introduction to JumpStart - Text to Image"이 오픈되면 아래로 스크롤해서 “Clean up the endpoint”를 주석처리 합니다. ![image](https://user-images.githubusercontent.com/52392004/218052949-a3de1da6-94b8-4d39-b117-521668a7691a.png)
+"Introduction to JumpStart - Text to Image"이 오픈되면 아래로 스크롤해서 “Clean up the endpoint”를 주석처리 합니다. 
 
 ![noname](https://user-images.githubusercontent.com/52392004/218053016-3163d02a-3720-4b03-aa39-92a3e276abea.png)
 
