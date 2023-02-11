@@ -185,10 +185,16 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
 
     // define template
-    const templateString: string = `#set($inputRoot = $input.path('$'))
-    {
+    //const templateString: string = `#set($inputRoot = $input.path('$'))
+    const templateString: string = `{
         "prompt": "$input.params('prompt')"
     }`;
+
+    //{
+    //  "location": "$input.params('location')"
+    //}
+
+    
     const requestTemplates = { // path through
       'application/json': templateString,
     }; 
