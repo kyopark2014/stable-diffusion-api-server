@@ -8,33 +8,22 @@ import base64
 s3 = boto3.client('s3')
 
 def parse_response(query_response):
-    """Parse response and return generated image and the prompt"""
-
     response_dict = json.loads(query_response)
     return response_dict["generated_image"], response_dict["prompt"]
     
 def lambda_handler(event, context):
     print('event: ', event)
 
-    prompt = event['prompt']
-    #url = "https://d33utfd3ht9ow.cloudfront.net/img_20230211-030241.jpeg"
-    #response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
-    
-    #return response
+    # txt = "astronaut on a horse",            
+    txt = event['prompt']
+    print("text: ", txt)
 
-    # prompt = "astronaut on a horse",        
-    # prompt = event['text']
-    print("text: ", prompt)
-
-    #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     endpoint = os.environ.get('endpoint')
     print("endpoint: ", endpoint)
 
-    #mybucket = 'sagemaker-ap-northeast-2-677146750822'
     mybucket = os.environ.get('bucket')
     print("bucket: ", mybucket)
 
-    #mykey = 'output/filename.jpeg'
     mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  # output/img_20230207-152043.jpeg
     print('key: ', mykey)
 
@@ -44,7 +33,7 @@ def lambda_handler(event, context):
     print("url: ", url)
             
     payload = {        
-        "prompt": prompt,
+        "prompt": txt,
         "width": 768,
         "height": 768,
         "num_images_per_prompt": 1,
@@ -62,7 +51,7 @@ def lambda_handler(event, context):
         response_payload = response['Body'].read().decode('utf-8')
         generated_image, prompt = parse_response(response_payload)
 
-        print(response_payload)
+        #print(response_payload)
         #print(generated_image)
         print(prompt)
         
@@ -71,15 +60,7 @@ def lambda_handler(event, context):
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
-    #return '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
-    #prompt = "a rose"
-
-    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+txt+'</p><img src='+url+'></body></html>'
     print(response)
 
     return response
-
-    #url = "https://d3di2wp8w2gc8q.cloudfront.net/img_20230210-182309.jpeg"
-    #response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
-    
-    #return response
