@@ -210,6 +210,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       description: 'The url of API Gateway',
     }); 
 
+    new cdk.CfnOutput(this, 'curlUrl', {
+      value: "curl -X POST "+api.url+'text2image -H "Content-Type: application/json" -d \'{"text":"a lonely rose"}\'',
+      description: 'The url of API Gateway',
+    }); 
 
 
     // lambda for web
