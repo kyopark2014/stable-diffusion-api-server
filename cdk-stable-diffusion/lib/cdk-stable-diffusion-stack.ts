@@ -95,7 +95,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
     
     // API Gateway
-    const logGroup = new logs.LogGroup(this, 'AccessLogs', {
+  /*  const logGroup = new logs.LogGroup(this, 'AccessLogs', {
       retention: 90, // Keep logs for 90 days
       logGroupName: 'api-gateway'
     });
@@ -118,7 +118,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       description: 'API Gateway',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['*/*'], 
       deployOptions: {
         stageName: stage,
         accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
@@ -164,7 +163,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // Lambda for stable diffusion for web
-  /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
       memorySize: 512,
