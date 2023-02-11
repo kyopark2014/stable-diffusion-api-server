@@ -184,7 +184,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     );    
     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
 
-
     // define template
     const templateString: string = `#set($inputRoot = $input.path('$'))
     {
@@ -195,7 +194,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      //requestTemplates: requestTemplates,
+      requestTemplates: requestTemplates,
       credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
