@@ -77,4 +77,4 @@ def lambda_handler(event, context):
     response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
     
     return response
-""""    
+"""
