@@ -185,16 +185,22 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     );    
     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
     
+    function requestTemplate() {
+      const statements = [`{
+          "prompt": "$input.params('prompt')"
+      }`];
+      return statements.join('\n');
+    }
     // GET method
-    const templateString: string = `{
-      "prompt": "$input.params('prompt')"
-    }`;   
+    //const templateString: string = `{
+    //  "prompt": "$input.params('prompt')"
+    //}`;   
     //const requestTemplates = { 
     //  'application/json': templateString,
     //}; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      //requestTemplates: requestTemplates,
+      //requestTemplates: requestTemplates(),
       requestTemplates: {
         'application/json': `{
           "prompt": "$input.params('prompt')"
