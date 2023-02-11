@@ -16,13 +16,6 @@ def parse_response(query_response):
 def lambda_handler(event, context):
     print(event)
 
-    prompt = "a rose"
-    url = "https://d3di2wp8w2gc8q.cloudfront.net/img_20230210-182309.jpeg"
-    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
-    
-    return response
-
-""""
     # txt = "astronaut on a horse",        
     txt = event['text']
     print("text: ", txt)
@@ -76,4 +69,3 @@ def lambda_handler(event, context):
         'statusCode': statusCode,
         'body': url
     }
-"""

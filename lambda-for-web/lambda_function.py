@@ -66,3 +66,8 @@ def lambda_handler(event, context):
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
     return '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    prompt = "a rose"
+    url = "https://d3di2wp8w2gc8q.cloudfront.net/img_20230210-182309.jpeg"
+    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    
+    return response
