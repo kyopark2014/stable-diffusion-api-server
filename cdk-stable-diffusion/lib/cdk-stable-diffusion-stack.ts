@@ -176,6 +176,9 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       //requestTemplates: {
       //  'application/json': requestTemplate(),
       //},
+      requestTemplates: {
+        'application/json': '{ "statusCode": 200 }',
+      },
       credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
