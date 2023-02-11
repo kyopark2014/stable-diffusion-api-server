@@ -97,6 +97,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     // API Gateway
     const logGroup = new logs.LogGroup(this, 'AccessLogs', {
       retention: 90, // Keep logs for 90 days
+      logGroupName: 'api-gateway'
     });
     logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
 
