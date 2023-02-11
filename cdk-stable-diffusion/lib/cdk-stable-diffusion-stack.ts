@@ -214,7 +214,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
     // lambda for web
     // define template
-    const templateString: string = `#set($inputRoot = $input.path('$'))
+  /*  const templateString: string = `#set($inputRoot = $input.path('$'))
     {
         "prompt": "$input.params('prompt')"
     }`;
@@ -243,14 +243,14 @@ export class CdkStableDiffusionStack extends cdk.Stack {
           }, 
         }
       ]
-    });
+    }); */
 
     // query url of "status" api
-    let prompt = 'a rose'; // example 
+    let prompt = 'rose'; // example 
     new cdk.CfnOutput(this, 'QueryUrl', {
       value: api.url+'/text2image?prompt='+prompt,
       description: 'example query url of API',
-    });
+    }); 
 
 
 
