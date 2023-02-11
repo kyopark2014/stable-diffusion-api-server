@@ -115,9 +115,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // API Gateway
-  /*  const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
+    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       description: 'API Gateway',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
+      binaryMediaTypes: ['*/*'],
       deployOptions: {
         stageName: stage,
         accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
@@ -188,12 +189,17 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const templateString: string = `{
       "prompt": "$input.params('prompt')"
     }`;   
-    const requestTemplates = { // path through
-      'application/json': templateString,
-    }; 
+    //const requestTemplates = { 
+    //  'application/json': templateString,
+    //}; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      requestTemplates: requestTemplates,
+      //requestTemplates: requestTemplates,
+      requestTemplates: {
+        'application/json': `{
+          "prompt": "$input.params('prompt')"
+        }`,
+      },
       credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
@@ -218,6 +224,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url',
-    }); */
+    }); 
   }
 }
