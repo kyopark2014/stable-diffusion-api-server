@@ -17,13 +17,13 @@ def lambda_handler(event, context):
     print('event: ', event)
 
     prompt = event['prompt']
-    url = "https://d33utfd3ht9ow.cloudfront.net/img_20230211-030241.jpeg"
-    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    #url = "https://d33utfd3ht9ow.cloudfront.net/img_20230211-030241.jpeg"
+    #response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
     
-    return response
-""""
-    # txt = "astronaut on a horse",        
-    prompt = event['text']
+    #return response
+
+    # prompt = "astronaut on a horse",        
+    # prompt = event['text']
     print("text: ", prompt)
 
     #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
@@ -71,10 +71,15 @@ def lambda_handler(event, context):
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
-    return '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
-    prompt = "a rose"
-    url = "https://d3di2wp8w2gc8q.cloudfront.net/img_20230210-182309.jpeg"
+    #return '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    #prompt = "a rose"
+
     response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
-    
+    print(response)
+
     return response
-"""
+
+    #url = "https://d3di2wp8w2gc8q.cloudfront.net/img_20230210-182309.jpeg"
+    #response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    
+    #return response
