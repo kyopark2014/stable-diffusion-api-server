@@ -224,7 +224,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-    //  requestTemplates: requestTemplates,
+      requestTemplates: requestTemplates,
       credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
@@ -246,9 +246,9 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
     // query url of "status" api
     let prompt = "astronaut on a horse"; // example 
-    new cdk.CfnOutput(this, 'QueryUrl', {
+    new cdk.CfnOutput(this, 'WebQueryUrl', {
       value: api.url+'/text2image?prompt="'+prompt+'"',
-      description: 'Query url of API',
+      description: 'Web query url of API',
     }); 
   }
 }
