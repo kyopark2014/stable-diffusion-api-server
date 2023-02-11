@@ -27,7 +27,6 @@ def lambda_handler(event, context):
     mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  # output/img_20230207-152043.jpeg
     print('key: ', mykey)
 
-    #url
     domain = os.environ.get('domain')
     url = "https://"+domain+'/'+mykey
     print("url: ", url)

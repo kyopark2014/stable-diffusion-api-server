@@ -118,6 +118,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       description: 'API Gateway',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
+      binaryMediaTypes: ['*/*'],
       deployOptions: {
         stageName: stage,
         accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
@@ -135,6 +136,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       },
     });  
 
+    // POST method
     const text2image = api.root.addResource('text2image');
     text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
@@ -183,12 +185,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     );    
     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
 
-    // define template
-    //const templateString: string = `#set($inputRoot = $input.path('$'))
+    // GET method
     const templateString: string = `{
       "prompt": "$input.params('prompt')"
-    }`;
-    
+    }`;   
     const requestTemplates = { // path through
       'application/json': templateString,
     }; 
@@ -214,11 +214,11 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       ]
     }); 
 
-    // Web url of "status" api
+    // Web url of stable diffusion
     let prompt = "astronaut"; // example 
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
-      description: 'Web url of API',
+      description: 'Web url',
     }); 
   }
 }
