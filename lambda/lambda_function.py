@@ -56,7 +56,7 @@ def lambda_handler(event, context):
         response_payload = response['Body'].read().decode('utf-8')
         generated_image, prompt = parse_response(response_payload)
 
-        print(response_payload)
+        #print(response_payload)
         #print(generated_image)
         print(prompt)
         

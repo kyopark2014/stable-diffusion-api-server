@@ -138,6 +138,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const text2image = api.root.addResource('text2image');
     text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
+      credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
       }], 
@@ -194,7 +195,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
       //requestTemplates: requestTemplates,
-      //credentialsRole: role,
+      credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
       }], 
