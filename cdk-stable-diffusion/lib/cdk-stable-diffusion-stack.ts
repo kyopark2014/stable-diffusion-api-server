@@ -164,7 +164,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // Lambda for stable diffusion for web
-    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+  /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
       memorySize: 512,
@@ -205,7 +205,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       requestParameters: {
         'method.request.querystring.prompt': true,
       },
-      methodResponses: [   // API Gateway sends to the client that called a method.
+      methodResponses: [  // API Gateway sends to the client that called a method.
         {
           statusCode: '200',
           responseModels: {
@@ -220,6 +220,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url of API',
-    }); 
+    }); */
   }
 }
