@@ -14,7 +14,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     super(scope, id, props);
 
     const stage = "dev"; 
-    const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-08-13-53-49-534";
+    const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-10-11-24-04-069";
 
     // s3 deployment
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
@@ -77,25 +77,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
     s3Bucket.grantReadWrite(mlLambda);
 
-
-
-    // Lambda for web 
-    const lambdaWeb = new lambda.Function(this, "lambdaWeb", {
-      description: 'lambda for web',
-      runtime: lambda.Runtime.NODEJS_14_X, 
-      code: lambda.Code.fromAsset("../../lambda-for-web"), 
-      handler: "index.handler", 
-      timeout: cdk.Duration.seconds(3),
-      environment: {
-      }
-    }); 
-    new cdk.CfnOutput(this, 'LambdaWebARN', { // lambda arn
-      value: lambdaWeb.functionArn,
-      description: 'The arn of lambda for web',
-    });
-
-
-
     // create a policy statement for sagemaker
     const SageMakerPolicy = new iam.PolicyStatement({
       actions: ['sagemaker:*'],
@@ -115,13 +96,53 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       version,
     }); 
  
+
+
+
     // api Gateway
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
+    // Lambda for web 
+  /*  const lambdaWeb = new lambda.Function(this, "lambdaWeb", {
+      description: 'lambda for web',
+      functionName: 'lambda-stable-diffusion-web',
+      runtime: lambda.Runtime.NODEJS_14_X, 
+      code: lambda.Code.fromAsset("../lambda-for-web"), 
+      handler: "index.handler", 
+      timeout: cdk.Duration.seconds(3),
+      environment: {
+      }
+    }); 
+    new cdk.CfnOutput(this, 'LambdaWebARN', { // lambda arn
+      value: lambdaWeb.functionArn,
+      description: 'The arn of lambda for web',
+    }); */
+
+    // Create Lambda for stable diffusion using docker container for web
+    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+      description: 'lambda for web',
+      functionName: 'lambda-stable-diffusion-web',
+      memorySize: 512,
+      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-for-web')),
+      timeout: cdk.Duration.seconds(60),
+      environment: {
+        // bucket: "sagemaker-ap-northeast-2-677146750822",
+        bucket: s3Bucket.bucketName,
+        endpoint: endpoint,
+        domain: distribution.domainName
+      }
+    }); 
 
 
+    s3Bucket.grantReadWrite(lambdaWeb);
+
+    lambdaWeb.role?.attachInlinePolicy(
+      new iam.Policy(this, 'sagemaker-policy', {
+        statements: [SageMakerPolicy],
+      }),
+    );
      // api Gateway
-     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
+    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
 
 
@@ -191,7 +212,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
 
 
-
+    // lambda for web
     // define template
     const templateString: string = `#set($inputRoot = $input.path('$'))
     {
