@@ -115,10 +115,9 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // API Gateway
-    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
+    /*const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       description: 'API Gateway',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['*/*'],
       deployOptions: {
         stageName: stage,
         accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
@@ -137,7 +136,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     });  
 
     // POST method
-    /*const text2image = api.root.addResource('text2image');
+    const text2image = api.root.addResource('text2image');
     text2image.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
       credentialsRole: role,
