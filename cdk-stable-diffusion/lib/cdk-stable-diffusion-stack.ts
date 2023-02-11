@@ -95,7 +95,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
     
     // API Gateway
-  /*  const logGroup = new logs.LogGroup(this, 'AccessLogs', {
+    const logGroup = new logs.LogGroup(this, 'AccessLogs', {
       retention: 90, // Keep logs for 90 days
       logGroupName: 'api-gateway'
     });
@@ -219,6 +219,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url of API',
-    }); */
+    }); 
   }
 }
