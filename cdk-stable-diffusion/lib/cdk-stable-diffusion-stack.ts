@@ -115,9 +115,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // API Gateway
-    /*const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
+    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       description: 'API Gateway',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
+      binaryMediaTypes: ['*/*'],
       deployOptions: {
         stageName: stage,
         accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
@@ -227,6 +228,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url',
-    }); */
+    }); 
   }
 }
