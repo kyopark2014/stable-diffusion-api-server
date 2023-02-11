@@ -96,11 +96,11 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       version,
     }); 
  
+
+
+
     // api Gateway
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
-
-
-    
 
     // Lambda for web 
   /*  const lambdaWeb = new lambda.Function(this, "lambdaWeb", {
@@ -119,7 +119,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); */
 
     // Create Lambda for stable diffusion using docker container for web
-  /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
       memorySize: 512,
@@ -142,7 +142,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }),
     );
      // api Gateway
-    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com')); */
+    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
 
 
@@ -243,14 +243,14 @@ export class CdkStableDiffusionStack extends cdk.Stack {
           }, 
         }
       ]
-    }); 
+    }); */
 
     // query url of "status" api
     let prompt = 'rose'; // example 
     new cdk.CfnOutput(this, 'QueryUrl', {
       value: api.url+'/text2image?prompt='+prompt,
       description: 'example query url of API',
-    }); */
+    }); 
 
 
 
