@@ -14,7 +14,7 @@ def parse_response(query_response):
     return response_dict["generated_image"], response_dict["prompt"]
     
 def lambda_handler(event, context):
-    print(event)
+    print('event: ', event)
 
     prompt = "a rose"
     url = "https://d33utfd3ht9ow.cloudfront.net/img_20230211-030241.jpeg"
