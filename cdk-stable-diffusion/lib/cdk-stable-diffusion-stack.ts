@@ -75,8 +75,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         domain: distribution.domainName
       }
     }); 
-    s3Bucket.grantReadWrite(mlLambda);
-
+    s3Bucket.grantReadWrite(mlLambda); // permission for s3
     // create a policy statement for sagemaker
     const SageMakerPolicy = new iam.PolicyStatement({
       actions: ['sagemaker:*'],
@@ -96,7 +95,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       version,
     }); 
  
-    // api Gateway
+    // permission for api Gateway
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
 
@@ -132,18 +131,14 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         domain: distribution.domainName
       }
     }); 
-
-
-    s3Bucket.grantReadWrite(lambdaWeb);
-
-    lambdaWeb.role?.attachInlinePolicy(
+    s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
+    lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
       new iam.Policy(this, 'sagemaker-policy-web', {
         statements: [SageMakerPolicy],
       }),
     );
-     // api Gateway
+    // permission for api Gateway
     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
-
 
 
     // api Gateway
@@ -225,11 +220,11 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
     const requestTemplates = { // path through
       'application/json': templateString,
-    };
+    }; 
 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      requestTemplates: requestTemplates,
+    //  requestTemplates: requestTemplates,
       credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
@@ -237,7 +232,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       proxy:false, 
     }), {
       requestParameters: {
-        'method.request.querystring.deviceid': true,
+        'method.request.querystring.prompt': true,
       },
       methodResponses: [   // API Gateway sends to the client that called a method.
         {
@@ -250,13 +245,10 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // query url of "status" api
-    let prompt = 'rose'; // example 
+    let prompt = "astronaut on a horse"; // example 
     new cdk.CfnOutput(this, 'QueryUrl', {
-      value: api.url+'/text2image?prompt='+prompt,
-      description: 'example query url of API',
+      value: api.url+'/text2image?prompt="'+prompt+'"',
+      description: 'Query url of API',
     }); 
-
-
-
   }
 }
