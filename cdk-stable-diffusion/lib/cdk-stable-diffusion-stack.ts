@@ -216,7 +216,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // Web url of "status" api
-    let prompt = "astronaut on a horse"; // example 
+    let prompt = "astronaut"; // example 
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url of API',
