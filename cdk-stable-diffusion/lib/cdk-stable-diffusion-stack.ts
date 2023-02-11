@@ -190,7 +190,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       "prompt": "$input.params('prompt')"
     }`;
     
- /*   const requestTemplates = { // path through
+    const requestTemplates = { // path through
       'application/json': templateString,
     }; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
@@ -220,6 +220,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'/text2image?prompt="'+prompt+'"',
       description: 'Web url of API',
-    }); */
+    }); 
   }
 }
