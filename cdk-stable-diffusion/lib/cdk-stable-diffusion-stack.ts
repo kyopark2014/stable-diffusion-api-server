@@ -137,7 +137,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     s3Bucket.grantReadWrite(lambdaWeb);
 
     lambdaWeb.role?.attachInlinePolicy(
-      new iam.Policy(this, 'sagemaker-policy', {
+      new iam.Policy(this, 'sagemaker-policy-web', {
         statements: [SageMakerPolicy],
       }),
     );
