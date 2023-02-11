@@ -176,7 +176,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }
     }); 
     
-  /*  s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
+    s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
     lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
       new iam.Policy(this, 'sagemaker-policy-web', {
         statements: [SageMakerPolicy],
@@ -216,6 +216,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url',
-    }); */
+    }); 
   }
 }
