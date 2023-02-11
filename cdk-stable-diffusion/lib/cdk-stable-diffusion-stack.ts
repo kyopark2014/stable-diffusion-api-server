@@ -200,11 +200,9 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     //}; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      //requestTemplates: requestTemplates(),
+      //requestTemplates: requestTemplate(),
       requestTemplates: {
-        'application/json': `{
-          "prompt": "$input.params('prompt')"
-        }`,
+        'application/json': requestTemplate(),
       },
       credentialsRole: role,
       integrationResponses: [{
