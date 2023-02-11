@@ -186,7 +186,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
     // define template
     //const templateString: string = `#set($inputRoot = $input.path('$'))
-    const templateString: string = `{
+ /*   const templateString: string = `{
       "prompt": "$input.params('prompt')"
     }`;
     
@@ -213,7 +213,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
           }, 
         }
       ]
-    }); 
+    }); */
 
     // Web url of "status" api
     let prompt = "astronaut on a horse"; // example 
