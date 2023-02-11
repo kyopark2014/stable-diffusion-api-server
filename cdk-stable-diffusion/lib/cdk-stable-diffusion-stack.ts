@@ -147,7 +147,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       description: 'The url of API Gateway',
     }); 
 
-    // Lambda for stable diffusion for web
+    // Docker: Lambda for stable diffusion for web (for RGB)
   /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
@@ -161,7 +161,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }
     }); */
 
-    // Lambda for stable diffusion for web
+    // Python: Lambda for stable diffusion for web (for jpeg)
     const lambdaWeb = new lambda.Function(this, 'lambdaWeb', {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
