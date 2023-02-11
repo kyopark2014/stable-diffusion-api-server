@@ -77,6 +77,25 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
     s3Bucket.grantReadWrite(mlLambda);
 
+
+
+    // Lambda for web 
+    const lambdaWeb = new lambda.Function(this, "lambdaWeb", {
+      description: 'lambda for web',
+      runtime: lambda.Runtime.NODEJS_14_X, 
+      code: lambda.Code.fromAsset("../../lambda-for-web"), 
+      handler: "index.handler", 
+      timeout: cdk.Duration.seconds(3),
+      environment: {
+      }
+    }); 
+    new cdk.CfnOutput(this, 'LambdaWebARN', { // lambda arn
+      value: lambdaWeb.functionArn,
+      description: 'The arn of lambda for web',
+    });
+
+
+
     // create a policy statement for sagemaker
     const SageMakerPolicy = new iam.PolicyStatement({
       actions: ['sagemaker:*'],
@@ -98,6 +117,13 @@ export class CdkStableDiffusionStack extends cdk.Stack {
  
     // api Gateway
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
+
+
+
+     // api Gateway
+     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
+
+
 
     // api Gateway
     const logGroup = new logs.LogGroup(this, 'AccessLogs', {
@@ -162,5 +188,50 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       value: api.url,
       description: 'The url of API Gateway',
     }); 
+
+
+
+
+    // define template
+    const templateString: string = `#set($inputRoot = $input.path('$'))
+    {
+        "prompt": "$input.params('prompt')"
+    }`;
+
+    const requestTemplates = { // path through
+      'application/json': templateString,
+    };
+
+    text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
+      passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
+      requestTemplates: requestTemplates,
+      credentialsRole: role,
+      integrationResponses: [{
+        statusCode: '200',
+      }], 
+      proxy:false, 
+    }), {
+      requestParameters: {
+        'method.request.querystring.deviceid': true,
+      },
+      methodResponses: [   // API Gateway sends to the client that called a method.
+        {
+          statusCode: '200',
+          responseModels: {
+            'application/json': apiGateway.Model.EMPTY_MODEL,
+          }, 
+        }
+      ]
+    });
+
+    // query url of "status" api
+    let prompt = 'a rose'; // example 
+    new cdk.CfnOutput(this, 'QueryUrl', {
+      value: api.url+'/text2image?prompt='+prompt,
+      description: 'example query url of API',
+    });
+
+
+
   }
 }
