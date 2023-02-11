@@ -7,7 +7,6 @@ import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
-import * as logs from 'aws-cdk-lib/aws-logs';
 
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -94,13 +93,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     // permission for api Gateway
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
     
-    // API Gateway
-    const logGroup = new logs.LogGroup(this, 'AccessLogs', {
-      retention: 90, // Keep logs for 90 days
-      logGroupName: 'api-gateway'
-    });
-    logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
-
     // role
     const role = new iam.Role(this, "api-role", {
       roleName: "ApiRole",
@@ -121,18 +113,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       binaryMediaTypes: ['*/*'],
       deployOptions: {
         stageName: stage,
-        accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
-        accessLogFormat: apiGateway.AccessLogFormat.jsonWithStandardFields({
-          caller: false,
-          httpMethod: true,
-          ip: true,
-          protocol: true,
-          requestTime: true,
-          resourcePath: true,
-          responseLength: true,
-          status: true,
-          user: true
-        }),
       },
     });  
 
@@ -191,16 +171,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }`];
       return statements.join('\n');
     }
-    // GET method
-    //const templateString: string = `{
-    //  "prompt": "$input.params('prompt')"
-    //}`;   
-    //const requestTemplates = { 
-    //  'application/json': templateString,
-    //}; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      //requestTemplates: requestTemplate(),
       requestTemplates: {
         'application/json': requestTemplate(),
       },
