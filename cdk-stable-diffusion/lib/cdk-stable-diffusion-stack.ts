@@ -186,7 +186,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
 
     // define template
     //const templateString: string = `#set($inputRoot = $input.path('$'))
- /*   const templateString: string = `{
+    const templateString: string = `{
       "prompt": "$input.params('prompt')"
     }`;
     
@@ -195,7 +195,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }; 
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
-      requestTemplates: requestTemplates,
+      // requestTemplates: requestTemplates,
       credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
@@ -213,7 +213,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
           }, 
         }
       ]
-    }); */
+    }); 
 
     // Web url of "status" api
     let prompt = "astronaut on a horse"; // example 
