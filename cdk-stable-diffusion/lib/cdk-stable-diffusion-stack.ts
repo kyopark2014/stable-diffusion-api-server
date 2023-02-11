@@ -15,6 +15,16 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const stage = "dev"; 
     const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-10-11-24-04-069";
 
+    // API Gateway
+    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
+      description: 'API Gateway',
+      endpointTypes: [apiGateway.EndpointType.REGIONAL],
+      binaryMediaTypes: ['*/*'],
+      deployOptions: {
+        stageName: stage,
+      },
+    });  
+
     // s3 deployment
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
       // bucketName: bucketName,
@@ -106,15 +116,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       managedPolicyArn: 'arn:aws:iam::aws:policy/AWSLambdaExecute',
     }); 
 
-    // API Gateway
-    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
-      description: 'API Gateway',
-      endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['*/*'],
-      deployOptions: {
-        stageName: stage,
-      },
-    });  
+    
 
     // POST method
     const text2image = api.root.addResource('text2image');
@@ -163,6 +165,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         statements: [SageMakerPolicy],
       }),
     );    
+    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
     
     const requestTemplate = {
       "prompt": "$input.params('prompt')",
@@ -191,8 +194,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       ]
     }); 
 
-    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
-    
     // Web url of stable diffusion
     let prompt = "astronaut"; // example 
     new cdk.CfnOutput(this, 'WebUrl', {
