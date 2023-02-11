@@ -161,7 +161,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }
     }); */
 
-    const lambdaWeb = new lambda.Function(this, 'lambdaWeb', {
+    // Lambda for stable diffusion for web
+  /*  const lambdaWeb = new lambda.Function(this, 'lambdaWeb', {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
       handler: 'lambda_function.lambda_handler',
@@ -173,9 +174,9 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         endpoint: endpoint,
         domain: distribution.domainName
       }
-    });
+    }); */
     
-    s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
+  /*  s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
     lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
       new iam.Policy(this, 'sagemaker-policy-web', {
         statements: [SageMakerPolicy],
@@ -215,6 +216,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'text2image?prompt='+prompt,
       description: 'Web url',
-    }); 
+    }); */
   }
 }
