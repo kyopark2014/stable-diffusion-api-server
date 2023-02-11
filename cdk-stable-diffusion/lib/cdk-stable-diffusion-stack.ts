@@ -46,7 +46,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       headerBehavior: cloudFront.OriginRequestHeaderBehavior.none(),
       queryStringBehavior: cloudFront.OriginRequestQueryStringBehavior.allowList('deviceid'),
     });
-
     const distribution = new cloudFront.Distribution(this, 'cloudfront', {
       defaultBehavior: {
         origin: new origins.S3Origin(s3Bucket),
@@ -61,7 +60,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       description: 'The domain name of the Distribution',
     }); 
 
-    // Create Lambda for stable diffusion using docker container
+    // Lambda for stable diffusion 
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-stable-diffusion", {
       description: 'lambda function for stable diffusion',
       functionName: 'lambda-stable-diffusion',
@@ -69,7 +68,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda')),
       timeout: cdk.Duration.seconds(60),
       environment: {
-        // bucket: "sagemaker-ap-northeast-2-677146750822",
         bucket: s3Bucket.bucketName,
         endpoint: endpoint,
         domain: distribution.domainName
@@ -87,61 +85,16 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         statements: [SageMakerPolicy],
       }),
     );
-
     // version
     const version = mlLambda.currentVersion;
     const alias = new lambda.Alias(this, 'LambdaAlias', {
       aliasName: stage,
       version,
     }); 
- 
     // permission for api Gateway
     mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
-
-
     
-
-    // Lambda for web 
-  /*  const lambdaWeb = new lambda.Function(this, "lambdaWeb", {
-      description: 'lambda for web',
-      functionName: 'lambda-stable-diffusion-web',
-      runtime: lambda.Runtime.NODEJS_14_X, 
-      code: lambda.Code.fromAsset("../lambda-for-web"), 
-      handler: "index.handler", 
-      timeout: cdk.Duration.seconds(3),
-      environment: {
-      }
-    }); 
-    new cdk.CfnOutput(this, 'LambdaWebARN', { // lambda arn
-      value: lambdaWeb.functionArn,
-      description: 'The arn of lambda for web',
-    }); */
-
-    // Create Lambda for stable diffusion using docker container for web
-    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
-      description: 'lambda for web',
-      functionName: 'lambda-stable-diffusion-web',
-      memorySize: 512,
-      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-for-web')),
-      timeout: cdk.Duration.seconds(60),
-      environment: {
-        // bucket: "sagemaker-ap-northeast-2-677146750822",
-        bucket: s3Bucket.bucketName,
-        endpoint: endpoint,
-        domain: distribution.domainName
-      }
-    }); 
-    s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
-    lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
-      new iam.Policy(this, 'sagemaker-policy-web', {
-        statements: [SageMakerPolicy],
-      }),
-    );
-    // permission for api Gateway
-    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
-
-
-    // api Gateway
+    // API Gateway
     const logGroup = new logs.LogGroup(this, 'AccessLogs', {
       retention: 90, // Keep logs for 90 days
     });
@@ -199,29 +152,45 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         }
       ]
     }); 
-
     new cdk.CfnOutput(this, 'apiUrl', {
       value: api.url,
       description: 'The url of API Gateway',
     }); 
-
     new cdk.CfnOutput(this, 'curlUrl', {
       value: "curl -X POST "+api.url+'text2image -H "Content-Type: application/json" -d \'{"text":"astronaut on a horse"}\'',
       description: 'The url of API Gateway',
     }); 
 
+    // Lambda for stable diffusion for web
+    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+      description: 'lambda for web',
+      functionName: 'lambda-stable-diffusion-web',
+      memorySize: 512,
+      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-for-web')),
+      timeout: cdk.Duration.seconds(60),
+      environment: {
+        bucket: s3Bucket.bucketName,
+        endpoint: endpoint,
+        domain: distribution.domainName
+      }
+    }); 
+    s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
+    lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
+      new iam.Policy(this, 'sagemaker-policy-web', {
+        statements: [SageMakerPolicy],
+      }),
+    );    
+    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
 
-    // lambda for web
+
     // define template
     const templateString: string = `#set($inputRoot = $input.path('$'))
     {
         "prompt": "$input.params('prompt')"
     }`;
-
     const requestTemplates = { // path through
       'application/json': templateString,
     }; 
-
     text2image.addMethod('GET', new apiGateway.LambdaIntegration(lambdaWeb, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,  // options: NEVER
       requestTemplates: requestTemplates,
@@ -244,11 +213,11 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       ]
     }); 
 
-    // query url of "status" api
+    // Web url of "status" api
     let prompt = "astronaut on a horse"; // example 
-    new cdk.CfnOutput(this, 'WebQueryUrl', {
+    new cdk.CfnOutput(this, 'WebUrl', {
       value: api.url+'/text2image?prompt="'+prompt+'"',
-      description: 'Web query url of API',
+      description: 'Web url of API',
     }); 
   }
 }
