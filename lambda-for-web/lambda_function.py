@@ -16,6 +16,12 @@ def parse_response(query_response):
 def lambda_handler(event, context):
     print(event)
 
+    prompt = "a rose"
+    url = "https://d33utfd3ht9ow.cloudfront.net/img_20230211-030241.jpeg"
+    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
+    
+    return response
+""""
     # txt = "astronaut on a horse",        
     prompt = event['text']
     print("text: ", prompt)
@@ -71,3 +77,4 @@ def lambda_handler(event, context):
     response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
     
     return response
+""""    

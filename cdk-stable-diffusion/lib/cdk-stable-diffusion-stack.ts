@@ -119,7 +119,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); */
 
     // Create Lambda for stable diffusion using docker container for web
-  /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
       memorySize: 512,
@@ -142,7 +142,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }),
     );
      // api Gateway
-    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com')); */
+    lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
 
 
 
@@ -211,14 +211,14 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     new cdk.CfnOutput(this, 'curlUrl', {
-      value: "curl -X POST "+api.url+'text2image -H "Content-Type: application/json" -d \'{"text":"a lonely rose"}\'',
+      value: "curl -X POST "+api.url+'text2image -H "Content-Type: application/json" -d \'{"text":"astronaut on a horse"}\'',
       description: 'The url of API Gateway',
     }); 
 
 
     // lambda for web
     // define template
-  /*  const templateString: string = `#set($inputRoot = $input.path('$'))
+    const templateString: string = `#set($inputRoot = $input.path('$'))
     {
         "prompt": "$input.params('prompt')"
     }`;
@@ -254,7 +254,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'QueryUrl', {
       value: api.url+'/text2image?prompt='+prompt,
       description: 'example query url of API',
-    }); */
+    }); 
 
 
 
