@@ -8,6 +8,7 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
 
+
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -147,7 +148,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     }); 
 
     // Lambda for stable diffusion for web
-    const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+  /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
       memorySize: 512,
@@ -158,7 +159,22 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         endpoint: endpoint,
         domain: distribution.domainName
       }
-    }); 
+    }); */
+
+    const lambdaWeb = new lambda.Function(this, 'lambdaWeb', {
+      description: 'lambda for web',
+      functionName: 'lambda-stable-diffusion-web',
+      handler: 'lambda_function.lambda_handler',
+      runtime: lambda.Runtime.PYTHON_3_9,
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda-for-web')),
+      timeout: cdk.Duration.seconds(60),
+      environment: {
+        bucket: s3Bucket.bucketName,
+        endpoint: endpoint,
+        domain: distribution.domainName
+      }
+    });
+    
     s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
     lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
       new iam.Policy(this, 'sagemaker-policy-web', {
