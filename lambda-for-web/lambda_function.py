@@ -16,7 +16,7 @@ def parse_response(query_response):
 def lambda_handler(event, context):
     print('event: ', event)
 
-    prompt = "a rose"
+    prompt = event['prompt']
     url = "https://d33utfd3ht9ow.cloudfront.net/img_20230211-030241.jpeg"
     response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+prompt+'</p><img src='+url+'></body></html>'
     
