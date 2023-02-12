@@ -8,7 +8,6 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as apiGateway from 'aws-cdk-lib/aws-apigateway';
 
-
 export class CdkStableDiffusionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -88,7 +87,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       actions: ['sagemaker:*'],
       resources: ['*'],
     });    
-    mlLambda.role?.attachInlinePolicy(  // add the policy to the Function's role
+    mlLambda.role?.attachInlinePolicy( // add sagemaker policy
       new iam.Policy(this, 'sagemaker-policy', {
         statements: [SageMakerPolicy],
       }),
@@ -203,7 +202,8 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         {
           statusCode: '200',
           responseModels: {
-            'application/json': apiGateway.Model.EMPTY_MODEL,
+            // 'application/json': apiGateway.Model.EMPTY_MODEL,
+            'text/html': apiGateway.Model.EMPTY_MODEL,
           }, 
         }
       ]
