@@ -101,7 +101,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
       description: 'API Gateway',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['application/json'],
       deployOptions: {
         stageName: stage,
       },
