@@ -169,19 +169,36 @@ cd cdk-stable-diffusion && npm install aws-cdk-lib path
 cdk deploy
 ```
 
-CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 정보를 알 수 있습니다. "appUrl"은 API Gateway의 Invoke URL로서 클라이언트가 Stable Diffusion을 요청할 때 필요합니다. 아래 케이스에서는 “appUrl”이 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev” 입니다. 또한 Text를 이미지로 변환하는 API의 리소스(Resource)이름이 "text2image"이므로, 클라이언트에서 API Gateway로 Stable Diffusion을 요청할 때 사용하는 URL은 "https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image" 임을 알 수 있습니다. 
+CDK로 인프라 설치가 완료되면 아래와 같이 설치된 인프라의 정보를 알 수 있습니다. 여기서 appUrl은 Browser에서 query문을 이용해 API를 호출할때 사용할 수 있고, curlUrl은 shell에서 테스트 할 때 사용합니다. 
 
+![noname](https://user-images.githubusercontent.com/52392004/218288489-223d17d4-c230-4f0a-a8b6-d7a057c35ce7.png)
 
-![noname](https://user-images.githubusercontent.com/52392004/217409596-04cdd2bd-1825-4aa4-b08f-7b747c48ff3e.png)
+실제 예는 아래와 같습니다.
+
+```java
+CdkStableDiffusionStack.WebUrl = https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/text2image?prompt=astronaut
+CdkStableDiffusionStack.curlUrl = curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
+```
+
+### Browser에서 요청할 경우
+
+Browser에서 접속하는 방법은 아래와 같습니다. prompt에 쿼리할 문장을 입력합니다. 
+
+```java
+https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/text2image?prompt=astronaut on a horse
+```
+
+이때의 결과는 아래와 같습니다.
+
+![image](https://user-images.githubusercontent.com/52392004/218288641-66226662-1b0a-4b5c-9fbb-160083283f55.png)
 
 
 ### Curl로 요청할 경우
 
-curl 명령어로 아래와 같이 실행할 수 있습니다. 여기서 curl이 접속하는 URL은 CDK Outputs의 “appUrl”과 리소스명인 “text2image”를 조합한 “https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image” 입니다.
-
+curl 명령어로 아래와 같이 실행할 수 있습니다. 
 
 ```java
-curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
+curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
 ```
 
 추론에 대한 결과의 예입니다. "body"에 추론의 결과로 생성된 이미지의 URL이 있습니다. 
@@ -193,7 +210,6 @@ curl -X POST https://734ury6k98.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 상기의 이미지 URL로 부터 얻어진 추론 결과입니다.
 
 ![image](https://user-images.githubusercontent.com/52392004/217674397-a1cf5a4f-285f-44a0-90be-18c6b30781b5.png)
-
 
 ### Postman으로 실행할 경우 
 
