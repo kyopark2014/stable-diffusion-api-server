@@ -1,5 +1,63 @@
 # CDK 구현하기
 
+## Lambda를 Docker / Python code로 구현
+
+Dockerfilea만 생성해 놓고 상황에 따라 두 방식의 번갈아 사용해 볼 수 있습니다.
+
+- Docker로 구현시 
+
+```java
+const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+  description: 'lambda for web',
+  functionName: 'lambda-stable-diffusion-web',
+  memorySize: 512,
+  code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-for-web')),
+  timeout: cdk.Duration.seconds(60),
+  environment: {
+    bucket: s3Bucket.bucketName,
+    endpoint: endpoint,
+    domain: distribution.domainName
+  }
+}); 
+```
+
+Dockerfile 파일은 아래와 같습니다.
+
+```java
+FROM amazon/aws-lambda-python:3.8
+
+RUN pip3 install --upgrade pip
+RUN python -m pip install joblib awsiotsdk
+
+RUN pip install numpy pillow
+
+WORKDIR /var/task/lambda
+
+COPY lambda_function.py /var/task
+
+COPY . .
+
+CMD ["lambda_function.lambda_handler"]
+```
+
+- Python code로 구현시 
+
+```java
+const lambdaWeb = new lambda.Function(this, 'lambdaWeb', {
+  description: 'lambda for web',
+  functionName: 'lambda-stable-diffusion-web',
+  handler: 'lambda_function.lambda_handler',
+  runtime: lambda.Runtime.PYTHON_3_9,
+  code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda-for-web')),
+  timeout: cdk.Duration.seconds(60),
+  environment: {
+    bucket: s3Bucket.bucketName,
+    endpoint: endpoint,
+    domain: distribution.domainName
+  }
+}); 
+```
+
 ## CDK Deployment Preparation
 
 여기서는 Typescript를 이용하여 CDK 배포 준비를 합니다. 
