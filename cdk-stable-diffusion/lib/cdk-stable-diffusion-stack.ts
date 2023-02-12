@@ -192,7 +192,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         {
           statusCode: '200',
           responseModels: {
-            // 'application/json': apiGateway.Model.EMPTY_MODEL,
             'text/html': apiGateway.Model.EMPTY_MODEL,
           }, 
         }
