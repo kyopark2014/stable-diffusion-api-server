@@ -20,20 +20,16 @@ def lambda_handler(event, context):
     txt = event['text']
     print("text: ", txt)
 
-    #endpoint = 'jumpstart-example-infer-model-txt2img-s-2023-02-07-08-03-49-268'
     endpoint = os.environ.get('endpoint')
     print("endpoint: ", endpoint)
 
-    #mybucket = 'sagemaker-ap-northeast-2-677146750822'
     mybucket = os.environ.get('bucket')
     print("bucket: ", mybucket)
 
-    #mykey = 'output/filename.jpeg'
-    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  # output/img_20230207-152043.jpeg
+    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  
     print('key: ', mykey)
 
-    #url
-    domain = os.environ.get('domain')
+    domain = os.environ.get('domain')  
     url = "https://"+domain+'/'+mykey
     print("url: ", url)
             

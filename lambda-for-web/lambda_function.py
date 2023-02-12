@@ -13,8 +13,7 @@ def parse_response(query_response):
     
 def lambda_handler(event, context):
     print('event: ', event)
-
-    # txt = "astronaut on a horse",            
+         
     txt = event['prompt']
     print("text: ", txt)
 
@@ -24,7 +23,7 @@ def lambda_handler(event, context):
     mybucket = os.environ.get('bucket')
     print("bucket: ", mybucket)
 
-    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  # output/img_20230207-152043.jpeg
+    mykey = 'img_'+time.strftime("%Y%m%d-%H%M%S")+'.jpeg'  
     print('key: ', mykey)
 
     domain = os.environ.get('domain')

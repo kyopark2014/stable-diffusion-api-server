@@ -15,17 +15,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     const stage = "dev"; 
     const endpoint = "jumpstart-example-infer-model-txt2img-s-2023-02-10-11-24-04-069";
 
-    // API Gateway
-    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
-      description: 'API Gateway',
-      endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['application/json'],
-      deployOptions: {
-        stageName: stage,
-      },
-    });  
-
-    // s3 deployment
+    // s3 
     const s3Bucket = new s3.Bucket(this, "gg-depolyment-storage",{
       // bucketName: bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -48,13 +38,6 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     });
 
     // cloudfront
-  /*  const myOriginRequestPolicy = new cloudFront.OriginRequestPolicy(this, 'OriginRequestPolicyCloudfront', {
-      originRequestPolicyName: 'QueryStringPolicyCloudfront',
-      comment: 'Query string policy for cloudfront',
-      cookieBehavior: cloudFront.OriginRequestCookieBehavior.none(),
-      headerBehavior: cloudFront.OriginRequestHeaderBehavior.none(),
-      queryStringBehavior: cloudFront.OriginRequestQueryStringBehavior.allowList('deviceid'),
-    }); */
     const distribution = new cloudFront.Distribution(this, 'cloudfront', {
       defaultBehavior: {
         origin: new origins.S3Origin(s3Bucket),
@@ -113,8 +96,16 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     role.addManagedPolicy({
       managedPolicyArn: 'arn:aws:iam::aws:policy/AWSLambdaExecute',
     }); 
-
     
+    // API Gateway
+    const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
+      description: 'API Gateway',
+      endpointTypes: [apiGateway.EndpointType.REGIONAL],
+      binaryMediaTypes: ['application/json'],
+      deployOptions: {
+        stageName: stage,
+      },
+    });  
 
     // POST method
     const text2image = api.root.addResource('text2image');
@@ -144,21 +135,21 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       description: 'The url of API Gateway',
     }); 
 
-    // Docker: Lambda for stable diffusion for web (for RGB)
-  /*  const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
-      description: 'lambda for web',
-      functionName: 'lambda-stable-diffusion-web',
-      memorySize: 512,
-      code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-for-web')),
-      timeout: cdk.Duration.seconds(60),
-      environment: {
-        bucket: s3Bucket.bucketName,
-        endpoint: endpoint,
-        domain: distribution.domainName
-      }
-    }); */
+    // Docker: Lambda for stable diffusion for web 
+    // const lambdaWeb = new lambda.DockerImageFunction(this, "lambdaWeb", {
+    //   description: 'lambda for web',
+    //   functionName: 'lambda-stable-diffusion-web',
+    //   memorySize: 512,
+    //   code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../lambda-for-web')),
+    //   timeout: cdk.Duration.seconds(60),
+    //   environment: {
+    //     bucket: s3Bucket.bucketName,
+    //     endpoint: endpoint,
+    //     domain: distribution.domainName
+    //   }
+    // }); 
 
-    // Python: Lambda for stable diffusion for web (for jpeg)
+    // Python code: Lambda for stable diffusion for web 
     const lambdaWeb = new lambda.Function(this, 'lambdaWeb', {
       description: 'lambda for web',
       functionName: 'lambda-stable-diffusion-web',
@@ -171,8 +162,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
         endpoint: endpoint,
         domain: distribution.domainName
       }
-    }); 
-    
+    });     
     s3Bucket.grantReadWrite(lambdaWeb);  // permission for s3
     lambdaWeb.role?.attachInlinePolicy(  // permission for sagemaker
       new iam.Policy(this, 'sagemaker-policy-web', {
@@ -181,6 +171,7 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     );    
     lambdaWeb.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));  // permission for api Gateway
     
+    // GET method
     const requestTemplate = {
       "prompt": "$input.params('prompt')",
     }
