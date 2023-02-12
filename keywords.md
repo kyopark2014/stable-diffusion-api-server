@@ -1,8 +1,6 @@
 # Stable Diffusion Keywords
 
 
-## pencil drawing 
-
 A pencil drawing of a lion
 
 ![image](https://user-images.githubusercontent.com/52392004/218258878-459509f1-bfe7-4140-a2da-10e034acae41.png)
@@ -55,8 +53,6 @@ A tulip field made by Claude Monet
 phase shift into an era of human+AI art collab
 
 
-## in the Style of Tomer Hanuka and Atey Ghailan, vibrant colors, trending on artstation
-
 Old wise Monk guiding a Lost Soul through Limbo, in the Style of Tomer Hanuka and Atey Ghailan, vibrant colors, trending on artstation
 
 ![image](https://user-images.githubusercontent.com/52392004/218259448-547f648d-2594-4e07-b2df-456ca54849c8.png)
@@ -64,9 +60,6 @@ Old wise Monk guiding a Lost Soul through Limbo, in the Style of Tomer Hanuka an
 a rose in the Style of Tomer Hanuka and Atey Ghailan, vibrant colors, trending on artstation
 
 ![image](https://user-images.githubusercontent.com/52392004/218259500-7938dcfc-45c7-4a54-8b77-ba97dcc0d066.png)
-
-
-## Phase Shift
 
 phase shift into a rose
 
