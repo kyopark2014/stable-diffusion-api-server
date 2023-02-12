@@ -49,13 +49,13 @@ export class CdkStableDiffusionStack extends cdk.Stack {
     });
 
     // cloudfront
-    const myOriginRequestPolicy = new cloudFront.OriginRequestPolicy(this, 'OriginRequestPolicyCloudfront', {
+  /*  const myOriginRequestPolicy = new cloudFront.OriginRequestPolicy(this, 'OriginRequestPolicyCloudfront', {
       originRequestPolicyName: 'QueryStringPolicyCloudfront',
       comment: 'Query string policy for cloudfront',
       cookieBehavior: cloudFront.OriginRequestCookieBehavior.none(),
       headerBehavior: cloudFront.OriginRequestHeaderBehavior.none(),
       queryStringBehavior: cloudFront.OriginRequestQueryStringBehavior.allowList('deviceid'),
-    });
+    }); */
     const distribution = new cloudFront.Distribution(this, 'cloudfront', {
       defaultBehavior: {
         origin: new origins.S3Origin(s3Bucket),
@@ -84,13 +84,11 @@ export class CdkStableDiffusionStack extends cdk.Stack {
       }
     }); 
     s3Bucket.grantReadWrite(mlLambda); // permission for s3
-    // create a policy statement for sagemaker
-    const SageMakerPolicy = new iam.PolicyStatement({
+    const SageMakerPolicy = new iam.PolicyStatement({  // policy statement for sagemaker
       actions: ['sagemaker:*'],
       resources: ['*'],
-    });
-    // add the policy to the Function's role
-    mlLambda.role?.attachInlinePolicy(
+    });    
+    mlLambda.role?.attachInlinePolicy(  // add the policy to the Function's role
       new iam.Policy(this, 'sagemaker-policy', {
         statements: [SageMakerPolicy],
       }),
