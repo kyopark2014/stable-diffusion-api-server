@@ -2,9 +2,9 @@
 
 [Stable Diffusion](https://thealgorithmicbridge.substack.com/p/stable-diffusion-is-the-most-important?fbclid=IwAR1I0Fb7kPSEFgZ7a-JhGmEZzbPJhvkYYMcyyw7VDH35SdsKN_kq3_JCxvE) 모델을 이용하면 텍스트를 이용하여 창조적인 이미지를 생성할 수 있습니다. Amazon에서는 [SageMaker JumpStart](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-jumpstart.html)을 이용하여 머신러닝(ML)을 쉽게 사용할 수 있도록 사전학습(pre-trained)된 모델을 제공하고 있는데, [2022년 10월 부터 Stable Diffusion](https://aws.amazon.com/ko/about-aws/whats-new/2022/11/sagemaker-jumpstart-stable-diffusion-bloom-models/) 모델을 추가적으로 제공하고 있습니다. 이를 통해 [Stable Diffusion 이미지를 쉽게 생성](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)할 수 있으며, 즉시 Serving할 수 있도록 SageMaker Endpoint도 제공합니다. SageMaker Endpoint는 트래픽이 증가할 때는 자동으로 Scale out 하므로, 트래픽 변동이 심할때에도 효율적으로 인프라를 유지할 수 있으며 [IAM 기반의 강화된 보안](https://docs.aws.amazon.com/ko_kr/IAM/latest/UserGuide/introduction.html)을 제공하고 있습니다.
 
-### Stable Diffusion 사용 사례
+### Stable Diffusion 예제
 
-[Stable Diffusion Keywords](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/keywords.md)에서는 keywords에 따른 Stable Diffusion의 예제를 볼 수 있습니다.
+[Stable Diffusion Keywords](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/keywords.md)에서는 keywords에 따른 Stable Diffusion의 결과를 볼 수 있습니다.
 
 
 "The Legend of Zelda landscape atmospheric, hyper realistic, 8k, epic composition, cinematic, octane render, artstation landscape vista photography by Carr Clifton & Galen Rowell, 16K resolution, Landscape veduta photo by Dustin Lefevre & tdraw, 8k resolution, detailed landscape painting by Ivan Shishkin, DeviantArt, Flickr, rendered in Enscape, Miyazaki, Nausicaa Ghibli, Breath of The Wild, 4k detailed post processing, artstation, rendering by octane, unreal engine —ar 16:9"
