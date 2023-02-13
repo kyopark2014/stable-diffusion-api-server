@@ -1,5 +1,19 @@
 # Stable Diffusion Keywords
 
+a little girl standing on the side of a road holding a camera
+
+ ![image](https://user-images.githubusercontent.com/52392004/218595821-fd55b2e4-b960-411a-9b42-8e4e2f4c9bc9.png)
+
+
+a woman sitting on a bed reading a book
+
+ ![image](https://user-images.githubusercontent.com/52392004/218595848-94d1b7ea-c7de-40c1-bec4-3f0af5df749b.png)
+
+
+I see trees of green Red roses too. I see them bloom. For me and you. And I think to myself. What a wonderful world" (Louis Armstrong의 What a Wonderful World)![image](https://user-images.githubusercontent.com/52392004/218595909-0b2a9786-c56d-4ff3-940f-48f2aaba94bf.png)
+
+ ![image](https://user-images.githubusercontent.com/52392004/218595891-dddd7687-6e78-4fa9-9578-0f5fcfe4a8c4.png)
+
 
 A pencil drawing of a lion
 
