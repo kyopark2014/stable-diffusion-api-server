@@ -60,7 +60,7 @@ def lambda_handler(event, context):
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
-    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+txt+'</p><img src='+url+'></body></html>'
+    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+txt+'</p><img src='+url+', width="1024"></body></html>'
     print(response)
 
     return response
