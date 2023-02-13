@@ -229,10 +229,6 @@ complex 3 d render, hyper detailed, ultrasharp, cyberpunk android street samurai
 
 
 
-woman, warrior, detailed illustration, digital art, overdetailed art, concept art, full character, character concept, long hair, full body shot, highly saturated colors, fantasy character, detailed illustration, hd, 4k, digital art, overdetailed art, concept art, Dan Mumford, Krzysztof Maziarz, trending on artstation
-
-
-
 3 d render of a cute thin young woman, red blush, wearing casual clothes, small smile, relaxing on a couch, cuddling up under a blanket, cozy living room, medium shot, 8 k, octane render, trending on artstation, art by artgerm, unreal engine 5, hyperrealism, hyperdetailed, ultra realistic
 
 
@@ -244,8 +240,6 @@ woman, warrior, detailed illustration, digital art, overdetailed art, concept ar
 
 beautiful butterfly anatomy diagram, bold shūji, chart, schematics, infographic, scientific, measurements, abstract, surreal, collage, new media design, poster, colorful highlights, tarot card, glowing ruins, marginalia, 8k, extremely detailed, dark color palette + style of Katsuhiro Otomo + Masamune Shirow + pantone, on black canvas, typography annotations
 
-
-beautiful butterfly anatomy diagram, bold shūji, chart, schematics, infographic, scientific, measurements, abstract, surreal, collage, new media design, poster, colorful highlights, tarot card, glowing ruins, marginalia, 8k, extremely detailed, dark color palette + style of Katsuhiro Otomo + Masamune Shirow + pantone, on black canvas, typography annotations
 
 ![image](https://user-images.githubusercontent.com/52392004/218261291-80a617ee-636f-424b-bd4e-54e993f9cb99.png)
 
