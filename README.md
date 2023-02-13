@@ -215,17 +215,18 @@ curl 명령어로 아래와 같이 실행할 수 있습니다.
 curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/text2image -H "Content-Type: application/json" -d '{"text":"astronaut on a horse"}'
 ```
 
-<!--
 추론에 대한 결과의 예입니다. "body"에 추론의 결과로 생성된 이미지의 URL이 있습니다. 
 
 ```java
 {"statusCode": 200, "body": "https://d283dvdglbetjo.cloudfront.net/img_20230208-014926"}
 ```
--->
 
+<!--
 상기의 이미지 URL로 부터 얻어진 추론 결과입니다.
 
 ![image](https://user-images.githubusercontent.com/52392004/217674397-a1cf5a4f-285f-44a0-90be-18c6b30781b5.png)
+
+-->
 
 ### Postman으로 실행할 경우 
 
