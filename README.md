@@ -252,25 +252,17 @@ curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 아래와 같이 입력하는 텍스트를 변경하면서 결과를 확인하여 보았습니다. 
 
-- "cottage in impressionist style"
 
-![image](https://user-images.githubusercontent.com/52392004/217554332-8828d9d2-5ba4-4702-926b-32d92f068a47.png)
+- ukrainian girl with blue and yellow clothes near big ruined plane, concept art, trending on artstation, highly detailed, intricate, sharp focus, digital art, 8 k
 
-- "a photo of an astronaut riding a horse on mars"
+![image](https://user-images.githubusercontent.com/52392004/218259928-ccf4204c-a204-40da-8bb9-f5a6f2c08105.png)
 
-![image](https://user-images.githubusercontent.com/52392004/217555375-c9fee220-10bd-4b7d-8234-10aa8510599e.png)
 
-- "a little girl standing on the side of a road holding a camera"
+- a portrait of a korean woman that is a representation of korean culture, buenos aires, fantasy, intricate, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha
 
-![image](https://user-images.githubusercontent.com/52392004/217556247-8f0cdc5d-95a4-465f-88a2-35599375f0d4.png)
+![image](https://user-images.githubusercontent.com/52392004/218595534-e228cbb5-6fb2-451f-96eb-7f4852b27fc5.png)
 
-- "a giraffe crossing a road next to a car"
 
-![image](https://user-images.githubusercontent.com/52392004/217557158-d1752194-8ba5-43af-89ce-6194c9d563b6.png)
-
-- "a woman sitting on a bed reading a book"
-
-![image](https://user-images.githubusercontent.com/52392004/217557936-81d6467c-705a-4c63-81f9-6076fcd8d463.png)
 
 - "I see trees of green Red roses too. I see them bloom for me and you. And I think to myself. What a wonderful world" (Louis Armstrong's What a Wonderful World song!)
 
