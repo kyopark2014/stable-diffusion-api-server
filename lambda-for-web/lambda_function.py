@@ -32,8 +32,6 @@ def lambda_handler(event, context):
             
     payload = {        
         "prompt": txt,
-        #"width": 768,
-        #"height": 768,
         "width": 512,
         "height": 512,
         "num_images_per_prompt": 1,
@@ -60,7 +58,7 @@ def lambda_handler(event, context):
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
                     
-    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+txt+'</p><img src='+url+', width="1024"></body></html>'
+    response = '<html><body><h2>Emotion Garden: Stable Diffusion</h2><p>'+txt+'</p><img src='+url+'></body></html>'
     print(response)
 
     return response
