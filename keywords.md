@@ -81,9 +81,12 @@ a portrait of a woman that is a representation of argentinian culture, buenos ai
 ![image](https://user-images.githubusercontent.com/52392004/218260020-914d3df4-8410-4e85-9a04-7b480e44c2b7.png)
 
 
-a portrait of a korean woman that is a representation of argentinian culture, buenos aires, fantasy, intricate, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha
+a portrait of a korean woman that is a representation of korean culture, buenos aires, fantasy, intricate, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha
 
 ![image](https://user-images.githubusercontent.com/52392004/218260082-fcab0f27-130a-45ef-a049-3657f944a7f3.png)
+
+
+ ![image](https://user-images.githubusercontent.com/52392004/218595534-e228cbb5-6fb2-451f-96eb-7f4852b27fc5.png)
 
 
 Painting by Greg Rutkowski, at night a big ceramic jug with gold ornaments flies high in the night dark blue sky above a small white house under a thatched roof, stars in the sky, rich picturesque colors
