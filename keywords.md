@@ -231,6 +231,7 @@ complex 3 d render, hyper detailed, ultrasharp, cyberpunk android street samurai
 
 3 d render of a cute thin young woman, red blush, wearing casual clothes, small smile, relaxing on a couch, cuddling up under a blanket, cozy living room, medium shot, 8 k, octane render, trending on artstation, art by artgerm, unreal engine 5, hyperrealism, hyperdetailed, ultra realistic
 
+![image](https://user-images.githubusercontent.com/52392004/218597767-ee005e93-2dca-48bd-935a-211a3f26bf4f.png)
 
 
 woman, warrior, detailed illustration, digital art, overdetailed art, concept art, full character, character concept, long hair, full body shot, highly saturated colors, fantasy character, detailed illustration, hd, 4k, digital art, overdetailed art, concept art, Dan Mumford, Krzysztof Maziarz, trending on artstation
