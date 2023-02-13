@@ -274,6 +274,15 @@ curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 ![img_20230209-080037](https://user-images.githubusercontent.com/52392004/217871789-75e9faa6-ad98-497b-b2de-de07de4a15d4.jpeg)
 
 
+a young blonde male jedi with short hair standing still looking at the sunset concept art by Doug Chiang cinematic, realistic painting, high definition, concept art, portait image, path tracing, serene landscape, high quality, highly detailed, 8K, soft colors, warm colors, turbulent sea, high coherence, anatomically correct, hyperrealistic, concept art, defined face, five fingers, symmetrical
+
+ ![image](https://user-images.githubusercontent.com/52392004/218600181-546275e7-3380-415d-b4e7-cd39f6135a10.png)
+
+the eye of the storm, atmospheric, hyper realistic, 8k, epic composition, cinematic, octane render, artstation landscape vista photography by Carr Clifton & Galen Rowell, 16K resolution, Landscape veduta photo by Dustin Lefevre & tdraw, 8k resolution, detailed landscape painting by Ivan Shishkin, DeviantArt, Flickr, rendered in Enscape, Miyazaki, Nausicaa Ghibli, Breath of The Wild, 4k detailed post processing, artstation, rendering by octane!
+
+ ![image](https://user-images.githubusercontent.com/52392004/218600249-5bc8c335-bdc9-4b69-b517-b46455ac6781.png)
+
+
 ## Reference
 
 [Generate images from text with the stable diffusion model on Amazon SageMaker JumpStart](https://aws.amazon.com/ko/blogs/machine-learning/generate-images-from-text-with-the-stable-diffusion-model-on-amazon-sagemaker-jumpstart/)
