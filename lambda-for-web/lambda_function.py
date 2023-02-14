@@ -40,7 +40,7 @@ def lambda_handler(event, context):
     }
 
     runtime = boto3.Session().client('sagemaker-runtime')
-    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
+    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/json', Accept='application/json;jpeg', Body=json.dumps(payload))
     
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
     print('statusCode:', json.dumps(statusCode))
