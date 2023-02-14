@@ -32,7 +32,7 @@ def lambda_handler(event, context):
             
     payload = {        
         "prompt": txt,
-        "width": 512,
+        "width": 768,
         "height": 512,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
