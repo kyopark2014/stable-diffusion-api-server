@@ -9,8 +9,7 @@
 
 "The Legend of Zelda landscape atmospheric, hyper realistic, 8k, epic composition, cinematic, octane render, artstation landscape vista photography by Carr Clifton & Galen Rowell, 16K resolution, Landscape veduta photo by Dustin Lefevre & tdraw, 8k resolution, detailed landscape painting by Ivan Shishkin, DeviantArt, Flickr, rendered in Enscape, Miyazaki, Nausicaa Ghibli, Breath of The Wild, 4k detailed post processing, artstation, rendering by octane, unreal engine —ar 16:9"
 
-![image](https://user-images.githubusercontent.com/52392004/218896828-bc8e4144-b234-4c60-b7d9-03df3d4912e5.png)
-
+<img src="https://user-images.githubusercontent.com/52392004/218896828-bc8e4144-b234-4c60-b7d9-03df3d4912e5.png" width="600">
 
 
 ### JumpStart에서 제공한 Stable Diffusion Endpoint사용시 주의사항
@@ -28,7 +27,7 @@ SageMaker Endpoint로 JumpStart에서 제공한 Stable Diffusion 이미지 생�
         predictions":[{
             "prompt": "astronaut on a horse", 
             "width": 768, 
-            "height": 768,
+            "height": 512,
             "num_images_per_prompt": 1, 
             "num_inference_steps": 50, 
             "guidance_scale": 7.5
@@ -48,7 +47,7 @@ SageMaker Endpoint로 JumpStart에서 제공한 Stable Diffusion 이미지 생�
 Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같이 "ContentType"과 "Accept"을 지정하여야 합니다. 
 
 ```java
-"ContentType": "application/x-text",
+"ContentType": "application/json",
 "Accept": "application/json",
 ```
 
@@ -59,7 +58,7 @@ Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같�
     predictions":[{
         "prompt": "astronaut on a horse",
         "width": 768,
-        "height": 768,
+        "height": 512,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5
@@ -67,13 +66,13 @@ Lambda에서 Sagemaker Endpoint로 추론(Inference) 요청시에 아래와 같�
 }
 ```
 
-[lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)에서는 아래와 같이 요청을 수행합니다. Python의 [boto3](https://aws.amazon.com/ko/sdk-for-python/)을 이용해 SageMaker Endpoint에 요청(request)을 전달하는데, ContentType은 "application/x-text"이고, Accept 헤더로는 "Accept='application/json" 또는 "Accept='application/json;jpeg"을 사용할 수 있습니다. 
+[lambda_function.py](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/lambda/lambda_function.py)에서는 아래와 같이 요청을 수행합니다. Python의 [boto3](https://aws.amazon.com/ko/sdk-for-python/)을 이용해 SageMaker Endpoint에 요청(request)을 전달하는데, ContentType은 "application/json"이고, Accept 헤더로는 "Accept='application/json" 또는 "Accept='application/json;jpeg"을 사용할 수 있습니다. 
 
 ```python
 import boto3
 
 runtime = boto3.Session().client('sagemaker-runtime')
-response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
+response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/json', Accept='application/json;jpeg', Body=json.dumps(payload))
 ```
 
 ### RGB 이미지 데이터를 변환하여 S3에 업로드 하는 경우 
@@ -86,12 +85,12 @@ import numpy as np
 
 def parse_response(query_response):
     response_dict = json.loads(query_response)
-    return response_dict["generated_image"], response_dict["prompt"]
+    return response_dict["generated_images"], response_dict["prompt"]
     
 response_payload = response['Body'].read().decode('utf-8')
 generated_image, prompt = parse_response(response_payload)
         
-image = Image.fromarray(np.uint8(generated_image))
+image = Image.fromarray(np.uint8(generated_images[0]))
 buffer = io.BytesIO()
 image.save(buffer, "jpeg")
 buffer.seek(0)
