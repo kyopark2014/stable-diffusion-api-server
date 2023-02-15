@@ -249,19 +249,11 @@ curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 
 - ukrainian girl with blue and yellow clothes near big ruined plane, concept art, trending on artstation, highly detailed, intricate, sharp focus, digital art, 8 k
 
-![image](https://user-images.githubusercontent.com/52392004/218259928-ccf4204c-a204-40da-8bb9-f5a6f2c08105.png)
 
 ![image](https://user-images.githubusercontent.com/52392004/218899812-3d76b9c9-5a22-417c-a6d3-f46bb8f5f306.png)
 
 - a portrait of a korean woman that is a representation of korean culture, buenos aires, fantasy, intricate, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha
 
-![image](https://user-images.githubusercontent.com/52392004/218595534-e228cbb5-6fb2-451f-96eb-7f4852b27fc5.png)
-
-![image](https://user-images.githubusercontent.com/52392004/218901168-68b9d5b1-3791-4fda-ac13-b38425dbf639.png)
-
-![image](https://user-images.githubusercontent.com/52392004/218901192-7c6a96a9-55bd-4583-977e-38fbf93400cf.png)
-
-![image](https://user-images.githubusercontent.com/52392004/218901221-6e0c74df-a5d3-4c82-83dc-f8e46adeedd3.png)
 
 ![image](https://user-images.githubusercontent.com/52392004/218901306-c8429891-70ce-44c0-aa81-757c72dbd68b.png)
 
