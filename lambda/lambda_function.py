@@ -53,7 +53,7 @@ def lambda_handler(event, context):
         generated_images, prompt = parse_response(response_payload)
 
         #print(response_payload)
-        #print(generated_image[0])
+        #print(generated_images[0])
         print(prompt)
         
         img_str = base64.b64decode(generated_images[0])

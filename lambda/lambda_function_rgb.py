@@ -53,7 +53,7 @@ def handler(event, context):
         generated_images, prompt = parse_response(response_payload)
 
         print(response_payload)
-        #print(generated_image)
+        #print(generated_images[0])
         print(prompt)
         
         image = Image.fromarray(np.uint8(generated_images[0]))
