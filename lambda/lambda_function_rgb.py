@@ -11,7 +11,7 @@ def parse_response(query_response):
     """Parse response and return generated image and the prompt"""
 
     response_dict = json.loads(query_response)
-    return response_dict["generated_image"], response_dict["prompt"]
+    return response_dict["generated_images"], response_dict["prompt"]
     
 def handler(event, context):
     print(event)
@@ -34,13 +34,13 @@ def handler(event, context):
     payload = {
         "prompt": txt,
         "width": 768,
-        "height": 768,
+        "height": 512,
         "num_images_per_prompt": 1,
         "num_inference_steps": 50,
         "guidance_scale": 7.5,
     }
 
-    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/x-text', Accept='application/json;jpeg', Body=json.dumps(payload))
+    response = runtime.invoke_endpoint(EndpointName=endpoint, ContentType='application/json', Accept='application/json;jpeg', Body=json.dumps(payload))
     print(response)
     
     statusCode = response['ResponseMetadata']['HTTPStatusCode']
@@ -50,13 +50,13 @@ def handler(event, context):
             
     if(statusCode==200):
         response_payload = response['Body'].read().decode('utf-8')
-        generated_image, prompt = parse_response(response_payload)
+        generated_images, prompt = parse_response(response_payload)
 
         print(response_payload)
         #print(generated_image)
         print(prompt)
         
-        image = Image.fromarray(np.uint8(generated_image))
+        image = Image.fromarray(np.uint8(generated_images[0]))
             
         buffer = io.BytesIO()
         image.save(buffer, "jpeg")
