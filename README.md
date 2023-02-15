@@ -219,11 +219,6 @@ curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 {"statusCode": 200, "body": "https://d283dvdglbetjo.cloudfront.net/img_20230208-014926"}
 ```
 
-상기의 이미지 URL로 부터 얻어진 추론 결과입니다.
-
-![image](https://user-images.githubusercontent.com/52392004/217674397-a1cf5a4f-285f-44a0-90be-18c6b30781b5.png)
-
-
 ### Postman으로 실행할 경우 
 
 아래와 같이 POST 방식을 선택하고 URL을 입력합니다. 
