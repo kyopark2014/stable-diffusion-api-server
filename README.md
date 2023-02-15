@@ -9,8 +9,7 @@
 
 "The Legend of Zelda landscape atmospheric, hyper realistic, 8k, epic composition, cinematic, octane render, artstation landscape vista photography by Carr Clifton & Galen Rowell, 16K resolution, Landscape veduta photo by Dustin Lefevre & tdraw, 8k resolution, detailed landscape painting by Ivan Shishkin, DeviantArt, Flickr, rendered in Enscape, Miyazaki, Nausicaa Ghibli, Breath of The Wild, 4k detailed post processing, artstation, rendering by octane, unreal engine —ar 16:9"
 
-<img src="https://user-images.githubusercontent.com/52392004/218261517-3425049d-074c-4bec-9d49-939ae96de695.png" width="400">
-
+![image](https://user-images.githubusercontent.com/52392004/218896828-bc8e4144-b234-4c60-b7d9-03df3d4912e5.png)
 
 
 
