@@ -202,8 +202,6 @@ https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/text2image?promp
 
 이때의 결과는 아래와 같습니다.
 
-![image](https://user-images.githubusercontent.com/52392004/218288641-66226662-1b0a-4b5c-9fbb-160083283f55.png)
-
 ![image](https://user-images.githubusercontent.com/52392004/218897551-f527e896-e90f-49d3-a988-cde0ff628259.png)
 
 
