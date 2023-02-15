@@ -255,7 +255,7 @@ curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 - a portrait of a korean woman that is a representation of korean culture, buenos aires, fantasy, intricate, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha
 
 
-![image](https://user-images.githubusercontent.com/52392004/218901306-c8429891-70ce-44c0-aa81-757c72dbd68b.png)
+![image](https://user-images.githubusercontent.com/52392004/218595534-e228cbb5-6fb2-451f-96eb-7f4852b27fc5.png)
 
 
 
