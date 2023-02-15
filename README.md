@@ -7,7 +7,7 @@
 [Stable Diffusion Keywords](https://github.com/kyopark2014/stable-diffusion-api-server/blob/main/keywords.md)에서는 keywords에 따른 Stable Diffusion의 결과를 볼 수 있습니다.
 
 
-"The Legend of Zelda landscape atmospheric, hyper realistic, 8k, epic composition, cinematic, octane render, artstation landscape vista photography by Carr Clifton & Galen Rowell, 16K resolution, Landscape veduta photo by Dustin Lefevre & tdraw, 8k resolution, detailed landscape painting by Ivan Shishkin, DeviantArt, Flickr, rendered in Enscape, Miyazaki, Nausicaa Ghibli, Breath of The Wild, 4k detailed post processing, artstation, rendering by octane, unreal engine —ar 16:9"
+"The Legend of Zelda landscape atmospheric, hyper realistic, 8k, epic composition, cinematic, octane render, artstation landscape vista photography by Carr Clifton & Galen Rowell, 16K resolution, Landscape veduta photo by Dustin Lefevre & tdraw, 8k resolution, detailed landscape painting by Ivan Shishkin, DeviantArt, Flickr, rendered in Enscape, Miyazaki, Nausicaa Ghibli, Breath of The Wild, 4k detailed post processing, artstation, rendering by octane, unreal engine"
 
 <img src="https://user-images.githubusercontent.com/52392004/218896828-bc8e4144-b234-4c60-b7d9-03df3d4912e5.png" width="600">
 
