@@ -1,5 +1,14 @@
 # Stable Diffusion Keywords
 
+"I see trees of green Red roses too. I see them bloom for me and you. And I think to myself. What a wonderful world" (Louis Armstrong's What a Wonderful World song!)
+
+![image](https://user-images.githubusercontent.com/52392004/217809108-e8886c0c-e240-432a-8adc-3ec2b24759a8.png)
+
+
+"I see skies of blue. And clouds of white. The bright blessed day. The dark sacred night. And I think to myself. What a wonderful world" (Louis Armstrong's What a Wonderful World song!)
+
+![img_20230209-080037](https://user-images.githubusercontent.com/52392004/217871789-75e9faa6-ad98-497b-b2de-de07de4a15d4.jpeg)
+
 a little girl standing on the side of a road holding a camera
 
  ![image](https://user-images.githubusercontent.com/52392004/218595821-fd55b2e4-b960-411a-9b42-8e4e2f4c9bc9.png)
