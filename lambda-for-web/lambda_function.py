@@ -9,7 +9,7 @@ s3 = boto3.client('s3')
 
 def parse_response(query_response):
     response_dict = json.loads(query_response)
-    return response_dict["generated_image"], response_dict["prompt"]
+    return response_dict["generated_images"], response_dict["prompt"]
     
 def lambda_handler(event, context):
     print('event: ', event)
@@ -47,13 +47,13 @@ def lambda_handler(event, context):
     
     if(statusCode==200):
         response_payload = response['Body'].read().decode('utf-8')
-        generated_image, prompt = parse_response(response_payload)
+        generated_images, prompt = parse_response(response_payload)
 
         #print(response_payload)
-        #print(generated_image)
+        #print('generated_image:', generated_images[0])
         print(prompt)
-        
-        img_str = base64.b64decode(generated_image)
+                
+        img_str = base64.b64decode(generated_images[0])
         buffer = io.BytesIO(img_str) 
 
         s3.upload_fileobj(buffer, mybucket, mykey, ExtraArgs={"ContentType": "image/jpeg"})
