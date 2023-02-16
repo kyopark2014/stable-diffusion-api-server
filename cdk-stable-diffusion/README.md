@@ -123,7 +123,6 @@ API Gateway와 리소스로 “text2image”를 생성한 후에 POST method를 
 ```java
 const api = new apiGateway.RestApi(this, 'api-stable-diffusion', {
     endpointTypes: [apiGateway.EndpointType.REGIONAL],
-    binaryMediaTypes: ['*/*'], 
     deployOptions: {
       stageName: stage,
     },
