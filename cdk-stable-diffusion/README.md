@@ -171,13 +171,13 @@ npm install -g aws-cdk-lib path
 인프라를 설치합니다. 
 
 ```java
-cdk deploy --all
+cdk deploy 
 ```
 
 인프라를 삭제합니다.
 
 ```java
-cdk destroy --all
+cdk destroy 
 ```
 
 ## Console에서 Python으로 생성된 Lambda 배포하기 
