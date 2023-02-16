@@ -247,7 +247,7 @@ curl -X POST https://1r9dqh4f37.execute-api.ap-northeast-2.amazonaws.com/dev/tex
 아래와 같이 입력하는 텍스트를 변경하면서 결과를 확인하여 보았습니다. 
 
 
-- ukrainian girl with blue and yellow clothes near big ruined plane, concept art, trending on artstation, highly detailed, intricate, sharp focus, digital art, 8 k
+- ukrainian girl with blue and yellow clothes near big ruined building, concept art, trending on artstation, highly detailed, intricate, sharp focus, digital art, 8 k
 
 
 ![image](https://user-images.githubusercontent.com/52392004/218899812-3d76b9c9-5a22-417c-a6d3-f46bb8f5f306.png)
